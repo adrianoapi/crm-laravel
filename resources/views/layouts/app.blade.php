@@ -4,89 +4,67 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>CRM - @yield('title') </title>
-        <!-- Favicon-->
-        <link rel="icon" href="{!! asset('favicon.ico') !!}" type="image/x-icon">
 
-        <!-- Google Fonts -->
-        <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,cyrillic-ext" rel="stylesheet" type="text/css">
-        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css">
+        <!-- Bootstrap -->
+        <link rel="stylesheet" href="{!! asset('flat-admin/css/bootstrap.min.css') !!}">
+        <!-- Bootstrap responsive -->
+        <link rel="stylesheet" href="{!! asset('flat-admin/css/bootstrap-responsive.min.css') !!}">
+        <!-- jQuery UI -->
+        <link rel="stylesheet" href="{!! asset('flat-admin/css/plugins/jquery-ui/smoothness/jquery-ui.css') !!}">
+        <link rel="stylesheet" href="{!! asset('flat-admin/css/plugins/jquery-ui/smoothness/jquery.ui.theme.css') !!}">
+        <!-- Theme CSS -->
+        <link rel="stylesheet" href="{!! asset('flat-admin/css/style.css') !!}">
+        <!-- Color CSS -->
+        <link rel="stylesheet" href="{!! asset('flat-admin/css/themes.css') !!}">
 
-        <!-- Bootstrap Core Css -->
-        <link href="{!! asset('plugins/bootstrap/css/bootstrap.css') !!}"" rel="stylesheet">
+        <!-- jQuery -->
+        <script src="{!! asset('flat-admin/js/jquery.min.js') !!}"></script>
+        <!-- Nice Scroll -->
+        <script src="{!! asset('flat-admin/js/plugins/nicescroll/jquery.nicescroll.min.js') !!}"></script>
+        <!-- jQuery UI -->
+        <script src="{!! asset('flat-admin/js/plugins/jquery-ui/jquery.ui.core.min.js') !!}"></script>
+        <script src="{!! asset('flat-admin/js/plugins/jquery-ui/jquery.ui.widget.min.js') !!}"></script>
+        <script src="{!! asset('flat-admin/js/plugins/jquery-ui/jquery.ui.mouse.min.js') !!}"></script>
+        <script src="{!! asset('flat-admin/js/plugins/jquery-ui/jquery.ui.resizable.min.js') !!}"></script>
+        <script src="{!! asset('flat-admin/js/plugins/jquery-ui/jquery.ui.sortable.min.js') !!}"></script>
+        <!-- slimScroll -->
+        <script src="{!! asset('flat-admin/js/plugins/slimscroll/jquery.slimscroll.min.js') !!}"></script>
+        <!-- Bootstrap -->
+        <script src="{!! asset('flat-admin/js/bootstrap.min.js') !!}"></script>
+        <!-- Form -->
+        <script src="{!! asset('flat-admin/js/plugins/form/jquery.form.min.js') !!}"></script>
 
-        <!-- Waves Effect Css -->
-        <link href="{!! asset('plugins/node-waves/waves.css') !!}"" rel="stylesheet" />
+        <!-- Theme framework -->
+        <script src="{!! asset('flat-admin/js/eakroko.min.js') !!}"></script>
+        <!-- Theme scripts -->
+        <script src="{!! asset('flat-admin/js/application.min.js') !!}"></script>
+        <!-- Just for demonstration -->
+        <script src="{!! asset('flat-admin/js/demonstration.min.js') !!}"></script>
 
-        <!-- Animation Css -->
-        <link href="{!! asset('plugins/animate-css/animate.css') !!}"" rel="stylesheet" />
+        <!--[if lte IE 9]>
+            <script src="js/plugins/placeholder/jquery.placeholder.min.js"></script>
+            <script>
+                $(document).ready(function() {
+                    $('input, textarea').placeholder();
+                });
+            </script>
+        <![endif]-->
 
-        <!-- Custom Css -->
-        <link href="{!! asset('css/style.css') !!}"" rel="stylesheet">
+        <!-- Favicon -->
+        <link rel="shortcut icon" href="{!! asset('flat-admin/img/favicon.ico') !!}" />
+        <!-- Apple devices Homescreen icon -->
+        <link rel="apple-touch-icon-precomposed" href="{!! asset('flat-admin/img/apple-touch-icon-precomposed.png') !!}" />
 
-        <!-- AdminBSB Themes. You can choose a theme from css/themes instead of get all themes -->
-        <link href="{!! asset('css/themes/all-themes.css') !!}"" rel="stylesheet" />
         </head>
-        <body class="theme-red">
-            <!-- Page Loader -->
-            <div class="page-loader-wrapper">
-                <div class="loader">
-                    <div class="preloader">
-                        <div class="spinner-layer pl-red">
-                            <div class="circle-clipper left">
-                                <div class="circle"></div>
-                            </div>
-                            <div class="circle-clipper right">
-                                <div class="circle"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <p>Please wait...</p>
-                </div>
-            </div>
-            <!-- #END# Page Loader -->
-            <!-- Overlay For Sidebars -->
-            <div class="overlay"></div>
-            <!-- #END# Overlay For Sidebars -->
-            <!-- Search Bar -->
-            <div class="search-bar">
-                <div class="search-icon">
-                    <i class="material-icons">search</i>
-                </div>
-                <input type="text" placeholder="START TYPING...">
-                <div class="close-search">
-                    <i class="material-icons">close</i>
-                </div>
-            </div>
-            <!-- #END# Search Bar -->
+
 
             <!-- Top Bar -->
-            @include('layouts.navigation')
-
-            <!-- #Top Bar -->
             @include('layouts.topnavbar')
+
+
+
 
             @yield('content')
 
-
-    <!-- Jquery Core Js -->
-    <script src="{!! asset('plugins/jquery/jquery.min.js') !!}""></script>
-
-    <!-- Bootstrap Core Js -->
-    <script src="{!! asset('plugins/bootstrap/js/bootstrap.js') !!}""></script>
-
-    <!-- Select Plugin Js -->
-    <script src="{!! asset('plugins/bootstrap-select/js/bootstrap-select.js') !!}""></script>
-
-    <!-- Slimscroll Plugin Js -->
-    <script src="{!! asset('plugins/jquery-slimscroll/jquery.slimscroll.js') !!}""></script>
-
-    <!-- Waves Effect Plugin Js -->
-    <script src="{!! asset('plugins/node-waves/waves.js') !!}""></script>
-
-    <!-- Custom Js -->
-    <script src="{!! asset('js/admin.js') !!}""></script>
-
-    <!-- Demo Js -->
-    <script src="{!! asset('js/demo.js') !!}""></script>
         </body>
 </html>
