@@ -41,9 +41,9 @@
                                     <label for="level" class="control-label">Nível</label>
                                     <div class="controls">
                                         <select name="level" id="level" class='select2-me input-xlarge' required>
-                                            <option value="3">Proprietário</option>
-                                            <option value="2">Gerente</option>
-                                            <option value="1">Atendente</option>
+                                            @foreach($levels as $id => $level)
+                                            <option value="{{$id}}">{{$level}}</option>
+                                            @endforeach
                                         </select>
                                     </div>
                                 </div>

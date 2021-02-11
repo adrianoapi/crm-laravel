@@ -7,7 +7,12 @@ use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
-    private $title = 'Usuário';
+    private $title  = 'Usuário';
+    private $levels = [
+        1 => 'Atendente',
+        2 => 'Gerente',
+        3 => 'Proprietário',
+    ];
 
     /**
      * Display a listing of the resource.
@@ -19,7 +24,7 @@ class UserController extends Controller
         $title = $this->title. " listagem";
         $users = User::orderBy('name', 'asc')->paginate(100);
 
-        return view('users.index', ['title' => $title, 'users' => $users]);
+        return view('users.index', ['title' => $title, 'users' => $users, 'levels' => $this->levels]);
     }
 
     /**
@@ -31,9 +36,7 @@ class UserController extends Controller
     {
         $title = $this->title. " formulário";
 
-        return view('users.add', [
-            'title' => $title
-            ]);
+        return view('users.add', ['title' => $title, 'levels' => $this->levels]);
     }
 
 

@@ -35,7 +35,7 @@
                                     <tr>
                                         <td>{{$value->name}}</td>
                                         <td>{{$value->email}}</td>
-                                        <td class='hidden-350'>{{$value->level}}</td>
+                                        <td class='hidden-350'>{{$levels[$value->level]}}</td>
                                         <td class='hidden-1024'>4</td>
                                     </tr>
                                 @endforeach
