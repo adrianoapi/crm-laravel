@@ -49,7 +49,7 @@
                                 </div>
                                 <div class="form-actions">
                                     <button type="submit" class="btn btn-primary">Salvar</button>
-                                    <button type="button" class="btn">Cancelar</button>
+                                    <a href="{{route('usuarios.index')}}" class="btn">Cancelar</a>
                                 </div>
                             </form>
                         </div>

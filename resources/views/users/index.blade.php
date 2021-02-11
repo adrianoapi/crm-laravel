@@ -18,6 +18,12 @@
                                 <i class="icon-reorder"></i>
                                 {{$title}}
                             </h3>
+                            <ul class="tabs actions">
+                                <li>
+                                    <a href="{{route('usuarios.create')}}" class="btn btn-primary">
+                                    <i class="icon-reorder"></i> Novo</a>
+                                </li>
+                            </ul>
                         </div>
 
                         <div class="box-content nopadding">
@@ -36,7 +42,18 @@
                                         <td>{{$value->name}}</td>
                                         <td>{{$value->email}}</td>
                                         <td class='hidden-350'>{{$levels[$value->level]}}</td>
-                                        <td class='hidden-1024'>4</td>
+                                        <td class='hidden-1024'>
+                                            <form action="{{route('usuarios.destroy', ['User' => $value->id])}}" method="POST" onSubmit="return confirm('Deseja excluir?');" style="padding: 0px;margin:0px;">
+                                                @csrf
+                                                @method('delete')
+                                                <a href="{{route('usuarios.edit', ['User' => $value->id])}}" class="btn" rel="tooltip" title="" data-original-title="Editar">
+                                                    <i class="icon-edit"></i>
+                                                </a>
+                                                <button type="submit" class="btn" rel="tooltip" title="" data-original-title="Excluir">
+                                                    <i class="icon-trash"></i>
+                                                </button>
+                                            </form>
+                                        </td>
                                     </tr>
                                 @endforeach
                                 </tbody>

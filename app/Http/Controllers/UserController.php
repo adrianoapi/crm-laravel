@@ -22,7 +22,7 @@ class UserController extends Controller
     public function index()
     {
         $title = $this->title. " listagem";
-        $users = User::orderBy('name', 'asc')->paginate(100);
+        $users = User::where('active', true)->orderBy('name', 'asc')->paginate(100);
 
         return view('users.index', ['title' => $title, 'users' => $users, 'levels' => $this->levels]);
     }
@@ -55,6 +55,31 @@ class UserController extends Controller
         $model->level     = !empty($request->level) ? $request->level : 1;
         $model->active    = true;
         $model->save();
+
+        return redirect()->route('usuarios.index');
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  \App\User  $user
+     * @return \Illuminate\Http\Response
+     */
+    public function edit(User $user)
+    {
+        return view('users.edit', ['user' => $user]);
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \App\User  $user
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(User $user)
+    {
+        $user->active = false;
+        $user->save();
 
         return redirect()->route('usuarios.index');
     }

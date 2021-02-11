@@ -20,10 +20,10 @@ Route::prefix('usuarios')->group(function(){
     Route::get('/',               'UserController@index' )->name('usuarios.index');
     Route::get('novo',            'UserController@create')->name('usuarios.create');
     Route::post('store',          'UserController@store' )->name('usuarios.store');
-    /*Route::get('edit/{password}', 'UserController@edit'  )->name('usuarios.edit');
-    Route::put('edit/{password}', 'UserController@update')->name('usuarios.update');
-    Route::get('{password}',      'UserController@show'  )->name('usuarios.show');
-    Route::post('visualizar',     'UserController@show'  )->name('usuarios.show');*/
+    Route::get('edit/{user}',     'UserController@edit'  )->name('usuarios.edit');
+    #Route::put('edit/{password}', 'UserController@update')->name('usuarios.update');
+    #Route::get('{password}',      'UserController@show'  )->name('usuarios.show');
+    #Route::post('visualizar',     'UserController@show'  )->name('usuarios.show');
 
-    Route::delete('destroy/{password}', 'UserController@destroy')->name('usuarios.destroy');
+    Route::delete('destroy/{user}', 'UserController@destroy')->name('usuarios.destroy');
 });
