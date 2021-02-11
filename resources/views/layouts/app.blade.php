@@ -12,6 +12,8 @@
         <!-- jQuery UI -->
         <link rel="stylesheet" href="{!! asset('flat-admin/css/plugins/jquery-ui/smoothness/jquery-ui.css') !!}">
         <link rel="stylesheet" href="{!! asset('flat-admin/css/plugins/jquery-ui/smoothness/jquery.ui.theme.css') !!}">
+        <!-- multi select -->
+	    <link rel="stylesheet" href="{!! asset('flat-admin/css/plugins/select2/select2.css') !!}">
         <!-- Theme CSS -->
         <link rel="stylesheet" href="{!! asset('flat-admin/css/style.css') !!}">
         <!-- Color CSS -->
@@ -33,6 +35,8 @@
         <script src="{!! asset('flat-admin/js/bootstrap.min.js') !!}"></script>
         <!-- Form -->
         <script src="{!! asset('flat-admin/js/plugins/form/jquery.form.min.js') !!}"></script>
+        <!-- select2 -->
+	    <script src="{!! asset('flat-admin/js/plugins/select2/select2.min.js') !!}"></script>
 
         <!-- Theme framework -->
         <script src="{!! asset('flat-admin/js/eakroko.min.js') !!}"></script>
