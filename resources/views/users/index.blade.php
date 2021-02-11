@@ -12,18 +12,16 @@
 
             <div class="row-fluid">
                 <div class="span12">
-                    <div class="box">
+                    <div class="box box-bordered">
                         <div class="box-title">
                             <h3>
                                 <i class="icon-reorder"></i>
                                 {{$title}}
                             </h3>
-                            <ul class="tabs actions">
-                                <li>
-                                    <a href="{{route('usuarios.create')}}" class="btn btn-primary">
-                                    <i class="icon-reorder"></i> Novo</a>
-                                </li>
-                            </ul>
+                            <span class="tabs">
+                                <a href="{{route('usuarios.create')}}" class="btn btn-primary">
+                                <i class="icon-reorder"></i> Novo</a>
+                            </span>
                         </div>
 
                         <div class="box-content nopadding">
