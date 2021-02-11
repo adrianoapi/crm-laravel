@@ -17,29 +17,30 @@
                             <h3><i class="icon-th-list"></i> {{$titleForm}}</h3>
                         </div>
                         <div class="box-content nopadding">
-                            <form action="#" method="POST" class='form-horizontal form-bordered'>
+                            <form action="{{route('usuarios.store')}}" method="POST" class='form-horizontal form-bordered'>
+                            @csrf
                             <div class="control-group">
                                     <label for="name" class="control-label">Nome completo</label>
                                     <div class="controls">
-                                        <input type="text" name="name" id="name" placeholder="Insira o nome" class="input-xlarge">
+                                        <input type="text" name="name" id="name" placeholder="Insira o nome" class="input-xlarge" required>
                                     </div>
                                 </div>
                                 <div class="control-group">
                                     <label for="email" class="control-label">E-mail</label>
                                     <div class="controls">
-                                        <input type="text" name="email" id="email" placeholder="name@provider.domain" class="input-xlarge">
+                                        <input type="text" name="email" id="email" placeholder="name@provider.domain" class="input-xlarge" required>
                                     </div>
                                 </div>
                                 <div class="control-group">
                                     <label for="password" class="control-label">Senha</label>
                                     <div class="controls">
-                                        <input type="password" name="password" id="password" placeholder="Insira uma senha" class="input-xlarge">
+                                        <input type="password" name="password" id="password" placeholder="Insira uma senha" class="input-xlarge" required>
                                     </div>
                                 </div>
                                 <div class="control-group">
                                     <label for="level" class="control-label">Nível</label>
                                     <div class="controls">
-                                        <select name="level" id="level" class='select2-me input-xlarge'>
+                                        <select name="level" id="level" class='select2-me input-xlarge' required>
                                             <option value="3">Proprietário</option>
                                             <option value="2">Gerente</option>
                                             <option value="1">Atendente</option>
