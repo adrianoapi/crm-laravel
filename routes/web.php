@@ -17,7 +17,7 @@ Route::get('/', function () {
 });
 
 Route::prefix('usuarios')->group(function(){
-    #Route::get('/',               'UserController@index' )->name('usuarios.index');
+    Route::get('/',               'UserController@index' )->name('usuarios.index');
     Route::get('novo',            'UserController@create')->name('usuarios.create');
     Route::post('store',          'UserController@store' )->name('usuarios.store');
     /*Route::get('edit/{password}', 'UserController@edit'  )->name('usuarios.edit');

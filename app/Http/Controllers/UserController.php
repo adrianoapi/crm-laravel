@@ -8,6 +8,20 @@ use Illuminate\Support\Facades\Hash;
 class UserController extends Controller
 {
     private $title = 'Usuário';
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        $title = $this->title. " listagem";
+        $users = User::orderBy('name', 'asc')->paginate(100);
+
+        return view('users.index', ['title' => $title, 'users' => $users]);
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -15,8 +29,10 @@ class UserController extends Controller
      */
     public function create()
     {
+        $title = $this->title. " formulário";
+
         return view('users.add', [
-            'titleForm' => $this->title. " Form"
+            'title' => $title
             ]);
     }
 
@@ -34,8 +50,10 @@ class UserController extends Controller
         $model->email     = $request->email;
         $model->password  = Hash::make($request->password);
         $model->level     = !empty($request->level) ? $request->level : 1;
+        $model->active    = true;
         $model->save();
 
-        return redirect()->route('fixedCosts.index');
+        return redirect()->route('usuarios.index');
     }
+
 }
