@@ -16,7 +16,6 @@ Route::get('/', function () {
     return view('dashboard');
 });
 
-Route::get('login', 'LoginController@index')->name('login.index');
 Route::get('login', 'LoginController@index')->name('auth.login');
 Route::post('/login/auth', 'LoginController@auth')->name('login.auth');
 Route::get('/login/sair', 'LoginController@logout')->name('login.logout');

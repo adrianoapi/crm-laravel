@@ -7,12 +7,12 @@
         @csrf
         <div class="control-group">
             <div class="email controls">
-                <input type="text" name='email' value="adrianoapi@hotmail.com" placeholder="Email address" class='input-block-level' data-rule-required="true" data-rule-email="true">
+                <input type="text" name='email' value="" placeholder="Email address" class='input-block-level' data-rule-required="true" data-rule-email="true">
             </div>
         </div>
         <div class="control-group">
             <div class="pw controls">
-                <input type="password" name="password" value="123456" placeholder="Password" class='input-block-level' data-rule-required="true">
+                <input type="password" name="password" value="" placeholder="Password" class='input-block-level' data-rule-required="true">
             </div>
         </div>
         <div class="submit">

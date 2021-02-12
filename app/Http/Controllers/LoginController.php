@@ -9,7 +9,7 @@ class LoginController extends Controller
 {
     public function index()
     {
-        return view('login.index');
+        return view('auth.login');
     }
 
     public function auth(Request $request)
@@ -33,6 +33,6 @@ class LoginController extends Controller
     public function logout()
     {
         Auth::logout();
-        return \redirect()->route('login.index');
+        return \redirect()->route('login');
     }
 }
