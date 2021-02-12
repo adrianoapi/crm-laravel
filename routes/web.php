@@ -16,6 +16,9 @@ Route::get('/', function () {
     return view('dashboard');
 });
 
+Route::get('/login', 'LoginController@index')->name('login.index');
+Route::post('/login/auth', 'LoginController@auth')->name('login.auth');
+
 Route::prefix('usuarios')->group(function(){
     Route::get('/',               'UserController@index' )->name('usuarios.index');
     Route::get('novo',            'UserController@create')->name('usuarios.create');
