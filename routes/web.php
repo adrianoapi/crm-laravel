@@ -15,6 +15,14 @@ Route::get('/', function () {
     return redirect()->route('usuarios.index');
 });
 
+Route::get('envio-email', function(){
+    $user = new stdClass;
+    $user->name = 'Adriano';
+    $user->email = 'adrianoapi@hotmail.com';
+    \Illuminate\Support\Facades\Mail::send(new \App\Mail\passwordRecover($user));
+    //return new \App\Mail\passwordRecover($user);
+});
+
 Route::get('login', 'LoginController@index')->name('auth.login');
 Route::post('/login/auth', 'LoginController@auth')->name('login.auth');
 Route::get('/login/sair', 'LoginController@logout')->name('login.logout');
