@@ -3,7 +3,7 @@
 @section('content')
 
     <h2>Recuperação de senha</h2>
-    <form action="{{route('login.auth')}}" method='POST' class='form-validate' id="test">
+    <form action="{{route('login.recover.do')}}" method='POST' class='form-validate' id="test">
         @csrf
         <div class="control-group">
             <div class="email controls">

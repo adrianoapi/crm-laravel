@@ -27,6 +27,7 @@ Route::get('login', 'LoginController@index')->name('auth.login');
 Route::post('/login/auth', 'LoginController@auth')->name('login.auth');
 Route::get('/login/sair', 'LoginController@logout')->name('login.logout');
 Route::get('/login/recover', 'LoginController@recover')->name('login.recover');
+Route::post('/login/recover/do', 'LoginController@recoverDo')->name('login.recover.do');
 
 Auth::routes();
 

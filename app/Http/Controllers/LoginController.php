@@ -40,4 +40,24 @@ class LoginController extends Controller
     {
         return view('auth.recover');
     }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function recoverDo(Request $request)
+    {
+        if(!filter_var($request->email, FILTER_VALIDATE_EMAIL)){
+            return \redirect()->back()->withInput()->withErrors(['Email informado não é válido!']);
+        }
+
+        $user = \App\User::where('email', $request->email)
+                        ->where('active', true)
+                        ->limit(1)
+                        ->get();
+
+        \Illuminate\Support\Facades\Mail::send(new \App\Mail\PasswordRecover($user));
+    }
 }
