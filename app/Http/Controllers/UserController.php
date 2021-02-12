@@ -40,7 +40,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        $title = $this->title. " formulário";
+        $title = $this->title. " cadastar";
 
         return view('users.add', ['title' => $title, 'levels' => $this->levels]);
     }
@@ -73,7 +73,33 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        return view('users.edit', ['user' => $user]);
+        $title = $this->title. " alterar";
+        return view('users.edit', ['title' => $title, 'levels' => $this->levels, 'user' => $user]);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\User  $user
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, User $user)
+    {
+        $user->name  = $request->name;
+        $user->level = $request->level;
+
+        if(filter_var($request->email, FILTER_VALIDATE_EMAIL)){
+            $user->email = $request->email;
+        }
+
+        if(!empty($request->password)){
+            $user->password = Hash::make($request->password);
+        }
+
+        $user->save();
+
+        return redirect()->route('usuarios.index');
     }
 
     /**
