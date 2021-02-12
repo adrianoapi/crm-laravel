@@ -1,55 +1,10 @@
 <div id="navigation">
     <div class="container-fluid">
-        <a href="#" id="brand">FLAT</a>
+        <a href="#" id="brand">CRM System</a>
         <a href="#" class="toggle-nav" rel="tooltip" data-placement="bottom" title="Toggle navigation"><i class="icon-reorder"></i></a>
 
         <div class="user">
             <ul class="icon-nav">
-                <li class='dropdown'>
-                    <a href="#" class='dropdown-toggle' data-toggle="dropdown"><i class="icon-envelope"></i><span class="label label-lightred">4</span></a>
-                    <ul class="dropdown-menu pull-right message-ul">
-                        <li>
-                            <a href="#">
-                                <img src="{!! asset('flat-admin/img/demo/user-1.jpg') !!}" alt="">
-                                <div class="details">
-                                    <div class="name">Jane Doe</div>
-                                    <div class="message">
-                                        Lorem ipsum Commodo quis nisi ...
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <img src="{!! asset('flat-admin/img/demo/user-2.jpg') !!}" alt="">
-                                <div class="details">
-                                    <div class="name">John Doedoe</div>
-                                    <div class="message">
-                                        Ut ad laboris est anim ut ...
-                                    </div>
-                                </div>
-                                <div class="count">
-                                    <i class="icon-comment"></i>
-                                    <span>3</span>
-                                </div>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <img src="{!! asset('flat-admin/img/demo/user-3.jpg') !!}" alt="">
-                                <div class="details">
-                                    <div class="name">Bob Doe</div>
-                                    <div class="message">
-                                        Excepteur Duis magna dolor!
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="components-messages.html" class='more-messages'>Go to Message center <i class="icon-arrow-right"></i></a>
-                        </li>
-                    </ul>
-                </li>
 
                 <li class="dropdown sett">
                     <a href="#" class='dropdown-toggle' data-toggle="dropdown"><i class="icon-cog"></i></a>
@@ -103,23 +58,7 @@
                         </li>
                     </ul>
                 </li>
-                <li class='dropdown language-select'>
-                    <a href="#" class='dropdown-toggle' data-toggle="dropdown"><img src="{!! asset('flat-admin/img/demo/flags/us.gif') !!}" alt=""><span>US</span></a>
-                    <ul class="dropdown-menu pull-right">
-                        <li>
-                            <a href="#"><img src="{!! asset('flat-admin/img/demo/flags/br.gif') !!}" alt=""><span>Brasil</span></a>
-                        </li>
-                        <li>
-                            <a href="#"><img src="{!! asset('flat-admin/img/demo/flags/de.gif') !!}" alt=""><span>Deutschland</span></a>
-                        </li>
-                        <li>
-                            <a href="#"><img src="{!! asset('flat-admin/img/demo/flags/es.gif') !!}" alt=""><span>España</span></a>
-                        </li>
-                        <li>
-                            <a href="#"><img src="{!! asset('flat-admin/img/demo/flags/fr.gif') !!}" alt=""><span>France</span></a>
-                        </li>
-                    </ul>
-                </li>
+
             </ul>
             <div class="dropdown">
                 <a href="#" class='dropdown-toggle' data-toggle="dropdown">John Doe <img src="{!! asset('flat-admin/img/demo/user-avatar.jpg') !!}" alt=""></a>

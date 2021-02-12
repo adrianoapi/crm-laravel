@@ -12,8 +12,7 @@
 */
 
 Route::get('/', function () {
-    #return view('welcome');
-    return view('dashboard');
+    return redirect()->route('usuarios.index');
 });
 
 Route::get('login', 'LoginController@index')->name('auth.login');

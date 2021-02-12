@@ -55,9 +55,9 @@
         <![endif]-->
 
         <!-- Favicon -->
-        <link rel="shortcut icon" href="{!! asset('flat-admin/img/favicon.ico') !!}" />
+        <link rel="shortcut icon" href="{!! asset('favicon.ico') !!}" />
         <!-- Apple devices Homescreen icon -->
-        <link rel="apple-touch-icon-precomposed" href="{!! asset('flat-admin/img/apple-touch-icon-precomposed.png') !!}" />
+        <link rel="apple-touch-icon-precomposed" href="{!! asset('crm.png') !!}" />
 
         </head>
 
