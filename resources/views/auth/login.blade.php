@@ -2,7 +2,7 @@
 
 @section('content')
 
-    <h2>SIGN IN</h2>
+    <h2>Autenticação</h2>
     <form action="{{route('login.auth')}}" method='POST' class='form-validate' id="test">
         @csrf
         <div class="control-group">
@@ -12,18 +12,40 @@
         </div>
         <div class="control-group">
             <div class="pw controls">
-                <input type="password" name="password" value="" placeholder="Password" class='input-block-level' data-rule-required="true">
+                <input type="password" name="password" value="" id="password" placeholder="Password" class='input-block-level' data-rule-required="true">
             </div>
         </div>
         <div class="submit">
             <div class="remember">
-                <input type="checkbox" name="remember" class='icheck-me' data-skin="square" data-color="blue" id="remember"> <label for="remember">Remember me</label>
+                <input type="checkbox"
+                name="remember"
+                class='icheck-me'
+                data-skin="square"
+                data-color="blue"
+                id="show-password">
+                <label for="show-password">Exibir senha</label>
             </div>
-            <input type="submit" value="Sign me in" class='btn btn-primary'>
+            <input type="submit" value="Autenticar" class='btn btn-primary'>
         </div>
     </form>
     <div class="forget">
-        <a href="#"><span>Forgot password?</span></a>
+        <a href="{{route('login.recover')}}"><span>Deseja recuperar sua senha?</span></a>
     </div>
 
+    <script>
+        $(document).ready(function () {
+            $('#show-password').val($(this).is(':checked'));
+            $('#show-password').change(function () {
+                if ($(this).is(":checked")) {
+                    $('#password').attr('type', 'text');
+                } else {
+                    $('#password').attr('type', 'password');
+                }
+            });
+        });
+
+        $("#email").focus();
+    </script>
 @endsection
+
+
