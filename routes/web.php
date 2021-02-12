@@ -18,6 +18,7 @@ Route::get('/', function () {
 
 Route::get('/login', 'LoginController@index')->name('login.index');
 Route::post('/login/auth', 'LoginController@auth')->name('login.auth');
+Route::get('/login/sair', 'LoginController@logout')->name('login.logout');
 
 Route::prefix('usuarios')->group(function(){
     Route::get('/',               'UserController@index' )->name('usuarios.index');

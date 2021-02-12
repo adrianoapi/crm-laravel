@@ -131,7 +131,7 @@
                         <a href="#">Account settings</a>
                     </li>
                     <li>
-                        <a href="more-login.html">Sign out</a>
+                        <a href="{{route('login.logout')}}">Sair</a>
                     </li>
                 </ul>
             </div>
