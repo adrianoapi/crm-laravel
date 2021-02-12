@@ -20,7 +20,7 @@ Route::get('envio-email', function(){
     $user->name = 'Adriano';
     $user->email = 'adrianoapi@hotmail.com';
     \Illuminate\Support\Facades\Mail::send(new \App\Mail\passwordRecover($user));
-    //return new \App\Mail\passwordRecover($user);
+    #return new \App\Mail\passwordRecover($user);
 });
 
 Route::get('login', 'LoginController@index')->name('auth.login');
