@@ -31,6 +31,16 @@ Route::post('/login/recover/do', 'LoginController@recoverDo')->name('login.recov
 
 Auth::routes();
 
+Route::prefix('unidades')->group(function(){
+    Route::get('/', 'UnityController@index')->name('unidades.index');
+    Route::get('novo',        'UnityController@create')->name('unidades.create');
+    Route::post('store',      'UnityController@store' )->name('unidades.store');
+    Route::get('edit/{unity}', 'UnityController@edit'  )->name('unidades.edit');
+    Route::put('edit/{unity}', 'UnityController@update')->name('unidades.update');
+
+    Route::delete('destroy/{unity}', 'UnityController@destroy')->name('unidades.destroy');
+});
+
 Route::prefix('usuarios')->group(function(){
     Route::get('/',           'UserController@index' )->name('usuarios.index');
     Route::get('novo',        'UserController@create')->name('usuarios.create');
