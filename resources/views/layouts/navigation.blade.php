@@ -11,6 +11,9 @@
 					<li>
 						<a href="{{route('unidades.index')}}">Unidades</a>
 					</li>
+					<li>
+						<a href="{{route('alunos.index')}}">Alunos</a>
+					</li>
 				</ul>
 			</div>
 

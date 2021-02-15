@@ -15,13 +15,16 @@ class CreateStudentsTable extends Migration
     {
         Schema::create('students', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('unities_id');
-            $table->string('name');
-            $table->string('cpf_cnpj');
-            $table->string('responsavel')->nullable(true);
+            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('unity_id');
+            $table->string('name', 100);
+            $table->string('cpf_cnpj', 30);
+            $table->string('responsavel', 100)->nullable(true);
+            $table->boolean('active')->default(true);
             $table->timestamps();
 
-            $table->foreign('unities_id')->references('id')->on('unities')->onDelete('CASCADE');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('CASCADE');
+            $table->foreign('unity_id')->references('id')->on('unities')->onDelete('CASCADE');
         });
 
     }

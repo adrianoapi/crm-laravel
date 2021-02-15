@@ -31,6 +31,16 @@ Route::post('/login/recover/do', 'LoginController@recoverDo')->name('login.recov
 
 Auth::routes();
 
+Route::prefix('alunos')->group(function(){
+    Route::get('/', 'StudentController@index')->name('alunos.index');
+    Route::get('novo',        'StudentController@create')->name('alunos.create');
+    Route::post('store',      'StudentController@store' )->name('alunos.store');
+    Route::get('edit/{student}', 'StudentController@edit'  )->name('alunos.edit');
+    Route::put('edit/{student}', 'StudentController@update')->name('alunos.update');
+
+    Route::delete('destroy/{student}', 'StudentController@destroy')->name('alunos.destroy');
+});
+
 Route::prefix('unidades')->group(function(){
     Route::get('/', 'UnityController@index')->name('unidades.index');
     Route::get('novo',        'UnityController@create')->name('unidades.create');
