@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail as MailF;
+use App\Mail\PasswordRecover;
 
 class LoginController extends Controller
 {
@@ -53,11 +55,13 @@ class LoginController extends Controller
             return \redirect()->back()->withInput()->withErrors(['Email informado não é válido!']);
         }
 
-        $user = \App\User::where('email', $request->email)
+        $user = \App\User::where('email', 'adrianoapi@hotmail.com')
                         ->where('active', true)
                         ->limit(1)
                         ->get();
 
-        \Illuminate\Support\Facades\Mail::send(new \App\Mail\PasswordRecover($user));
+        MailF::send(new PasswordRecover($user));
+       #MailF::to($user)->send(new PasswordRecover($user));
+        #return new \App\Mail\passwordRecover($user);
     }
 }

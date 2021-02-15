@@ -1,13 +1,14 @@
 <?php
 
 namespace App\Mail;
+namespace App\User;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class passwordRecover extends Mailable
+class PasswordRecover extends Mailable
 {
     use Queueable, SerializesModels;
     private $user;
@@ -17,7 +18,7 @@ class passwordRecover extends Mailable
      *
      * @return void
      */
-    public function __construct( \stdClass $user)
+    public function __construct(User $user)
     {
         $this->user = $user;
     }
