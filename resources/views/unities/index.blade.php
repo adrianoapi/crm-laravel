@@ -33,7 +33,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                @foreach ($units as $value)
+                                @foreach ($unities as $value)
                                     <tr>
                                         <td>{{$value->name}}</td>
                                         <td class='hidden-1024'>

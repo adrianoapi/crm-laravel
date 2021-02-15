@@ -23,9 +23,9 @@ class UnityController extends Controller
     public function index()
     {
         $title = $this->title. " listagem";
-        $units = Unity::where('active', true)->orderBy('name', 'asc')->paginate(100);
+        $unities = Unity::where('active', true)->orderBy('name', 'asc')->paginate(100);
 
-        return view('units.index', ['title' => $title, 'units' => $units]);
+        return view('unities.index', ['title' => $title, 'unities' => $unities]);
     }
 
     /**
@@ -37,7 +37,7 @@ class UnityController extends Controller
     {
         $title = $this->title. " cadastar";
 
-        return view('units.add', ['title' => $title]);
+        return view('unities.add', ['title' => $title]);
     }
 
     /**
@@ -76,7 +76,7 @@ class UnityController extends Controller
     public function edit(Unity $unity)
     {
         $title = $this->title. " alterar";
-        return view('units.edit', ['title' => $title, 'unity' => $unity]);
+        return view('unities.edit', ['title' => $title, 'unity' => $unity]);
     }
 
     /**
