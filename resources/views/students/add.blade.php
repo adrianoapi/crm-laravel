@@ -97,13 +97,13 @@
 										<div class="control-group">
 											<label for="cep" class="control-label">CEP</label>
 											<div class="controls controls-row">
-												<input type="text" name="cep" id="cep" placeholder="00000-000" max="9" class="input-block-level">
+												<input type="text" name="cep" id="cep" placeholder="00000000" max="9" class="input-block-level">
 											</div>
 										</div>
 									</div>
 									<div class="span8">
 										<div class="control-group">
-											<label for="textfield" class="control-label">Endereço</label>
+											<label for="textfield" class="control-label">Endereço <samll><b><a href="javascript:void(0)" onClick="consultaCep()" id="a_cep">Auto completar</a></b></small></label>
 											<div class="controls controls-row">
 												<input type="text" name="endereco" id="endereco" placeholder="Endereço" max="255" class="input-block-level">
 											</div>
@@ -177,5 +177,7 @@
     </div>
 
 </div>
+
+@include('students.cep')
 
 @endsection
