@@ -52,11 +52,21 @@ class StudentController extends Controller
     {
         $model = new Student();
         $model->user_id     = Auth::id();
+        $model->unity_id    = $request->unity_id;
         $model->name        = $request->name;
         $model->cpf_cnpj    = $request->cpf_cnpj;
-        $model->responsavel = $request->responsavel;
-        $model->unity_id    = $request->unity_id;
-        $model->unity_id    = $request->unity_id;
+        $model->ctr = $request->ctr;
+        $model->telefone = $request->telefone;
+        $model->celular = $request->celular;
+        $model->email = $request->email;
+        $model->cep = $request->cep;
+        $model->endereco = $request->endereco;
+        $model->numero = $request->numero;
+        $model->complemento = $request->complemento;
+        $model->bairro = $request->bairro;
+        $model->cidade = $request->cidade;
+        $model->estado = $request->estado;
+        $model->observacao = $request->observacao;
         $model->save();
 
         return redirect()->route('alunos.index');
@@ -97,11 +107,21 @@ class StudentController extends Controller
     public function update(Request $request, Student $student)
     {
         $student->user_id     = Auth::id();
+        $student->unity_id    = $request->unity_id;
         $student->name        = $request->name;
         $student->cpf_cnpj    = $request->cpf_cnpj;
-        $student->responsavel = $request->responsavel;
-        $student->unity_id    = $request->unity_id;
-        $student->unity_id    = $request->unity_id;
+        $student->ctr = $request->ctr;
+        $student->telefone = $request->telefone;
+        $student->celular = $request->celular;
+        $student->email = $request->email;
+        $student->cep = $request->cep;
+        $student->endereco = $request->endereco;
+        $student->numero = $request->numero;
+        $student->complemento = $request->complemento;
+        $student->bairro = $request->bairro;
+        $student->cidade = $request->cidade;
+        $student->estado = $request->estado;
+        $student->observacao = $request->observacao;
         $student->save();
 
         return redirect()->route('alunos.index');

@@ -18,8 +18,20 @@ class CreateStudentsTable extends Migration
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('unity_id');
             $table->string('name', 100);
-            $table->string('cpf_cnpj', 30);
             $table->string('responsavel', 100)->nullable(true);
+            $table->string('cpf_cnpj', 30);
+            $table->string('ctr', 20);
+            $table->string('telefone', 20);
+            $table->string('celular', 20);
+            $table->string('email');
+            $table->string('cep', 9);
+            $table->string('endereco');
+            $table->integer('numero');
+            $table->string('complemento', 20);
+            $table->string('bairro');
+            $table->string('cidade');
+            $table->string('estado');
+            $table->string('observacao');
             $table->boolean('active')->default(true);
             $table->timestamps();
 
