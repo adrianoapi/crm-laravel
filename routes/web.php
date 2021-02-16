@@ -12,7 +12,7 @@
 */
 
 Route::get('/', function () {
-    return redirect()->route('usuarios.index');
+    return redirect()->route('dashboard.index');
 });
 
 Route::get('envio-email', function(){
@@ -30,6 +30,10 @@ Route::get('/login/recover', 'LoginController@recover')->name('login.recover');
 Route::post('/login/recover/do', 'LoginController@recoverDo')->name('login.recover.do');
 
 Auth::routes();
+
+Route::prefix('dashboard')->group(function(){
+    Route::get('/', 'DashboardController@index')->name('dashboard.index');
+});
 
 Route::prefix('alunos')->group(function(){
     Route::get('/', 'StudentController@index')->name('alunos.index');

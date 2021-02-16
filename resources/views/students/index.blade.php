@@ -30,6 +30,8 @@
                                     <tr>
                                         <th>Nome</th>
                                         <th>Unidade</th>
+                                        <th>CTR</th>
+                                        <th>Celular</th>
                                         <th class='hidden-350'>Ações</th>
                                     </tr>
                                 </thead>
@@ -38,6 +40,8 @@
                                     <tr>
                                         <td>{{$value->name}}</td>
                                         <td>{{$value->unity->name}}</td>
+                                        <td>{{$value->ctr}}</td>
+                                        <td>{{$value->celular}}</td>
                                         <td>
                                             <form action="{{route('alunos.destroy', ['Student' => $value->id])}}" method="POST" onSubmit="return confirm('Deseja excluir?');" style="padding: 0px;margin:0px;">
                                                 @csrf

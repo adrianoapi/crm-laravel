@@ -26,7 +26,7 @@ class LoginController extends Controller
         }
 
         if(Auth::attempt($credentials)){
-            return \redirect()->route('usuarios.index');
+            return \redirect()->route('dashboard.index');
         }
 
         return \redirect()->back()->withInput()->withErrors(['Dados informados não conferem!']);
