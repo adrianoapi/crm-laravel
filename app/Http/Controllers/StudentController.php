@@ -54,6 +54,7 @@ class StudentController extends Controller
         $model->user_id     = Auth::id();
         $model->unity_id    = $request->unity_id;
         $model->name        = $request->name;
+        $model->responsavel = $request->responsavel;
         $model->cpf_cnpj    = $request->cpf_cnpj;
         $model->ctr = $request->ctr;
         $model->telefone = $request->telefone;
@@ -109,6 +110,7 @@ class StudentController extends Controller
         $student->user_id     = Auth::id();
         $student->unity_id    = $request->unity_id;
         $student->name        = $request->name;
+        $student->responsavel = $request->responsavel;
         $student->cpf_cnpj    = $request->cpf_cnpj;
         $student->ctr = $request->ctr;
         $student->telefone = $request->telefone;
