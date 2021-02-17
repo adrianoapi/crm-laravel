@@ -34,7 +34,7 @@
 									</div>
 									<div class="span4">
 										<div class="control-group">
-											<label for="name" class="control-label">Nome completo</label>
+											<label for="name" class="control-label">Nome completo*</label>
 											<div class="controls controls-row">
 												<input type="text" name="name" id="name" placeholder="Insira o nome" max="100" class="input-block-level" required>
 											</div>
@@ -52,7 +52,7 @@
 								<div class="row-fluid">
 									<div class="span2">
 										<div class="control-group">
-											<label for="cpf_cnpj" class="control-label">CPF/CNPJ</label>
+											<label for="cpf_cnpj" class="control-label">CPF/CNPJ*</label>
 											<div class="controls controls-row">
 												<input type="text" name="cpf_cnpj" id="cpf_cnpj" placeholder="000.000.000-00/0000" max="30" class="input-block-level" required>
 											</div>
@@ -95,25 +95,25 @@
 								<div class="row-fluid">
 									<div class="span2">
 										<div class="control-group">
-											<label for="cep" class="control-label">CEP</label>
+											<label for="cep" class="control-label">CEP*</label>
 											<div class="controls controls-row">
-												<input type="text" name="cep" id="cep" placeholder="00000000" max="9" class="input-block-level">
+												<input type="text" name="cep" id="cep" placeholder="00000000" max="9" class="input-block-level" required>
 											</div>
 										</div>
 									</div>
 									<div class="span8">
 										<div class="control-group">
-											<label for="textfield" class="control-label">Endereço <samll><b><a href="javascript:void(0)" onClick="consultaCep()" id="a_cep">Auto completar</a></b></small></label>
+											<label for="textfield" class="control-label">Endereço* <samll><b><a href="javascript:void(0)" onClick="consultaCep()" id="a_cep">Auto completar</a></b></small></label>
 											<div class="controls controls-row">
-												<input type="text" name="endereco" id="endereco" placeholder="Endereço" max="255" class="input-block-level">
+												<input type="text" name="endereco" id="endereco" placeholder="Endereço" max="255" class="input-block-level" required>
 											</div>
 										</div>
 									</div>
 									<div class="span2">
 										<div class="control-group">
-											<label for="numero" class="control-label">Número</label>
+											<label for="numero" class="control-label">Número*</label>
 											<div class="controls controls-row">
-												<input type="number" name="numero" id="numero" placeholder="Número" max="99999" class="input-block-level">
+												<input type="number" name="numero" id="numero" placeholder="Número" max="99999" class="input-block-level" required>
 											</div>
 										</div>
 									</div>
@@ -129,25 +129,29 @@
 									</div>
 									<div class="span4">
 										<div class="control-group">
-											<label for="bairro" class="control-label">Bairro</label>
+											<label for="bairro" class="control-label">Bairro*</label>
 											<div class="controls controls-row">
-												<input type="text" name="bairro" id="bairro" placeholder="bairro" max="255" class="input-block-level">
+												<input type="text" name="bairro" id="bairro" placeholder="bairro" max="255" class="input-block-level" required>
 											</div>
 										</div>
 									</div>
 									<div class="span4">
 										<div class="control-group">
-											<label for="cidade" class="control-label">Cidade</label>
+											<label for="cidade" class="control-label">Cidade*</label>
 											<div class="controls controls-row">
-												<input type="text" name="cidade" id="cidade" placeholder="cidade" max="255" class="input-block-level">
+												<input type="text" name="cidade" id="cidade" placeholder="cidade" max="255" class="input-block-level" required>
 											</div>
 										</div>
 									</div>
 									<div class="span2">
 										<div class="control-group">
-											<label for="estado" class="control-label">Estado</label>
+											<label for="estado" class="control-label">Estado*</label>
 											<div class="controls controls-row">
-												<input type="text" name="estado" id="estado" placeholder="estado" max="255" class="input-block-level">
+                                                <select name="estado" id="estado" class='select2-me input-block-level' required>
+                                                    @foreach($estados as $key => $value)
+                                                    <option value="{{$key}}">{{$value}}</option>
+                                                    @endforeach
+                                                </select>
 											</div>
 										</div>
 									</div>

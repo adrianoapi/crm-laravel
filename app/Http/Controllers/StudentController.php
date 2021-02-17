@@ -39,7 +39,7 @@ class StudentController extends Controller
         $title = $this->title. " cadastrar";
         $unities = Unity::where('active', true)->orderBy('name', 'asc')->paginate(100);
 
-        return view('students.add', ['unities' => $unities, 'title' => $title]);
+        return view('students.add', ['unities' => $unities, 'title' => $title, 'estados' => $this->getEstados()]);
     }
 
     /**
@@ -95,7 +95,7 @@ class StudentController extends Controller
         $title = $this->title. " alterar";
         $unities = Unity::where('active', true)->orderBy('name', 'asc')->paginate(100);
 
-        return view('students.edit', ['title' => $title, 'student' => $student, 'unities' => $unities]);
+        return view('students.edit', ['title' => $title, 'student' => $student, 'unities' => $unities, 'estados' => $this->getEstados()]);
     }
 
     /**
@@ -141,5 +141,38 @@ class StudentController extends Controller
         $student->save();
 
         return redirect()->route('alunos.index');
+    }
+
+    public function getEstados()
+    {
+        return [
+            'AC' => 'Acre',
+            'AL' => 'Alagoas',
+            'AP' => 'Amapá',
+            'AM' => 'Amazonas',
+            'BA' => 'Bahia',
+            'CE' => 'Ceará',
+            'DF' => 'Distrito Federal',
+            'ES' => 'Espírito Santo',
+            'GO' => 'Goiás',
+            'MA' => 'Maranhão',
+            'MT' => 'Mato Grosso',
+            'MS' => 'Mato Grosso do Sul',
+            'MG' => 'Minas Gerais',
+            'PA' => 'Pará',
+            'PB' => 'Paraíba',
+            'PR' => 'Paraná',
+            'PE' => 'Pernambuco',
+            'PI' => 'Piauí',
+            'RJ' => 'Rio de Janeiro',
+            'RN' => 'Rio Grande do Norte',
+            'RS' => 'Rio Grande do Sul',
+            'RO' => 'Rondônia',
+            'RR' => 'Roraima',
+            'SC' => 'Santa Catarina',
+            'SP' => 'São Paulo',
+            'SE' => 'Sergipe',
+            'TO' => 'Tocantins',
+        ];
     }
 }

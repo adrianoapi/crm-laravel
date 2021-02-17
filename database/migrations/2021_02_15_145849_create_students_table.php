@@ -20,18 +20,18 @@ class CreateStudentsTable extends Migration
             $table->string('name', 100);
             $table->string('responsavel', 100)->nullable(true);
             $table->string('cpf_cnpj', 30);
-            $table->string('ctr', 20);
-            $table->string('telefone', 20);
-            $table->string('celular', 20);
-            $table->string('email');
+            $table->string('ctr', 20)->nullable(true);
+            $table->string('telefone', 20)->nullable(true);
+            $table->string('celular', 20)->nullable(true);
+            $table->string('email')->nullable(true);
             $table->string('cep', 9);
             $table->string('endereco');
             $table->integer('numero');
-            $table->string('complemento', 20);
+            $table->string('complemento', 20)->nullable(true);
             $table->string('bairro');
             $table->string('cidade');
-            $table->string('estado');
-            $table->string('observacao');
+            $table->string('estado', 2);
+            $table->string('observacao')->nullable(true);
             $table->boolean('active')->default(true);
             $table->timestamps();
 

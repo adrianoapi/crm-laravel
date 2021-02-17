@@ -24,7 +24,7 @@ function consultaCep(value)
         $('a#a_cep').text('Auto completar');
         $("#bairro").val(msg.bairro);
         $("#cidade").val(msg.cidade);
-        $("#estado").val(msg.uf);
+        $("#estado").val(msg.uf).change();
         $("#endereco").val(msg.logradouro);
         $("#numero").focus();
     })
