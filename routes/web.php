@@ -45,6 +45,16 @@ Route::prefix('alunos')->group(function(){
     Route::delete('destroy/{student}', 'StudentController@destroy')->name('alunos.destroy');
 });
 
+Route::prefix('segunda-fase')->group(function(){
+    Route::get('/', 'SegundaFaseController@index')->name('segundaFase.index');
+    Route::get('novo',        'SegundaFaseController@create')->name('segundaFase.create');
+    Route::post('store',      'SegundaFaseController@store' )->name('segundaFase.store');
+    Route::get('edit/{segunda}', 'SegundaFaseController@edit'  )->name('segundaFase.edit');
+    Route::put('edit/{segunda}', 'SegundaFaseController@update')->name('segundaFase.update');
+
+    Route::delete('destroy/{segunda}', 'SegundaFaseController@destroy')->name('segundaFase.destroy');
+});
+
 Route::prefix('unidades')->group(function(){
     Route::get('/', 'UnityController@index')->name('unidades.index');
     Route::get('novo',        'UnityController@create')->name('unidades.create');

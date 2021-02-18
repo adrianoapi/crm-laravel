@@ -45,6 +45,8 @@
         <!-- Just for demonstration -->
         <script src="{!! asset('flat-admin/js/demonstration.min.js') !!}"></script>
 
+        <script src="{!! asset('librarys/jquery.mask.min.js') !!}"></script>
+
         <!--[if lte IE 9]>
             <script src="js/plugins/placeholder/jquery.placeholder.min.js"></script>
             <script>
