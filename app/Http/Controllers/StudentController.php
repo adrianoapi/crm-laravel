@@ -56,8 +56,10 @@ class StudentController extends Controller
         $model->name        = $request->name;
         $model->responsavel = $request->responsavel;
         $model->cpf_cnpj    = $request->cpf_cnpj;
+        $model->nascimento    = $request->nascimento;
         $model->ctr = $request->ctr;
         $model->telefone = $request->telefone;
+        $model->telefone_com = $request->telefone_com;
         $model->celular = $request->celular;
         $model->email = $request->email;
         $model->cep = $request->cep;
@@ -68,6 +70,7 @@ class StudentController extends Controller
         $model->cidade = $request->cidade;
         $model->estado = $request->estado;
         $model->observacao = $request->observacao;
+        $model->negociado = $request->negociado == 'true' ? true : false;
         $model->save();
 
         return redirect()->route('alunos.index');
@@ -112,8 +115,10 @@ class StudentController extends Controller
         $student->name        = $request->name;
         $student->responsavel = $request->responsavel;
         $student->cpf_cnpj    = $request->cpf_cnpj;
+        $student->nascimento    = $request->nascimento;
         $student->ctr = $request->ctr;
         $student->telefone = $request->telefone;
+        $student->telefone_com = $request->telefone_com;
         $student->celular = $request->celular;
         $student->email = $request->email;
         $student->cep = $request->cep;
@@ -124,6 +129,7 @@ class StudentController extends Controller
         $student->cidade = $request->cidade;
         $student->estado = $request->estado;
         $student->observacao = $request->observacao;
+        $student->negociado = $request->negociado == 'true' ? true : false;
         $student->save();
 
         return redirect()->route('alunos.index');

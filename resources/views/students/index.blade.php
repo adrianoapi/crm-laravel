@@ -31,6 +31,7 @@
                                         <th>Nome</th>
                                         <th>Unidade</th>
                                         <th>CTR</th>
+                                        <th>Negociado</th>
                                         <th>Celular</th>
                                         <th class='hidden-350'>Ações</th>
                                     </tr>
@@ -41,6 +42,13 @@
                                         <td>{{$value->name}}</td>
                                         <td>{{$value->unity->name}}</td>
                                         <td>{{$value->ctr}}</td>
+                                        <td><?php
+                                            if($value->negociado){
+                                                echo '<button class="btn btn-small  btn-success">SIM</button>';
+                                            }else{
+                                                echo '<button class="btn btn-small  btn-danger">NÃO</button>';
+                                            }
+                                        ?></td>
                                         <td>{{$value->celular}}</td>
                                         <td>
                                             <form action="{{route('alunos.destroy', ['Student' => $value->id])}}" method="POST" onSubmit="return confirm('Deseja excluir?');" style="padding: 0px;margin:0px;">

@@ -22,6 +22,7 @@ class CreateStudentsTable extends Migration
             $table->string('cpf_cnpj', 30);
             $table->string('ctr', 20)->nullable(true);
             $table->string('telefone', 20)->nullable(true);
+            $table->string('telefone_com', 20)->nullable(true);
             $table->string('celular', 20)->nullable(true);
             $table->string('email')->nullable(true);
             $table->string('cep', 9);
@@ -30,8 +31,10 @@ class CreateStudentsTable extends Migration
             $table->string('complemento', 20)->nullable(true);
             $table->string('bairro');
             $table->string('cidade');
+            $table->date('nascimento');
             $table->string('estado', 2);
             $table->string('observacao')->nullable(true);
+            $table->boolean('negociado')->default(false);
             $table->boolean('active')->default(true);
             $table->timestamps();
 
