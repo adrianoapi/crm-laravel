@@ -15,6 +15,7 @@ class CreateSegundaFasesTable extends Migration
     {
         Schema::create('segunda_fases', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('student_id');
             $table->date('dt_inadimplencia')->nullable(true);
             $table->integer('m_parcela')->nullable(true);
@@ -31,6 +32,7 @@ class CreateSegundaFasesTable extends Migration
             $table->decimal('total', 10, 2)->nullable(true);
             $table->timestamps();
 
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('CASCADE');
             $table->foreign('student_id')->references('id')->on('students')->onDelete('CASCADE');
         });
     }

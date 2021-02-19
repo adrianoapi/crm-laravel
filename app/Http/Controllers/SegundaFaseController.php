@@ -40,14 +40,36 @@ class SegundaFaseController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
+     * @param  \App\SegundaFase  $segundaFase
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, SegundaFase $segundaFase)
     {
-        //
+        $model->user_id                = Auth::id();
+        $segundaFase->student_id       = $request->student_id;
+        $segundaFase->dt_inadimplencia = $request->dt_inadimplencia;
+
+        $segundaFase->m_parcela = $request->m_parcela;
+        $segundaFase->m_parcela_pg = $request->m_parcela_pg;
+        $segundaFase->m_parcela_ab = $request->m_parcela_ab;
+        $segundaFase->m_parcela_valor = $request->m_parcela_valor;
+        $segundaFase->m_parcela_total = $request->m_parcela_total;
+
+        $segundaFase->s_parcela = $request->s_parcela;
+        $segundaFase->s_parcela_pg = $request->s_parcela_pg;
+        $segundaFase->s_parcela_ab = $request->s_parcela_ab;
+        $segundaFase->s_parcela_valor = $request->s_parcela_valor;
+        $segundaFase->s_parcela_total = $request->s_parcela_total;
+
+        $segundaFase->multa = $request->multa;
+        $segundaFase->total = $request->total;
+
+        $segundaFase->save();
+
+        return redirect()->route('segundaFase.index');
     }
 
     /**
