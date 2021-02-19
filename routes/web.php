@@ -35,6 +35,16 @@ Route::prefix('dashboard')->group(function(){
     Route::get('/', 'DashboardController@index')->name('dashboard.index');
 });
 
+Route::prefix('segunda-fase')->group(function(){
+    Route::get('/', 'DefaultingController@index')->name('defaultings.index');
+    Route::get('novo',        'DefaultingController@create')->name('defaultings.create');
+    Route::post('store',      'DefaultingController@store' )->name('defaultings.store');
+    Route::get('edit/{defaulting}', 'DefaultingController@edit'  )->name('defaultings.edit');
+    Route::put('edit/{defaulting}', 'DefaultingController@update')->name('defaultings.update');
+
+    Route::delete('destroy/{defaulting}', 'DefaultingController@destroy')->name('defaultings.destroy');
+});
+
 Route::prefix('alunos')->group(function(){
     Route::get('/', 'StudentController@index')->name('alunos.index');
     Route::get('novo',        'StudentController@create')->name('alunos.create');
@@ -43,16 +53,6 @@ Route::prefix('alunos')->group(function(){
     Route::put('edit/{student}', 'StudentController@update')->name('alunos.update');
 
     Route::delete('destroy/{student}', 'StudentController@destroy')->name('alunos.destroy');
-});
-
-Route::prefix('segunda-fase')->group(function(){
-    Route::get('/', 'SegundaFaseController@index')->name('segundaFase.index');
-    Route::get('novo',        'SegundaFaseController@create')->name('segundaFase.create');
-    Route::post('store',      'SegundaFaseController@store' )->name('segundaFase.store');
-    Route::get('edit/{segunda}', 'SegundaFaseController@edit'  )->name('segundaFase.edit');
-    Route::put('edit/{segunda}', 'SegundaFaseController@update')->name('segundaFase.update');
-
-    Route::delete('destroy/{segunda}', 'SegundaFaseController@destroy')->name('segundaFase.destroy');
 });
 
 Route::prefix('unidades')->group(function(){

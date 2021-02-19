@@ -19,7 +19,7 @@
                                 {{$title}}
                             </h3>
                             <span class="tabs">
-                                <a href="{{route('segundaFase.create')}}" class="btn btn-primary">
+                                <a href="{{route('defaultings.create')}}" class="btn btn-primary">
                                 <i class="icon-reorder"></i> Novo</a>
                             </span>
                         </div>
@@ -38,7 +38,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                @foreach ($segundas as $value)
+                                @foreach ($defaultings as $value)
                                     <tr>
                                         <td>{{$value->student->name}}</td>
                                         <td><?php
@@ -53,10 +53,10 @@
                                         <td>{{$value->multa}}</td>
                                         <td>{{$value->total}}</td>
                                         <td class='hidden-1024'>
-                                            <form action="{{route('segundaFase.destroy', ['SegundaFase' => $value->id])}}" method="POST" onSubmit="return confirm('Deseja excluir?');" style="padding: 0px;margin:0px;">
+                                            <form action="{{route('defaultings.destroy', ['defaulting' => $value->id])}}" method="POST" onSubmit="return confirm('Deseja excluir?');" style="padding: 0px;margin:0px;">
                                                 @csrf
                                                 @method('delete')
-                                                <a href="{{route('segundaFase.edit', ['SegundaFase' => $value->id])}}" class="btn" rel="tooltip" title="" data-original-title="Editar">
+                                                <a href="{{route('defaultings.edit', ['defaulting' => $value->id])}}" class="btn" rel="tooltip" title="" data-original-title="Editar">
                                                     <i class="icon-edit"></i>
                                                 </a>
                                                 <button type="submit" class="btn" rel="tooltip" title="" data-original-title="Excluir">

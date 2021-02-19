@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class SegundaFase extends Model
+class Defaulting extends Model
 {
     public function user()
     {

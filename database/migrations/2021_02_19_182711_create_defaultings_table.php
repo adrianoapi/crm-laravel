@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateSegundaFasesTable extends Migration
+class CreateDefaultingsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateSegundaFasesTable extends Migration
      */
     public function up()
     {
-        Schema::create('segunda_fases', function (Blueprint $table) {
+        Schema::create('defaultings', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('student_id');
@@ -44,6 +44,6 @@ class CreateSegundaFasesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('segunda_fases');
+        Schema::dropIfExists('defaultings');
     }
 }

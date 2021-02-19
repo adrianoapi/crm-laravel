@@ -17,7 +17,7 @@
 							<h3><i class="icon-th-list"></i> {{$title}}</h3>
 						</div>
 						<div class="box-content">
-							<form action="{{route('segundaFase.store')}}" method="POST" class='form-vertical'>
+							<form action="{{route('defaultings.store')}}" method="POST" class='form-vertical'>
 							@csrf
 								<div class="row-fluid">
 									<div class="span10">
@@ -152,7 +152,7 @@
 								<div class="row-fluid">
 									<div class="form-actions">
 										<button type="submit" class="btn btn-primary">Salvar</button>
-										<a href="{{route('segundaFase.index')}}" class="btn">Cancelar</a>
+										<a href="{{route('defaultings.index')}}" class="btn">Cancelar</a>
 									</div>
 								</div>
 							</form>

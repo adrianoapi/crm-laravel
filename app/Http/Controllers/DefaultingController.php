@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\SegundaFase;
+use App\Defaulting;
 use App\Student;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class SegundaFaseController extends Controller
+class DefaultingController extends Controller
 {
     private $title  = 'Segunda Fase';
 
@@ -23,9 +23,9 @@ class SegundaFaseController extends Controller
     public function index()
     {
         $title = $this->title. " listagem";
-        $segundas = SegundaFase::orderBy('dt_inadimplencia', 'desc')->paginate(100);
+        $defaultings = Defaulting::orderBy('dt_inadimplencia', 'desc')->paginate(100);
 
-        return view('segundaFases.index', ['title' => $title, 'segundas' => $segundas]);
+        return view('defaultings.index', ['title' => $title, 'defaultings' => $defaultings]);
     }
 
     /**
@@ -38,18 +38,18 @@ class SegundaFaseController extends Controller
         $title = $this->title. " cadastrar";
         $students = Student::where('active', true)->orderBy('name', 'asc')->paginate(100);
 
-        return view('segundaFases.add', ['students' => $students, 'title' => $title]);
+        return view('defaultings.add', ['students' => $students, 'title' => $title]);
     }
 
     /**
-     * Update the specified resource in storage.
+     * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\SegundaFase  $segundaFase
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, SegundaFase $segundaFase)
+    public function store(Request $request)
     {
+        $segundaFase = new Defaulting();
         $segundaFase->user_id          = Auth::id();
         $segundaFase->student_id       = $request->student_id;
         $segundaFase->dt_inadimplencia = $request->dt_inadimplencia;
@@ -71,16 +71,16 @@ class SegundaFaseController extends Controller
 
         $segundaFase->save();
 
-        return redirect()->route('segundaFase.index');
+        return redirect()->route('defaultings.index');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\SegundaFase  $segundaFase
+     * @param  \App\Defaulting  $defaulting
      * @return \Illuminate\Http\Response
      */
-    public function show(SegundaFase $segundaFase)
+    public function show(Defaulting $defaulting)
     {
         //
     }
@@ -88,34 +88,58 @@ class SegundaFaseController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\SegundaFase  $segundaFase
+     * @param  \App\Defaulting  $defaulting
      * @return \Illuminate\Http\Response
      */
-    public function edit(SegundaFase $segundaFase)
+    public function edit(Defaulting $defaulting)
     {
-        //
+        $title = $this->title. " alterar";
+        $students = Student::where('active', true)->orderBy('name', 'asc')->paginate(100);
+
+        return view('defaultings.edit', ['title' => $title, 'students' => $students, 'defaulting' => $defaulting]);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\SegundaFase  $segundaFase
+     * @param  \App\Defaulting  $defaulting
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, SegundaFase $segundaFase)
+    public function update(Request $request, Defaulting $defaulting)
     {
-        //
+        $defaulting->student_id       = $request->student_id;
+        $defaulting->dt_inadimplencia = $request->dt_inadimplencia;
+
+        $defaulting->m_parcela = $request->m_parcela;
+        $defaulting->m_parcela_pg = $request->m_parcela_pg;
+        $defaulting->m_parcela_ab = $request->m_parcela_ab;
+        $defaulting->m_parcela_valor = $request->m_parcela_valor;
+        $defaulting->m_parcela_total = $request->m_parcela_total;
+
+        $defaulting->s_parcela = $request->s_parcela;
+        $defaulting->s_parcela_pg = $request->s_parcela_pg;
+        $defaulting->s_parcela_ab = $request->s_parcela_ab;
+        $defaulting->s_parcela_valor = $request->s_parcela_valor;
+        $defaulting->s_parcela_total = $request->s_parcela_total;
+
+        $defaulting->multa = $request->multa;
+        $defaulting->total = $request->total;
+
+        $defaulting->save();
+
+        return redirect()->route('defaultings.index');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\SegundaFase  $segundaFase
+     * @param  \App\Defaulting  $defaulting
      * @return \Illuminate\Http\Response
      */
-    public function destroy(SegundaFase $segundaFase)
+    public function destroy(Defaulting $defaulting)
     {
-        //
+        $defaulting->delete();
+        return redirect()->route('defaultings.index');
     }
 }
