@@ -23,7 +23,7 @@ class StudentController extends Controller
     public function index()
     {
         $title = $this->title. " listagem";
-        $students = Student::where('active', true)->orderBy('name', 'asc')->paginate(100);
+        $students = Student::where('active', true)->orderBy('name', 'asc')->paginate(1000);
         $unities = Unity::where('active', true)->orderBy('name', 'asc')->paginate(100);
 
         return view('students.index', ['title' => $title, 'students' => $students, 'unities' => $unities]);

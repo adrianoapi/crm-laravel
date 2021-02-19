@@ -56,10 +56,17 @@
                                             <form action="{{route('defaultings.destroy', ['defaulting' => $value->id])}}" method="POST" onSubmit="return confirm('Deseja excluir?');" style="padding: 0px;margin:0px;">
                                                 @csrf
                                                 @method('delete')
-                                                <a href="{{route('defaultings.edit', ['defaulting' => $value->id])}}" class="btn" rel="tooltip" title="" data-original-title="Editar">
-                                                    <i class="icon-edit"></i>
-                                                </a>
-                                                <button type="submit" class="btn" rel="tooltip" title="" data-original-title="Excluir">
+                                                <?php if($value->student->negociado){ ?>
+                                                    <a href="{{route('defaultings.show', ['defaulting' => $value->id])}}" class="btn btn-lime" rel="tooltip" title="" data-original-title="Negociar">
+                                                        <i class="icon-credit-card"></i> Negociar
+                                                    </a>
+                                                <?php }else{ ?>
+                                                    <span class="btn" rel="tooltip" title="" data-original-title="Negociar">
+                                                        <i class="icon-credit-card"></i> Negociar
+                                                    </span>
+                                                <?php } ?>
+
+                                                <button type="submit" class="btn btn-red" rel="tooltip" title="" data-original-title="Excluir">
                                                     <i class="icon-trash"></i>
                                                 </button>
                                             </form>

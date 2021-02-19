@@ -82,7 +82,9 @@ class DefaultingController extends Controller
      */
     public function show(Defaulting $defaulting)
     {
-        //
+        $title = $this->title. " negociar";
+
+        return view('defaultings.show', ['title' => $title, 'defaulting' => $defaulting]);
     }
 
     /**

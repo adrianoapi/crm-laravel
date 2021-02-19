@@ -39,6 +39,7 @@ Route::prefix('segunda-fase')->group(function(){
     Route::get('/', 'DefaultingController@index')->name('defaultings.index');
     Route::get('novo',        'DefaultingController@create')->name('defaultings.create');
     Route::post('store',      'DefaultingController@store' )->name('defaultings.store');
+    Route::get('show/{defaulting}', 'DefaultingController@show'  )->name('defaultings.show');
     Route::get('edit/{defaulting}', 'DefaultingController@edit'  )->name('defaultings.edit');
     Route::put('edit/{defaulting}', 'DefaultingController@update')->name('defaultings.update');
 
