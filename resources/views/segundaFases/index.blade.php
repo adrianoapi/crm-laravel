@@ -29,15 +29,43 @@
                                 <thead>
                                     <tr>
                                         <th>Nome</th>
-                                        <th>Unidade</th>
-                                        <th>CTR</th>
                                         <th>Negociado</th>
-                                        <th>Celular</th>
+                                        <th>Material</th>
+                                        <th>Serviço</th>
+                                        <th>Multa</th>
+                                        <th>Total</th>
                                         <th class='hidden-350'>Ações</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-
+                                @foreach ($segundas as $value)
+                                    <tr>
+                                        <td>{{$value->student->name}}</td>
+                                        <td><?php
+                                            if($value->student->negociado){
+                                                echo '<button class="btn btn-small  btn-success">SIM</button>';
+                                            }else{
+                                                echo '<button class="btn btn-small  btn-danger">NÃO</button>';
+                                            }
+                                        ?></td>
+                                        <td>{{$value->m_parcela_total}}</td>
+                                        <td>{{$value->s_parcela_total}}</td>
+                                        <td>{{$value->multa}}</td>
+                                        <td>{{$value->total}}</td>
+                                        <td class='hidden-1024'>
+                                            <form action="{{route('segundaFase.destroy', ['SegundaFase' => $value->id])}}" method="POST" onSubmit="return confirm('Deseja excluir?');" style="padding: 0px;margin:0px;">
+                                                @csrf
+                                                @method('delete')
+                                                <a href="{{route('segundaFase.edit', ['SegundaFase' => $value->id])}}" class="btn" rel="tooltip" title="" data-original-title="Editar">
+                                                    <i class="icon-edit"></i>
+                                                </a>
+                                                <button type="submit" class="btn" rel="tooltip" title="" data-original-title="Excluir">
+                                                    <i class="icon-trash"></i>
+                                                </button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                @endforeach
                                 </tbody>
                             </table>
                         </div>

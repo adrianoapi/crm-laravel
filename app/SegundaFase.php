@@ -31,7 +31,7 @@ class SegundaFase extends Model
         return $this->attributes['total'] = str_replace(',', '.', str_replace('.', '', $value));
     }
 
-    public function getTotalttribute($value)
+    public function getTotalAttribute($value)
     {
         return $this->attributes['total'] = number_format($value, 2, ",", ".");
     }

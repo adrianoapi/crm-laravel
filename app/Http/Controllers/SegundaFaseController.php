@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\SegundaFase;
 use App\Student;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class SegundaFaseController extends Controller
 {
@@ -22,8 +23,9 @@ class SegundaFaseController extends Controller
     public function index()
     {
         $title = $this->title. " listagem";
+        $segundas = SegundaFase::orderBy('dt_inadimplencia', 'desc')->paginate(100);
 
-        return view('segundaFases.index', ['title' => $title]);
+        return view('segundaFases.index', ['title' => $title, 'segundas' => $segundas]);
     }
 
     /**
@@ -48,7 +50,7 @@ class SegundaFaseController extends Controller
      */
     public function store(Request $request, SegundaFase $segundaFase)
     {
-        $model->user_id                = Auth::id();
+        $segundaFase->user_id          = Auth::id();
         $segundaFase->student_id       = $request->student_id;
         $segundaFase->dt_inadimplencia = $request->dt_inadimplencia;
 
