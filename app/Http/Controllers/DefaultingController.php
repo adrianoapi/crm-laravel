@@ -96,7 +96,7 @@ class DefaultingController extends Controller
     public function edit(Defaulting $defaulting)
     {
         $title = $this->title. " alterar";
-        $students = Student::where('active', true)->orderBy('name', 'asc')->paginate(100);
+        $students = Student::where('active', true)->orderBy('name', 'asc')->paginate(1000);
 
         return view('defaultings.edit', ['title' => $title, 'students' => $students, 'defaulting' => $defaulting]);
     }
