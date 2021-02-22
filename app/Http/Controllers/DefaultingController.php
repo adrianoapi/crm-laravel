@@ -106,8 +106,13 @@ class DefaultingController extends Controller
     public function show(Defaulting $defaulting)
     {
         $title = $this->title. " negociar";
+        $student = Student::where('id', $defaulting->student_id)->get();
 
-        return view('defaultings.show', ['title' => $title, 'defaulting' => $defaulting]);
+        return view('defaultings.show', [
+            'title' => $title,
+            'defaulting' => $defaulting,
+            'student' => $student
+        ]);
     }
 
     /**
