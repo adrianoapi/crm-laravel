@@ -61,6 +61,33 @@
                                             <input type="hidden" name="defaulting_id" value="{{$defaulting->id}}">
                                             <div class="row-fluid container1">
 
+                                            @foreach ($defaulting->defaultingTradings as $value)
+                                            <div class="row-fluid">
+                                                <div class="span2">
+                                                    <div class="control-group">
+                                                        <label for="parcela" class="control-label">Parcela</label>
+                                                        <div class="controls controls-row">
+                                                            <input type="number" name="parcela[]" value="{{$value->parcela}}" id="parcela" placeholder="00" class="input-block-level" required="">                    </div>
+                                                    </div>
+                                                </div>
+                                                <div class="span2">
+                                                    <div class="control-group">
+                                                        <label for="data" class="control-label">Data</label>
+                                                        <div class="controls controls-row">
+                                                            <input type="text" name="vencimento[]" value="{{$value->vencimento}}" id="vencimento" placeholder="00/00/0000" class="date input-block-level" required="" maxlength="10">                    </div>
+                                                    </div>
+                                                </div>
+                                                <div class="span2">
+                                                    <div class="control-group">
+                                                        <label for="valor" class="control-label">Valor</label>
+                                                        <div class="controls controls-row">
+                                                            <input type="text" name="valor[]" value="{{$value->valor}}" id="valor" placeholder="100,00" class="money input-block-level" required="">                    </div>
+                                                    </div>
+                                                </div>
+                                                <a href="#" class="delete">Delete</a>
+                                            </div>
+                                            @endforeach
+
                                             </div>
 
                                             <div class="row-fluid">
@@ -255,7 +282,7 @@ $(document).ready(function() {
     inputs += '                <div class="control-group">';
     inputs += '                    <label for="data" class="control-label">Data</label>';
     inputs += '                   <div class="controls controls-row">';
-    inputs += '                        <input type="text" name="data[]" id="data" placeholder="00/00/0000" class="date input-block-level" required>';
+    inputs += '                        <input type="text" name="vencimento[]" id="vencimento" placeholder="00/00/0000" class="date input-block-level" required>';
     inputs += '                    </div>';
     inputs += '                </div>';
     inputs += '            </div>';

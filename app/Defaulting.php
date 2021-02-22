@@ -16,6 +16,11 @@ class Defaulting extends Model
         return $this->belongsTo(Student::class, 'student_id', 'id');
     }
 
+    public function defaultingTradings()
+    {
+        return $this->hasMany(DefaultingTrading::class, 'defaulting_id', 'id')->orderBy('parcela', 'asc');
+    }
+
     public function setMultaAttribute($value)
     {
         return $this->attributes['multa'] = str_replace(',', '.', str_replace('.', '', $value));

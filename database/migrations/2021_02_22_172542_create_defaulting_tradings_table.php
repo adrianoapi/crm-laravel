@@ -18,8 +18,8 @@ class CreateDefaultingTradingsTable extends Migration
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('defaulting_id');
             $table->integer('parcela');
-            $table->date('valor', 10, 2);
-            $table->date('data');
+            $table->decimal('valor', 10, 2);
+            $table->date('vencimento');
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('CASCADE');

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\DefaultingTrading;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class DefaultingTradingController extends Controller
 {
@@ -35,7 +36,21 @@ class DefaultingTradingController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request->all());
+        DefaultingTrading::where('defaulting_id', $request->defaulting_id)->delete();
+
+        $i = 0;
+        foreach($request->parcela as $value):
+            $model = new DefaultingTrading();
+            $model->user_id     = Auth::id();
+            $model->defaulting_id = $request->defaulting_id;
+            $model->vencimento = $request->vencimento[$i];
+            $model->valor = $request->valor[$i];
+            $model->parcela = $request->parcela[$i];
+            $model->save();
+            $i++;
+        endforeach;
+
+        return redirect()->route('defaultings.index');
     }
 
     /**
