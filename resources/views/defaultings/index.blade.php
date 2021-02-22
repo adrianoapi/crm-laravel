@@ -41,6 +41,7 @@
                                     <tr>
                                         <th>Nome</th>
                                         <th>Negociado</th>
+                                        <th>Fones</th>
                                         <th>Material</th>
                                         <th>Serviço</th>
                                         <th>Multa</th>
@@ -59,6 +60,7 @@
                                                 echo '<button class="btn btn-small  btn-danger">NÃO</button>';
                                             }
                                         ?></td>
+                                        <td>{{$value->student->telefone}}/{{$value->student->celular}}</td>
                                         <td>{{$value->m_parcela_total}}</td>
                                         <td>{{$value->s_parcela_total}}</td>
                                         <td>{{$value->multa}}</td>
