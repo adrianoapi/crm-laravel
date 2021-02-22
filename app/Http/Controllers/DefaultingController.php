@@ -22,8 +22,29 @@ class DefaultingController extends Controller
      */
     public function index()
     {
+        if(array_key_exists('filtro',$_GET))
+        {
+            if(strlen($_GET['pesquisar']) > 2)
+            {
+                $students = Student::where('name', 'like', '%' . $_GET['pesquisar'] . '%')
+                ->orderBy('name', 'asc')
+                ->get();
+
+                $ids = [];
+                foreach($students as $value):
+                    array_push($ids, $value->id);
+                endforeach;
+
+                $defaultings = Defaulting::whereIn('student_id', $ids)->paginate(1000);
+            }else{
+                $defaultings = Defaulting::orderBy('dt_inadimplencia', 'desc')->paginate(1000);
+            }
+
+        }else{
+            $defaultings = Defaulting::orderBy('dt_inadimplencia', 'desc')->paginate(1000);
+        }
+
         $title = $this->title. " listagem";
-        $defaultings = Defaulting::orderBy('dt_inadimplencia', 'desc')->paginate(100);
 
         return view('defaultings.index', ['title' => $title, 'defaultings' => $defaultings]);
     }

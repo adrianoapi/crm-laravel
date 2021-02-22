@@ -22,6 +22,17 @@
                                 <a href="{{route('defaultings.create')}}" class="btn btn-primary">
                                 <i class="icon-reorder"></i> Novo</a>
                             </span>
+                            <span class="tabs">
+                                <form action="{{route('defaultings.index')}}" method="GET" class="span12" style="margin: 0;padding:0;">
+                                        <div class="input-group span12">
+                                            <input type="hidden" name="filtro" value="pesquisa">
+                                            <input placeholder="Search" type="text" name="pesquisar" value="" class="form-control form-control-sm">
+                                            <span class="input-group-append">
+                                                <button type="submit" style="margin-top:-10px;" class="btn btn-sm btn-primary">Go!</button>
+                                            </span>
+                                        </div>
+                                    </form>
+                            </span>
                         </div>
 
                         <div class="box-content nopadding">
