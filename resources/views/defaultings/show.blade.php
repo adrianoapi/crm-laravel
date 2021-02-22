@@ -19,7 +19,7 @@
                         </div>
                         <div class="box-content nopadding">
                             <div class="tabs-container">
-                                <ul class="tabs tabs-inline tabs-left">
+                                <ul class="tabs tabs-inline tabs-top">
                                     <li class='active'>
                                         <a href="#first" data-toggle='tab'><i class="icon-lock"></i> Negociação</a>
                                     </li>
@@ -28,7 +28,7 @@
                                     </li>
                                 </ul>
                             </div>
-                            <div class="tab-content padding tab-content-inline">
+                            <div class="tab-content padding tab-content-inline tab-content-bottom">
 
                                 <div class="tab-pane active" id="first">
                                         <table class="table">
