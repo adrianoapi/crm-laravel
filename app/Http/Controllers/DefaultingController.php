@@ -22,11 +22,13 @@ class DefaultingController extends Controller
      */
     public function index()
     {
+        $pesuisar = NULL;
         if(array_key_exists('filtro',$_GET))
         {
-            if(strlen($_GET['pesquisar']) > 2)
+            if(strlen($_GET['pesquisar']))
             {
-                $students = Student::where('name', 'like', '%' . $_GET['pesquisar'] . '%')
+                $pesuisar = $_GET['pesquisar'];
+                $students = Student::where('name', 'like', '%' . $pesuisar . '%')
                 ->orderBy('name', 'asc')
                 ->get();
 
@@ -46,7 +48,7 @@ class DefaultingController extends Controller
 
         $title = $this->title. " listagem";
 
-        return view('defaultings.index', ['title' => $title, 'defaultings' => $defaultings]);
+        return view('defaultings.index', ['title' => $title, 'defaultings' => $defaultings, 'pesuisar' => $pesuisar]);
     }
 
     /**
