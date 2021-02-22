@@ -21,16 +21,16 @@
                             <div class="tabs-container">
                                 <ul class="tabs tabs-inline tabs-top">
                                     <li class='active'>
-                                        <a href="#first" data-toggle='tab'><i class="icon-lock"></i> Negociação</a>
+                                        <a href="#aluno" data-toggle='tab'><i class="icon-user"></i> Aluno</a>
                                     </li>
                                     <li>
-                                        <a href="#second" data-toggle='tab'><i class="icon-user"></i> Aluno</a>
+                                        <a href="#negociacao" data-toggle='tab'><i class="icon-lock"></i> Negociação</a>
                                     </li>
                                 </ul>
                             </div>
                             <div class="tab-content padding tab-content-inline tab-content-bottom">
 
-                                <div class="tab-pane active" id="first">
+                                <div class="tab-pane" id="negociacao">
                                         <table class="table">
                                             <thead>
                                                 <tr>
@@ -72,7 +72,7 @@
                                         </form>
                                 </div>
 
-                                <div class="tab-pane" id="second">
+                                <div class="tab-pane active" id="aluno">
                                     <form action="{{route('alunos.update', ['student' => $student[0]->id])}}" method="POST" class='form-vertical'>
                                         @csrf
                                         @method('PUT')
