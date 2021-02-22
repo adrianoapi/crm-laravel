@@ -197,6 +197,12 @@
 										</div>
 									</div>
 									<div class="form-actions">
+                                    <?php if($student->negociado && !empty($defaulting)){ ?>
+                                        <a href="{{route('defaultings.show', ['defaulting' => $defaulting[0]->id])}}" class="btn btn-lime" rel="tooltip" title="" data-original-title="Negociar">
+                                            <i class="icon-credit-card"></i> Negociar
+                                        </a>
+                                    <?php } ?>
+
 										<button type="submit" class="btn btn-primary">Salvar</button>
 										<a href="{{route('alunos.index')}}" class="btn">Cancelar</a>
 									</div>

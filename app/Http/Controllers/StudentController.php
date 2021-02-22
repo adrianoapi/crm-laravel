@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Student;
 use App\Unity;
+use App\Defaulting;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -97,8 +98,14 @@ class StudentController extends Controller
     {
         $title = $this->title. " alterar";
         $unities = Unity::where('active', true)->orderBy('name', 'asc')->paginate(100);
+        $defaulting = Defaulting::where('student_id', $student->id)->limit(1)->get();
 
-        return view('students.edit', ['title' => $title, 'student' => $student, 'unities' => $unities, 'estados' => $this->getEstados()]);
+        return view('students.edit', [
+            'title' => $title,
+            'student' => $student,
+             'unities' => $unities,
+              'estados' => $this->getEstados(),
+               'defaulting' => $defaulting]);
     }
 
     /**

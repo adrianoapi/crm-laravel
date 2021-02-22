@@ -51,7 +51,7 @@
                                 <tbody>
                                 @foreach ($defaultings as $value)
                                     <tr>
-                                        <td><a href="{{route('alunos.edit', ['Student' => $value->id])}}" target="_blank">{{$value->student->name}}</a></td>
+                                        <td><a href="{{route('defaultings.show', ['defaulting' => $value->id])}}" target="_parent">{{$value->student->name}}</a></td>
                                         <td><?php
                                             if($value->student->negociado){
                                                 echo '<button class="btn btn-small  btn-success">SIM</button>';
