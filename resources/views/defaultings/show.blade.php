@@ -105,15 +105,23 @@
                                         @method('PUT')
 
                                         <div class="row-fluid">
-                                            <div class="span3">
+                                        <div class="span1">
                                                 <div class="control-group">
-                                                    <label for="unity_id" class="control-label">Unidade</label>
+                                                    <label for="cod_unidade" class="control-label">Unidade</label>
                                                     <div class="controls controls-row">
-                                                    <input type="text" name="unity_id" id="unity_id"  value="{{$student[0]->unity->name}}" placeholder="Insira o nome" max="100" class="input-block-level" disabled>
+                                                    <input type="text" name="cod_unidade" id="cod_unidade"  value="{{$student[0]->cod_unidade}}" placeholder="00000" max="100" class="input-block-level" disabled>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="span3">
+                                            <div class="span1">
+                                                <div class="control-group">
+                                                    <label for="cod_curso" class="control-label">Curso</label>
+                                                    <div class="controls controls-row">
+                                                    <input type="text" name="cod_curso" id="cod_curso"  value="{{$student[0]->cod_curso}}" placeholder="00000" max="100" class="input-block-level" disabled>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="span4">
                                                 <div class="control-group">
                                                     <label for="name" class="control-label">Nome completo*</label>
                                                     <div class="controls controls-row">
