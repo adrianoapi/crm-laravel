@@ -16,7 +16,8 @@ class CreateStudentsTable extends Migration
         Schema::create('students', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('unity_id');
+            $table->string('cod_unidade', 100);
+            $table->string('cod_curso', 100);
             $table->string('name', 100);
             $table->string('responsavel', 100)->nullable(true);
             $table->string('cpf_cnpj', 30);
@@ -39,7 +40,6 @@ class CreateStudentsTable extends Migration
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('CASCADE');
-            $table->foreign('unity_id')->references('id')->on('unities')->onDelete('CASCADE');
         });
 
     }

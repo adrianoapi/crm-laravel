@@ -40,7 +40,7 @@
                                 @foreach ($students as $value)
                                     <tr>
                                         <td>{{$value->name}}</td>
-                                        <td>{{$value->unity->name}}</td>
+                                        <td>{{$value->cod_curso}}</td>
                                         <td>{{$value->ctr}}</td>
                                         <td><?php
                                             if($value->negociado){

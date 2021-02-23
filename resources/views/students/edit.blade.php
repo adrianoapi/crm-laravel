@@ -22,18 +22,22 @@
                                 @method('PUT')
 
 								<div class="row-fluid">
-									<div class="span3">
+                                    <div class="span1">
                                         <div class="control-group">
-                                            <label for="unity_id" class="control-label">Unidade</label>
+                                            <label for="cod_unidade" class="control-label">Unidade*</label>
                                             <div class="controls controls-row">
-                                                <select name="unity_id" id="unity_id" class='select2-me input-block-level' required>
-                                                    @foreach($unities as $unity)
-                                                    <option value="{{$unity->id}}" {{$unity->id == $student->unity_id ? 'selected':''}}>{{$unity->name}}</option>
-                                                    @endforeach
-                                                </select>
+                                                <input type="text" name="cod_unidade" id="cod_unidade" placeholder="00000"  value="{{$student->cod_unidade}}" max="100" class="input-block-level" required>
                                             </div>
                                         </div>
-									</div>
+                                    </div>
+                                    <div class="span1">
+                                        <div class="control-group">
+                                            <label for="cod_curso" class="control-label">Curso*</label>
+                                            <div class="controls controls-row">
+                                                <input type="text" name="cod_curso" id="cod_curso" placeholder="00000"  value="{{$student->cod_curso}}" max="100" class="input-block-level" required>
+                                            </div>
+                                        </div>
+                                    </div>
 									<div class="span3">
 										<div class="control-group">
 											<label for="name" class="control-label">Nome completo*</label>
@@ -46,7 +50,7 @@
 										<div class="control-group">
 											<label for="nascimento" class="control-label">Nacimento</label>
 											<div class="controls controls-row">
-												<input type="text" name="nascimento" id="nascimento"  value="{{$student->nascimento}}" placeholder="(00) 0000-0000" max="20" class="input-block-level">
+												<input type="text" name="nascimento" id="nascimento"  value="{{$student->nascimento}}" placeholder="(00) 0000-0000" max="20" class="date input-block-level">
 											</div>
 										</div>
 									</div>
@@ -197,12 +201,6 @@
 										</div>
 									</div>
 									<div class="form-actions">
-                                    <?php if($student->negociado && !empty($defaulting)){ ?>
-                                        <a href="{{route('defaultings.show', ['defaulting' => $defaulting[0]->id])}}" class="btn btn-lime" rel="tooltip" title="" data-original-title="Negociar">
-                                            <i class="icon-credit-card"></i> Negociar
-                                        </a>
-                                    <?php } ?>
-
 										<button type="submit" class="btn btn-primary">Salvar</button>
 										<a href="{{route('alunos.index')}}" class="btn">Cancelar</a>
 									</div>
@@ -217,6 +215,15 @@
     </div>
 
 </div>
+
+<script>
+
+(function( $ ) {
+  $(function() {
+    $('.date').mask('00/00/0000');
+  });
+})(jQuery);
+</script>
 
 @include('students.cep')
 

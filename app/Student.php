@@ -11,11 +11,6 @@ class Student extends Model
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
-    public function unity()
-    {
-        return $this->belongsTo(Unity::class, 'unity_id', 'id');
-    }
-
     public function setNascimentoAttribute($value)
     {
         $date = str_replace('/', '-', $value);

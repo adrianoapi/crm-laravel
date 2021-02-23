@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Student;
-use App\Unity;
 use App\Defaulting;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -25,9 +24,8 @@ class StudentController extends Controller
     {
         $title = $this->title. " listagem";
         $students = Student::where('active', true)->orderBy('name', 'asc')->paginate(1000);
-        $unities = Unity::where('active', true)->orderBy('name', 'asc')->paginate(100);
 
-        return view('students.index', ['title' => $title, 'students' => $students, 'unities' => $unities]);
+        return view('students.index', ['title' => $title, 'students' => $students]);
     }
 
     /**
@@ -38,9 +36,8 @@ class StudentController extends Controller
     public function create()
     {
         $title = $this->title. " cadastrar";
-        $unities = Unity::where('active', true)->orderBy('name', 'asc')->paginate(100);
 
-        return view('students.add', ['unities' => $unities, 'title' => $title, 'estados' => $this->getEstados()]);
+        return view('students.add', [ 'title' => $title, 'estados' => $this->getEstados()]);
     }
 
     /**
@@ -53,8 +50,9 @@ class StudentController extends Controller
     {
         $model = new Student();
         $model->user_id     = Auth::id();
-        $model->unity_id    = $request->unity_id;
         $model->name        = $request->name;
+        $model->cod_unidade = $request->cod_unidade;
+        $model->cod_curso   = $request->cod_curso;
         $model->responsavel = $request->responsavel;
         $model->cpf_cnpj    = $request->cpf_cnpj;
         $model->nascimento    = $request->nascimento;
@@ -97,13 +95,11 @@ class StudentController extends Controller
     public function edit(Student $student)
     {
         $title = $this->title. " alterar";
-        $unities = Unity::where('active', true)->orderBy('name', 'asc')->paginate(100);
         $defaulting = Defaulting::where('student_id', $student->id)->limit(1)->get();
 
         return view('students.edit', [
             'title' => $title,
             'student' => $student,
-             'unities' => $unities,
               'estados' => $this->getEstados(),
                'defaulting' => $defaulting]);
     }
@@ -118,8 +114,9 @@ class StudentController extends Controller
     public function update(Request $request, Student $student)
     {
         $student->user_id     = Auth::id();
-        $student->unity_id    = $request->unity_id;
         $student->name        = $request->name;
+        $student->cod_unidade = $request->cod_unidade;
+        $student->cod_curso   = $request->cod_curso;
         $student->responsavel = $request->responsavel;
         $student->cpf_cnpj    = $request->cpf_cnpj;
         $student->nascimento    = $request->nascimento;
