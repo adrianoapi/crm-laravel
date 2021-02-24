@@ -282,14 +282,13 @@
 
                         <div class="box-content nopadding">
 
-                            <table class="table table-hover table-nomargin table-colored-header">
+                            <table id="history-table" class="table table-hover table-nomargin table-colored-header">
 
                                 <tbody>
                                 @foreach ($defaulting->defaultingHistories as $value)
                                 <tr>
                                     <td>
-                                    Data: <strong>{{$value->created_at}}</strong>
-                                    Usuário: <strong>{{$value->user->name}}</strong>
+                                    Data: <strong>{{$value->created_at}}</strong>&nbsp;-&nbsp;Usuário: <strong>{{$value->user->name}}</strong>
                                     <p>{{$value->observacao}}</p>
                                     </td>
                                 </tr>
@@ -383,9 +382,18 @@
                     dataType: 'json',
                         success: function(data){
                             console.log(data);
-                            //$("#ajax-graph-pie").html(data['body']);
+                            inserirLinha(data['attributes']);
                         }
                 });
+            }
+
+            function inserirLinha(data)
+            {
+                var html = "";
+                html +=  'Data: <strong>'+data['created_at']+'</strong>&nbsp;-&nbsp;';
+                html +=  'Usuário: <strong>{{Auth::user()->name}}</strong>';
+                html +=  '<p>'+data['observacao']+'</p>';
+                $("#history-table").prepend("<tr><td>"+html+"</td></tr>");
             }
 
             </script>
