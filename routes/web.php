@@ -50,6 +50,10 @@ Route::prefix('segunda-fase-negociacao')->group(function(){
     Route::post('store',      'DefaultingTradingController@store' )->name('defaultingTradings.store');
 });
 
+Route::prefix('segunda-fase-historico')->group(function(){
+    Route::post('store', 'DefaultingHistoryController@store' )->name('defaultingHistories.store');
+});
+
 Route::prefix('alunos')->group(function(){
     Route::get('/', 'StudentController@index')->name('alunos.index');
     Route::get('novo',        'StudentController@create')->name('alunos.create');

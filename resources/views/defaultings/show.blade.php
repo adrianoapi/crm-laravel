@@ -267,75 +267,109 @@
 
 
             </div>
+            <div class="row-fluid">
+
+                <div class="span12">
+                    <div class="box box-bordered box-color">
+                        <div class="box-title">
+                            <h3><i class="icon-th-list"></i> Histórico</h3>
+                        </div>
+                        <div class="box-content nopadding">
+
+                        <textarea name="history" id="history" rows="5" class="input-block-level" placeholder="Descreva a negociação..."></textarea>
+                        <button type="button" class="btn btn-primary" onclick="saveHistory()">Registar</button>
+                        </div>
+                    </div>
+                </div>
 
 
-<script>
+            </div>
 
-$(document).ready(function() {
-    var x = 1;
-    var max_fields = 20;
-    var wrapper = $(".container1");
-    var add_button = $(".add_form_field");
-    var inputs = '';
-    inputs += '        <div class="row-fluid">';
-    inputs += '           <div class="span2">';
-    inputs += '                <div class="control-group">';
-    inputs += '                   <label for="parcela" class="control-label">Parcela</label>';
-    inputs += '                    <div class="controls controls-row">';
-    inputs += '                        <input type="number" name="parcela[]" id="parcela" placeholder="00" class="input-block-level" required>';
-    inputs += '                    </div>';
-    inputs += '                </div>';
-    inputs += '            </div>';
-    inputs += '            <div class="span2">';
-    inputs += '                <div class="control-group">';
-    inputs += '                    <label for="data" class="control-label">Data</label>';
-    inputs += '                   <div class="controls controls-row">';
-    inputs += '                        <input type="text" name="vencimento[]" id="vencimento" placeholder="00/00/0000" class="date input-block-level" required>';
-    inputs += '                    </div>';
-    inputs += '                </div>';
-    inputs += '            </div>';
-    inputs += '           <div class="span2">';
-    inputs += '                <div class="control-group">';
-    inputs += '                    <label for="valor" class="control-label">Valor</label>';
-    inputs += '                    <div class="controls controls-row">';
-    inputs += '                        <input type="text" name="valor[]" id="valor" placeholder="100,00"  class="money input-block-level" required>';
-    inputs += '                    </div>';
-    inputs += '               </div>';
-    inputs += '            </div>';
-    inputs += '       <a href="#" class="delete">Delete</a></div>';
 
-    $(add_button).click(function(e) {
-        e.preventDefault();
-        if (x < max_fields) {
-            x++;
+            <script>
 
-            //$(wrapper).append('<div><input type="text" name="mytext[]"/><a href="#" class="delete">Delete</a></div>'); //add input box
-            $(wrapper).append(inputs); //add input box
-        } else {
-            alert('You Reached the limits')
-        }
-    });
+            $(document).ready(function() {
+                var x = 1;
+                var max_fields = 20;
+                var wrapper = $(".container1");
+                var add_button = $(".add_form_field");
+                var inputs = '';
+                inputs += '        <div class="row-fluid">';
+                inputs += '           <div class="span2">';
+                inputs += '                <div class="control-group">';
+                inputs += '                   <label for="parcela" class="control-label">Parcela</label>';
+                inputs += '                    <div class="controls controls-row">';
+                inputs += '                        <input type="number" name="parcela[]" id="parcela" placeholder="00" class="input-block-level" required>';
+                inputs += '                    </div>';
+                inputs += '                </div>';
+                inputs += '            </div>';
+                inputs += '            <div class="span2">';
+                inputs += '                <div class="control-group">';
+                inputs += '                    <label for="data" class="control-label">Data</label>';
+                inputs += '                   <div class="controls controls-row">';
+                inputs += '                        <input type="text" name="vencimento[]" id="vencimento" placeholder="00/00/0000" class="date input-block-level" required>';
+                inputs += '                    </div>';
+                inputs += '                </div>';
+                inputs += '            </div>';
+                inputs += '           <div class="span2">';
+                inputs += '                <div class="control-group">';
+                inputs += '                    <label for="valor" class="control-label">Valor</label>';
+                inputs += '                    <div class="controls controls-row">';
+                inputs += '                        <input type="text" name="valor[]" id="valor" placeholder="100,00"  class="money input-block-level" required>';
+                inputs += '                    </div>';
+                inputs += '               </div>';
+                inputs += '            </div>';
+                inputs += '       <a href="#" class="delete">Delete</a></div>';
 
-    $(wrapper).on("click", ".delete", function(e) {
-        e.preventDefault();
-        $(this).parent('div').remove();
-        x--;
-    })
-});
-</script>
+                $(add_button).click(function(e) {
+                    e.preventDefault();
+                    if (x < max_fields) {
+                        x++;
+
+                        //$(wrapper).append('<div><input type="text" name="mytext[]"/><a href="#" class="delete">Delete</a></div>'); //add input box
+                        $(wrapper).append(inputs); //add input box
+                    } else {
+                        alert('You Reached the limits')
+                    }
+                });
+
+                $(wrapper).on("click", ".delete", function(e) {
+                    e.preventDefault();
+                    $(this).parent('div').remove();
+                    x--;
+                })
+            });
+
+            (function( $ ) {
+            $(function() {
+                $('.date').mask('00/00/0000');
+                $('.money').mask('#.##0,00', {reverse: true});
+            });
+            })(jQuery);
+
+            function saveHistory()
+            {
+                var value = $("#history").val();
+                $.ajax({
+                    url: "{{route('defaultingHistories.store')}}",
+                    type: "POST",
+                    data: {
+                        "_token": "{{csrf_token()}}",
+                        "observacao": value,
+                        "defaulting_id": {{$defaulting->id}},
+                    },
+                    dataType: 'json',
+                        success: function(data){
+                            console.log(data);
+                            //$("#ajax-graph-pie").html(data['body']);
+                        }
+                });
+            }
+            </script>
 
 
         </div>
     </div>
 
 </div>
-<script>
-(function( $ ) {
-  $(function() {
-    $('.date').mask('00/00/0000');
-    $('.money').mask('#.##0,00', {reverse: true});
-  });
-})(jQuery);
-
-</script>
 @endsection
