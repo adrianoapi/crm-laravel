@@ -278,6 +278,26 @@
 
                         <textarea name="history" id="history" rows="5" class="input-block-level" placeholder="Descreva a negociação..."></textarea>
                         <button type="button" class="btn btn-primary" onclick="saveHistory()">Registar</button>
+                        <p></div>
+
+                        <div class="box-content nopadding">
+
+                            <table class="table table-hover table-nomargin table-colored-header">
+
+                                <tbody>
+                                @foreach ($defaulting->defaultingHistories as $value)
+                                <tr>
+                                    <td>
+                                    Data: <strong>{{$value->created_at}}</strong>
+                                    Usuário: <strong>{{$value->user->name}}</strong>
+                                    <p>{{$value->observacao}}</p>
+                                    </td>
+                                </tr>
+                                @endforeach
+                                </tbody>
+
+                            </table>
+
                         </div>
                     </div>
                 </div>
@@ -340,6 +360,7 @@
                 })
             });
 
+            // Mascaras formulario
             (function( $ ) {
             $(function() {
                 $('.date').mask('00/00/0000');
@@ -347,6 +368,7 @@
             });
             })(jQuery);
 
+            // Registrar historico
             function saveHistory()
             {
                 var value = $("#history").val();
@@ -365,6 +387,7 @@
                         }
                 });
             }
+
             </script>
 
 

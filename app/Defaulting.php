@@ -21,6 +21,11 @@ class Defaulting extends Model
         return $this->hasMany(DefaultingTrading::class, 'defaulting_id', 'id')->orderBy('parcela', 'asc');
     }
 
+    public function defaultingHistories()
+    {
+        return $this->hasMany(DefaultingHistory::class, 'defaulting_id', 'id')->orderBy('created_at', 'desc');
+    }
+
     public function setMultaAttribute($value)
     {
         return $this->attributes['multa'] = str_replace(',', '.', str_replace('.', '', $value));
