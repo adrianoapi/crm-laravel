@@ -63,20 +63,27 @@
                                         <td>{{$value->student->telefone}}/{{$value->student->celular}}</td>
                                         <td>
                                             <?php
-                                                $valor = str_replace(',', '.', str_replace('.', '', $value->m_parcela_valor));;
+                                                $valor = str_replace(',', '.', str_replace('.', '', $value->m_parcela_valor));
                                                 $valor = ($value->m_parcelas - $value->m_parcela_pg) * $valor;
                                                 echo number_format($valor, 2, ',', '.');
                                             ?>
                                         </td>
                                         <td>
                                             <?php
-                                                $valor = str_replace(',', '.', str_replace('.', '', $value->s_parcela_valor));;
-                                                $valor = ($value->s_parcelas - $value->s_parcela_pg) * $valor;
-                                                echo number_format($valor, 2, ',', '.');
+                                                $valor = str_replace(',', '.', str_replace('.', '', $value->s_parcela_valor));
+                                                $valor_total = ($value->s_parcelas - $value->s_parcela_pg) * $valor;
+                                                echo number_format($valor_total, 2, ',', '.');
                                             ?>
                                         </td>
-                                        <td>{{$value->multa}}</td>
-                                        <td>value->total</td>
+                                        <td><?php
+                                                $multa = str_replace(',', '.', str_replace('.', '', $value->multa));
+                                                $multa = $multa * $valor_total / 100;
+                                                echo number_format($multa, 2, ',', '.');
+                                            ?></td>
+                                        <td><?php
+                                                $total = $valor_total + $multa;
+                                                echo number_format($total, 2, ',', '.');
+                                            ?></td>
                                         <td class='hidden-1024'>
                                             <form action="{{route('defaultings.destroy', ['defaulting' => $value->id])}}" method="POST" onSubmit="return confirm('Deseja excluir?');" style="padding: 0px;margin:0px;">
                                                 @csrf
