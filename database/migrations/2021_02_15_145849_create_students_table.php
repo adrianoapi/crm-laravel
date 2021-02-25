@@ -16,11 +16,11 @@ class CreateStudentsTable extends Migration
         Schema::create('students', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('user_id');
-            $table->string('cod_unidade', 100);
-            $table->string('cod_curso', 100);
-            $table->string('name', 100);
+            $table->string('cod_unidade', 100)->nullable(true);
+            $table->string('cod_curso', 100)->nullable(true);
+            $table->string('name', 100)->nullable(true);
             $table->string('responsavel', 100)->nullable(true);
-            $table->string('cpf_cnpj', 30);
+            $table->string('cpf_cnpj', 30)->nullable(true);
             $table->string('ctr', 20)->nullable(true);
             $table->string('telefone', 20)->nullable(true);
             $table->string('telefone_com', 20)->nullable(true);
