@@ -24,7 +24,7 @@
                                         <div class="control-group">
                                             <label for="cod_unidade" class="control-label">Unidade*</label>
                                             <div class="controls controls-row">
-                                                <input type="text" name="cod_unidade" id="cod_unidade" placeholder="00000" max="100" class="input-block-level" required>
+                                                <input type="text" name="cod_unidade" id="cod_unidade" placeholder="00000" max="100" class="input-block-level">
                                             </div>
                                         </div>
                                     </div>
@@ -32,7 +32,7 @@
                                         <div class="control-group">
                                             <label for="cod_curso" class="control-label">Curso*</label>
                                             <div class="controls controls-row">
-                                                <input type="text" name="cod_curso" id="cod_curso" placeholder="00000" max="100" class="input-block-level" required>
+                                                <input type="text" name="cod_curso" id="cod_curso" placeholder="00000" max="100" class="input-block-level">
                                             </div>
                                         </div>
                                     </div>
@@ -119,7 +119,7 @@
 										<div class="control-group">
 											<label for="cep" class="control-label">CEP*</label>
 											<div class="controls controls-row">
-												<input type="text" name="cep" id="cep" placeholder="00000000" max="9" class="input-block-level" required>
+												<input type="text" name="cep" id="cep" placeholder="00000000" max="9" class="input-block-level">
 											</div>
 										</div>
 									</div>
@@ -127,7 +127,7 @@
 										<div class="control-group">
 											<label for="endereco" class="control-label">Endereço* <samll><b><a href="javascript:void(0)" onClick="consultaCep()" id="a_cep">Auto completar</a></b></small></label>
 											<div class="controls controls-row">
-												<input type="text" name="endereco" id="endereco" placeholder="Endereço" max="255" class="input-block-level" required>
+												<input type="text" name="endereco" id="endereco" placeholder="Endereço" max="255" class="input-block-level">
 											</div>
 										</div>
 									</div>
@@ -135,7 +135,7 @@
 										<div class="control-group">
 											<label for="numero" class="control-label">Número*</label>
 											<div class="controls controls-row">
-												<input type="number" name="numero" id="numero" placeholder="Número" max="99999" class="input-block-level" required>
+												<input type="number" name="numero" id="numero" placeholder="Número" max="99999" class="input-block-level">
 											</div>
 										</div>
 									</div>
@@ -153,7 +153,7 @@
 										<div class="control-group">
 											<label for="bairro" class="control-label">Bairro*</label>
 											<div class="controls controls-row">
-												<input type="text" name="bairro" id="bairro" placeholder="bairro" max="255" class="input-block-level" required>
+												<input type="text" name="bairro" id="bairro" placeholder="bairro" max="255" class="input-block-level">
 											</div>
 										</div>
 									</div>
@@ -161,7 +161,7 @@
 										<div class="control-group">
 											<label for="cidade" class="control-label">Cidade*</label>
 											<div class="controls controls-row">
-												<input type="text" name="cidade" id="cidade" placeholder="cidade" max="255" class="input-block-level" required>
+												<input type="text" name="cidade" id="cidade" placeholder="cidade" max="255" class="input-block-level" >
 											</div>
 										</div>
 									</div>
@@ -169,7 +169,7 @@
 										<div class="control-group">
 											<label for="estado" class="control-label">Estado*</label>
 											<div class="controls controls-row">
-                                                <select name="estado" id="estado" class='select2-me input-block-level' required>
+                                                <select name="estado" id="estado" class='select2-me input-block-level'>
                                                     @foreach($estados as $key => $value)
                                                     <option value="{{$key}}">{{$value}}</option>
                                                     @endforeach
@@ -183,7 +183,7 @@
                                         <div class="control-group">
                                             <label for="negociado" class="control-label">Negociado*</label>
                                             <div class="controls controls-row">
-                                                <select name="negociado" id="negociado" class='select2-me input-block-level' required>
+                                                <select name="negociado" id="negociado" class='select2-me input-block-level'>
                                                     <option value="true">SIM</option>
                                                     <option value="false">NÃO</option>
                                                 </select>

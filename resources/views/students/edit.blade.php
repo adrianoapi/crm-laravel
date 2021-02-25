@@ -26,7 +26,7 @@
                                         <div class="control-group">
                                             <label for="cod_unidade" class="control-label">Unidade*</label>
                                             <div class="controls controls-row">
-                                                <input type="text" name="cod_unidade" id="cod_unidade" placeholder="00000"  value="{{$student->cod_unidade}}" max="100" class="input-block-level" required>
+                                                <input type="text" name="cod_unidade" id="cod_unidade" placeholder="00000"  value="{{$student->cod_unidade}}" max="100" class="input-block-level">
                                             </div>
                                         </div>
                                     </div>
@@ -34,7 +34,7 @@
                                         <div class="control-group">
                                             <label for="cod_curso" class="control-label">Curso*</label>
                                             <div class="controls controls-row">
-                                                <input type="text" name="cod_curso" id="cod_curso" placeholder="00000"  value="{{$student->cod_curso}}" max="100" class="input-block-level" required>
+                                                <input type="text" name="cod_curso" id="cod_curso" placeholder="00000"  value="{{$student->cod_curso}}" max="100" class="input-block-level">
                                             </div>
                                         </div>
                                     </div>
@@ -58,7 +58,7 @@
 										<div class="control-group">
 											<label for="cpf_cnpj" class="control-label">CPF/CNPJ*</label>
 											<div class="controls controls-row">
-												<input type="text" name="cpf_cnpj" id="cpf_cnpj"  value="{{$student->cpf_cnpj}}" placeholder="000.000.000-00/0000" max="30" class="input-block-level" required>
+												<input type="text" name="cpf_cnpj" id="cpf_cnpj"  value="{{$student->cpf_cnpj}}" placeholder="000.000.000-00/0000" max="30" class="input-block-level">
 											</div>
 										</div>
 									</div>
@@ -119,7 +119,7 @@
 										<div class="control-group">
 											<label for="cep" class="control-label">CEP*</label>
 											<div class="controls controls-row">
-												<input type="text" name="cep" id="cep"  value="{{$student->cep}}" placeholder="00000000" max="9" class="input-block-level" required>
+												<input type="text" name="cep" id="cep"  value="{{$student->cep}}" placeholder="00000000" max="9" class="input-block-level" >
 											</div>
 										</div>
 									</div>
@@ -127,7 +127,7 @@
 										<div class="control-group">
                                         <label for="endereco" class="control-label">Endereço*<samll><b><a href="javascript:void(0)" onClick="consultaCep()" id="a_cep">Auto completar</a></b></small></label>
 											<div class="controls controls-row">
-												<input type="text" name="endereco" id="endereco"  value="{{$student->endereco}}" placeholder="Endereço" max="255" class="input-block-level" required>
+												<input type="text" name="endereco" id="endereco"  value="{{$student->endereco}}" placeholder="Endereço" max="255" class="input-block-level" >
 											</div>
 										</div>
 									</div>
@@ -135,7 +135,7 @@
 										<div class="control-group">
 											<label for="numero" class="control-label">Número*</label>
 											<div class="controls controls-row">
-												<input type="number" name="numero" id="numero"  value="{{$student->numero}}" placeholder="Número" max="99999" class="input-block-level" required>
+												<input type="number" name="numero" id="numero"  value="{{$student->numero}}" placeholder="Número" max="99999" class="input-block-level" >
 											</div>
 										</div>
 									</div>
@@ -153,7 +153,7 @@
 										<div class="control-group">
 											<label for="bairro" class="control-label">Bairro*</label>
 											<div class="controls controls-row">
-												<input type="text" name="bairro" id="bairro"  value="{{$student->bairro}}" placeholder="bairro" max="255" class="input-block-level" required>
+												<input type="text" name="bairro" id="bairro"  value="{{$student->bairro}}" placeholder="bairro" max="255" class="input-block-level" >
 											</div>
 										</div>
 									</div>
@@ -161,7 +161,7 @@
 										<div class="control-group">
 											<label for="cidade" class="control-label">Cidade*</label>
 											<div class="controls controls-row">
-												<input type="text" name="cidade" id="cidade"  value="{{$student->cidade}}" placeholder="cidade" max="255" class="input-block-level" required>
+												<input type="text" name="cidade" id="cidade"  value="{{$student->cidade}}" placeholder="cidade" max="255" class="input-block-level" >
 											</div>
 										</div>
 									</div>
