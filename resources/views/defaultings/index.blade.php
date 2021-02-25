@@ -61,8 +61,20 @@
                                             }
                                         ?></td>
                                         <td>{{$value->student->telefone}}/{{$value->student->celular}}</td>
-                                        <td>value->m_parcela_total</td>
-                                        <td>value->s_parcela_total</td>
+                                        <td>
+                                            <?php
+                                                $valor = str_replace(',', '.', str_replace('.', '', $value->m_parcela_valor));;
+                                                $valor = ($value->m_parcelas - $value->m_parcela_pg) * $valor;
+                                                echo number_format($valor, 2, ',', '.');
+                                            ?>
+                                        </td>
+                                        <td>
+                                            <?php
+                                                $valor = str_replace(',', '.', str_replace('.', '', $value->s_parcela_valor));;
+                                                $valor = ($value->s_parcelas - $value->s_parcela_pg) * $valor;
+                                                echo number_format($valor, 2, ',', '.');
+                                            ?>
+                                        </td>
                                         <td>{{$value->multa}}</td>
                                         <td>value->total</td>
                                         <td class='hidden-1024'>

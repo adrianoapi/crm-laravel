@@ -216,10 +216,7 @@ function autoCalcula(){
 }
 
 function currencyFormat (num) {
-    num = num.toString().replace(".", "");
-    var intl = new Intl.NumberFormat("pt-BR", {minimumFractionDigits: 2});
-    var valor = num;
-    return intl.format((valor));
+    return num.toLocaleString('pt-BR');
 }
 
 (function( $ ) {
