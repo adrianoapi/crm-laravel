@@ -61,10 +61,10 @@
                                             }
                                         ?></td>
                                         <td>{{$value->student->telefone}}/{{$value->student->celular}}</td>
-                                        <td>{{$value->m_parcela_total}}</td>
-                                        <td>{{$value->s_parcela_total}}</td>
+                                        <td>value->m_parcela_total</td>
+                                        <td>value->s_parcela_total</td>
                                         <td>{{$value->multa}}</td>
-                                        <td>{{$value->total}}</td>
+                                        <td>value->total</td>
                                         <td class='hidden-1024'>
                                             <form action="{{route('defaultings.destroy', ['defaulting' => $value->id])}}" method="POST" onSubmit="return confirm('Deseja excluir?');" style="padding: 0px;margin:0px;">
                                                 @csrf

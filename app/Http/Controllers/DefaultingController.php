@@ -77,20 +77,15 @@ class DefaultingController extends Controller
         $segundaFase->student_id       = $request->student_id;
         $segundaFase->dt_inadimplencia = $request->dt_inadimplencia;
 
-        $segundaFase->m_parcela = $request->m_parcela;
+        $segundaFase->m_parcelas = $request->m_parcelas;
         $segundaFase->m_parcela_pg = $request->m_parcela_pg;
-        $segundaFase->m_parcela_ab = $request->m_parcela_ab;
         $segundaFase->m_parcela_valor = $request->m_parcela_valor;
-        $segundaFase->m_parcela_total = $request->m_parcela_total;
 
-        $segundaFase->s_parcela = $request->s_parcela;
+        $segundaFase->s_parcelas = $request->s_parcelas;
         $segundaFase->s_parcela_pg = $request->s_parcela_pg;
-        $segundaFase->s_parcela_ab = $request->s_parcela_ab;
         $segundaFase->s_parcela_valor = $request->s_parcela_valor;
-        $segundaFase->s_parcela_total = $request->s_parcela_total;
 
         $segundaFase->multa = $request->multa;
-        $segundaFase->total = $request->total;
 
         $segundaFase->save();
 
@@ -141,20 +136,15 @@ class DefaultingController extends Controller
         $defaulting->student_id       = $request->student_id;
         $defaulting->dt_inadimplencia = $request->dt_inadimplencia;
 
-        $defaulting->m_parcela = $request->m_parcela;
+        $defaulting->m_parcelas = $request->m_parcelas;
         $defaulting->m_parcela_pg = $request->m_parcela_pg;
-        $defaulting->m_parcela_ab = $request->m_parcela_ab;
         $defaulting->m_parcela_valor = $request->m_parcela_valor;
-        $defaulting->m_parcela_total = $request->m_parcela_total;
 
-        $defaulting->s_parcela = $request->s_parcela;
+        $defaulting->s_parcelas = $request->s_parcelas;
         $defaulting->s_parcela_pg = $request->s_parcela_pg;
-        $defaulting->s_parcela_ab = $request->s_parcela_ab;
         $defaulting->s_parcela_valor = $request->s_parcela_valor;
-        $defaulting->s_parcela_total = $request->s_parcela_total;
 
         $defaulting->multa = $request->multa;
-        $defaulting->total = $request->total;
 
         $defaulting->save();
 

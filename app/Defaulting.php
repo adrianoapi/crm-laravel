@@ -36,16 +36,6 @@ class Defaulting extends Model
         return $this->attributes['multa'] = number_format($value, 2, ",", ".");
     }
 
-    public function setTotalAttribute($value)
-    {
-        return $this->attributes['total'] = str_replace(',', '.', str_replace('.', '', $value));
-    }
-
-    public function getTotalAttribute($value)
-    {
-        return $this->attributes['total'] = number_format($value, 2, ",", ".");
-    }
-
     public function setMParcelaValorAttribute($value)
     {
         return $this->attributes['m_parcela_valor'] = str_replace(',', '.', str_replace('.', '', $value));
@@ -56,16 +46,6 @@ class Defaulting extends Model
         return $this->attributes['m_parcela_valor'] = number_format($value, 2, ",", ".");
     }
 
-    public function setMParcelaTotalAttribute($value)
-    {
-        return $this->attributes['m_parcela_total'] = str_replace(',', '.', str_replace('.', '', $value));
-    }
-
-    public function getMParcelaTotalAttribute($value)
-    {
-        return $this->attributes['m_parcela_total'] = number_format($value, 2, ",", ".");
-    }
-
     public function setSParcelaValorAttribute($value)
     {
         return $this->attributes['s_parcela_valor'] = str_replace(',', '.', str_replace('.', '', $value));
@@ -74,16 +54,6 @@ class Defaulting extends Model
     public function getSParcelaValorAttribute($value)
     {
         return $this->attributes['s_parcela_valor'] = number_format($value, 2, ",", ".");
-    }
-
-    public function setSParcelaTotalAttribute($value)
-    {
-        return $this->attributes['s_parcela_total'] = str_replace(',', '.', str_replace('.', '', $value));
-    }
-
-    public function getSParcelaTotalAttribute($value)
-    {
-        return $this->attributes['s_parcela_total'] = number_format($value, 2, ",", ".");
     }
 
     public function setDtInadimplenciaAttribute($value)
