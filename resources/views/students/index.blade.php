@@ -77,6 +77,7 @@
                                 @endforeach
                                 </tbody>
                             </table>
+                            {{ $students->links('layouts.pagination') }}
                         </div>
 
                     </div>
