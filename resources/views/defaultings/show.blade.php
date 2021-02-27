@@ -313,7 +313,7 @@
                                     <div class="row-fluid">
                                         <div class="span2">
                                             <div class="control-group">
-                                                <label for="negociado" class="control-label">Negociado* {{$student[0]->negociado}}</label>
+                                                <label for="negociado" class="control-label">Negociado*</label>
                                                 <div class="controls controls-row">
                                                     <select name="negociado" id="negociado" class='select2-me input-block-level' required>
                                                         <option value="true" {{$student[0]->negociado ? 'selected':''}}>SIM</option>
