@@ -77,15 +77,19 @@
                                                 echo number_format($valor_total, 2, ',', '.');
                                             ?>
                                         </td>
-                                        <td><?php
+                                        <td>
+                                            <?php
                                                 $multa = str_replace(',', '.', str_replace('.', '', $value->multa));
                                                 $multa = $multa * $valor_total / 100;
                                                 echo number_format($multa, 2, ',', '.');
-                                            ?></td>
-                                        <td><?php
+                                            ?>
+                                        </td>
+                                        <td>
+                                            <?php
                                                 $total = $valor_total + $multa;
                                                 echo number_format($total, 2, ',', '.');
-                                            ?></td>
+                                            ?>
+                                        </td>
                                         <td class='hidden-1024'>
                                             <form action="{{route('defaultings.destroy', ['defaulting' => $value->id])}}" method="POST" onSubmit="return confirm('Deseja excluir?');" style="padding: 0px;margin:0px;">
                                                 @csrf

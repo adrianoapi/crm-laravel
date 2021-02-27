@@ -34,7 +34,7 @@
                                         <table class="table">
                                             <thead>
                                                 <tr>
-                                                    <th>Nome</th>
+                                                    <th>Negociado</th>
                                                     <th>Material</th>
                                                     <th>Serviço</th>
                                                     <th>Multa</th>
@@ -44,11 +44,40 @@
                                             </thead>
                                             <tbody>
                                                 <tr>
-                                                    <td>{{$defaulting->student->name}}</td>
-                                                    <td>{{$defaulting->m_parcela_total}}</td>
-                                                    <td>{{$defaulting->s_parcela_total}}</td>
-                                                    <td>{{$defaulting->multa}}</td>
-                                                    <td>{{$defaulting->total}}</td>
+                                                    <td><?php
+                                                        if($defaulting->student->negociado){
+                                                            echo '<button class="btn btn-small  btn-success">SIM</button>';
+                                                        }else{
+                                                            echo '<button class="btn btn-small  btn-danger">NÃO</button>';
+                                                        }
+                                                    ?></td>
+                                                    <td>
+                                                        <?php
+                                                            $valor = str_replace(',', '.', str_replace('.', '', $defaulting->m_parcela_valor));
+                                                            $valor = ($defaulting->m_parcelas - $defaulting->m_parcela_pg) * $valor;
+                                                            echo number_format($valor, 2, ',', '.');
+                                                        ?>
+                                                    </td>
+                                                    <td>
+                                                        <?php
+                                                            $valor = str_replace(',', '.', str_replace('.', '', $defaulting->s_parcela_valor));
+                                                            $valor_total = ($defaulting->s_parcelas - $defaulting->s_parcela_pg) * $valor;
+                                                            echo number_format($valor_total, 2, ',', '.');
+                                                        ?>
+                                                    </td>
+                                                    <td>
+                                                        <?php
+                                                            $multa = str_replace(',', '.', str_replace('.', '', $defaulting->multa));
+                                                            $multa = $multa * $valor_total / 100;
+                                                            echo number_format($multa, 2, ',', '.');
+                                                        ?>
+                                                    </td>
+                                                    <td>
+                                                        <?php
+                                                            $total = $valor_total + $multa;
+                                                            echo number_format($total, 2, ',', '.');
+                                                        ?>
+                                                    </td>
                                                     <td><span class="add_form_field btn btn-teal">Adicionar Parcela &nbsp;
                                                             <span  span style="font-size:16px; font-weight:bold;">+ </span>
                                                         </span></td>
