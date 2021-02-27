@@ -39,8 +39,8 @@
                                                     <th>Serviço</th>
                                                     <th>Multa</th>
                                                     <th>Total</th>
+                                                    <th>Adicionar</th>
                                                     <th>Ações</th>
-                                                    <th>#</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -80,6 +80,11 @@
                                                         ?>
                                                     </td>
                                                     <td>
+                                                        <span class="add_form_field btn btn-teal">Adicionar Parcela &nbsp;
+                                                            <span  span style="font-size:16px; font-weight:bold;">+ </span>
+                                                        </span>
+                                                    </td>
+                                                    <td>
                                                         <form action="{{route('defaultings.destroy', ['defaulting' => $defaulting->id])}}" method="POST" onSubmit="return confirm('Deseja excluir?');" style="padding: 0px;margin:0px;">
                                                             @csrf
                                                             @method('delete')
@@ -92,11 +97,6 @@
                                                                 <i class="icon-trash"></i>
                                                             </button>
                                                         </form>
-                                                    </td>
-                                                    <td>
-                                                        <span class="add_form_field btn btn-teal">Adicionar Parcela &nbsp;
-                                                            <span  span style="font-size:16px; font-weight:bold;">+ </span>
-                                                        </span>
                                                     </td>
                                                 </tr>
                                             </tbody>
