@@ -151,7 +151,13 @@ class StudentController extends Controller
         $student->negociado = $request->negociado == 'true' ? true : false;
         $student->save();
 
-        return redirect()->route('alunos.index');
+        if($request->defaulting_id)
+        {
+            return redirect()->route('defaultings.show', ['defaulting' => $request->defaulting_id]);
+        }else{
+            return redirect()->route('alunos.index');
+        }
+
     }
 
     /**
