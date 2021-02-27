@@ -39,6 +39,7 @@
                                                     <th>Serviço</th>
                                                     <th>Multa</th>
                                                     <th>Total</th>
+                                                    <th>Ações</th>
                                                     <th>#</th>
                                                 </tr>
                                             </thead>
@@ -78,9 +79,25 @@
                                                             echo number_format($total, 2, ',', '.');
                                                         ?>
                                                     </td>
-                                                    <td><span class="add_form_field btn btn-teal">Adicionar Parcela &nbsp;
+                                                    <td>
+                                                        <form action="{{route('defaultings.destroy', ['defaulting' => $defaulting->id])}}" method="POST" onSubmit="return confirm('Deseja excluir?');" style="padding: 0px;margin:0px;">
+                                                            @csrf
+                                                            @method('delete')
+
+                                                            <a href="{{route('defaultings.edit', ['defaulting' => $defaulting->id])}}" class="btn" rel="tooltip" title="" data-original-title="Editar">
+                                                                <i class="icon-edit"></i>
+                                                            </a>
+
+                                                            <button type="submit" class="btn btn-red" rel="tooltip" title="" data-original-title="Excluir">
+                                                                <i class="icon-trash"></i>
+                                                            </button>
+                                                        </form>
+                                                    </td>
+                                                    <td>
+                                                        <span class="add_form_field btn btn-teal">Adicionar Parcela &nbsp;
                                                             <span  span style="font-size:16px; font-weight:bold;">+ </span>
-                                                        </span></td>
+                                                        </span>
+                                                    </td>
                                                 </tr>
                                             </tbody>
                                         </table>

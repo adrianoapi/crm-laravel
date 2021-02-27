@@ -91,40 +91,15 @@
                                             ?>
                                         </td>
                                         <td class='hidden-1024'>
-                                            <form action="{{route('defaultings.destroy', ['defaulting' => $value->id])}}" method="POST" onSubmit="return confirm('Deseja excluir?');" style="padding: 0px;margin:0px;">
-                                                @csrf
-                                                @method('delete')
-                                                <?php if($value->student->negociado){ ?>
-                                                    <a href="{{route('defaultings.show', ['defaulting' => $value->id])}}" class="btn btn-lime" rel="tooltip" title="" data-original-title="Negociar">
-                                                        <i class="icon-credit-card"></i>
-                                                    </a>
-                                                <?php }else{ ?>
-                                                    <a href="{{route('defaultings.show', ['defaulting' => $value->id])}}" class="btn" rel="tooltip" title="" data-original-title="Negociar">
-                                                        <i class="icon-credit-card"></i>
-                                                    </a>
-                                                <?php } ?>
-
-                                                <div class="btn-group">
-                                                    <a href="#" data-toggle="dropdown" class="btn dropdown-toggle"><i class="icon-edit"></i> <span class="caret"></span></a>
-                                                    <ul class="dropdown-menu">
-                                                        <li>
-                                                        <a href="{{route('defaultings.edit', ['defaulting' => $value->id])}}" >
-                                                            Negociação
-                                                        </a>
-
-                                                        </li>
-                                                        <li>
-                                                            <a href="{{route('alunos.edit', ['Student' => $value->student->id])}}">
-                                                                Aluno
-                                                            </a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-
-                                                <button type="submit" class="btn btn-red" rel="tooltip" title="" data-original-title="Excluir">
-                                                    <i class="icon-trash"></i>
-                                                </button>
-                                            </form>
+                                            <?php if($value->student->negociado){ ?>
+                                                <a href="{{route('defaultings.show', ['defaulting' => $value->id])}}" class="btn btn-lime" rel="tooltip" title="" data-original-title="Negociar">
+                                                    <i class="icon-credit-card"></i>
+                                                </a>
+                                            <?php }else{ ?>
+                                                <a href="{{route('defaultings.show', ['defaulting' => $value->id])}}" class="btn" rel="tooltip" title="" data-original-title="Negociar">
+                                                    <i class="icon-credit-card"></i>
+                                                </a>
+                                            <?php } ?>
                                         </td>
                                     </tr>
                                 @endforeach

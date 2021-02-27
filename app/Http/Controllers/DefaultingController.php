@@ -148,7 +148,7 @@ class DefaultingController extends Controller
 
         $defaulting->save();
 
-        return redirect()->route('defaultings.index');
+        return redirect()->route('defaultings.show', ['defaulting' => $defaulting->id]);
     }
 
     /**
