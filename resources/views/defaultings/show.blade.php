@@ -334,7 +334,7 @@
                                         </div>
                                         <div class="form-actions">
                                             <button type="submit" class="btn btn-primary">Salvar</button>
-                                            <a href="{{route('alunos.index')}}" class="btn">Cancelar</a>
+                                            <a href="{{route('defaultings.index')}}" class="btn">Cancelar</a>
                                         </div>
                                     </div>
                                 </form>
