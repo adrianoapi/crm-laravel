@@ -99,9 +99,23 @@
                                                         <i class="icon-credit-card"></i>
                                                     </a>
                                                 <?php } ?>
-                                                <a href="{{route('defaultings.edit', ['defaulting' => $value->id])}}" class="btn" rel="tooltip" title="" data-original-title="Editar">
-                                                    <i class="icon-edit"></i>
-                                                </a>
+
+                                                <div class="btn-group">
+                                                    <a href="#" data-toggle="dropdown" class="btn dropdown-toggle"><i class="icon-edit"></i> <span class="caret"></span></a>
+                                                    <ul class="dropdown-menu">
+                                                        <li>
+                                                        <a href="{{route('defaultings.edit', ['defaulting' => $value->id])}}" >
+                                                            Negociação
+                                                        </a>
+
+                                                        </li>
+                                                        <li>
+                                                            <a href="{{route('alunos.edit', ['Student' => $value->student->id])}}">
+                                                                Aluno
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
 
                                                 <button type="submit" class="btn btn-red" rel="tooltip" title="" data-original-title="Excluir">
                                                     <i class="icon-trash"></i>
