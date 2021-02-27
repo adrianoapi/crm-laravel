@@ -36,9 +36,9 @@
                                                 <tr>
                                                     <th>Negociado</th>
                                                     <th>Material</th>
-                                                    <th>Abertas</th>
                                                     <th>Total</th>
                                                     <th>Serviço</th>
+                                                    <th>Total</th>
                                                     <th>Multa</th>
                                                     <th>Total</th>
                                                     <th>Adicionar</th>
@@ -62,6 +62,7 @@
                                                             echo number_format($valor, 2, ',', '.');
                                                         ?>
                                                     </td>
+                                                    <td>{{$defaulting->s_parcelas}}/{{$defaulting->s_parcelas - $defaulting->s_parcela_pg}}</td>
                                                     <td>
                                                         <?php
                                                             $valor = str_replace(',', '.', str_replace('.', '', $defaulting->s_parcela_valor));
