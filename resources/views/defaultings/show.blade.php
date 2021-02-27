@@ -323,7 +323,7 @@
                         <div class="box-content nopadding">
 
                         <textarea name="history" id="history" rows="5" class="input-block-level" placeholder="Descreva a negociação..."></textarea>
-                        <button type="button" class="btn btn-primary" onclick="saveHistory()">Registar</button>
+                        <button type="button" class="btn btn-primary" onclick="saveHistory()">Registrar</button>
                         <p></div>
 
                         <div class="box-content nopadding">
