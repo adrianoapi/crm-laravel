@@ -17,6 +17,7 @@ class CreateDefaultingsTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('student_id');
+            $table->string('student_name', 100)->nullable(true);
             $table->date('dt_inadimplencia')->nullable(true);
             $table->integer('m_parcelas')->nullable(true);
             $table->integer('m_parcela_pg')->nullable(true);
