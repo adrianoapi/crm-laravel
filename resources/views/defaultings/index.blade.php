@@ -93,9 +93,9 @@
                                                         <i class="icon-credit-card"></i> Negociar
                                                     </a>
                                                 <?php }else{ ?>
-                                                    <span class="btn" rel="tooltip" title="" data-original-title="Negociar">
+                                                    <a href="{{route('defaultings.show', ['defaulting' => $value->id])}}" class="btn" rel="tooltip" title="" data-original-title="Negociar">
                                                         <i class="icon-credit-card"></i> Negociar
-                                                    </span>
+                                                    </a>
                                                 <?php } ?>
 
                                                 <button type="submit" class="btn btn-red" rel="tooltip" title="" data-original-title="Excluir">
@@ -107,6 +107,7 @@
                                 @endforeach
                                 </tbody>
                             </table>
+                            {{ $defaultings->links('layouts.pagination') }}
                         </div>
 
                     </div>

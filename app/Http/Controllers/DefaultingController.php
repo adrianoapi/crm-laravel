@@ -37,13 +37,13 @@ class DefaultingController extends Controller
                     array_push($ids, $value->id);
                 endforeach;
 
-                $defaultings = Defaulting::whereIn('student_id', $ids)->paginate(1000);
+                $defaultings = Defaulting::whereIn('student_id', $ids)->paginate(100);
             }else{
-                $defaultings = Defaulting::orderBy('dt_inadimplencia', 'desc')->paginate(1000);
+                $defaultings = Defaulting::orderBy('dt_inadimplencia', 'desc')->paginate(100);
             }
 
         }else{
-            $defaultings = Defaulting::orderBy('dt_inadimplencia', 'desc')->paginate(1000);
+            $defaultings = Defaulting::orderBy('dt_inadimplencia', 'desc')->paginate(100);
         }
 
         $title = $this->title. " listagem";
