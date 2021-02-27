@@ -61,14 +61,8 @@
 
             </ul>
             <div class="dropdown">
-                <a href="#" class='dropdown-toggle' data-toggle="dropdown">John Doe <img src="{!! asset('flat-admin/img/demo/user-avatar.jpg') !!}" alt=""></a>
+                <a href="#" class='dropdown-toggle' data-toggle="dropdown">{{Auth::user()->name}}</a>
                 <ul class="dropdown-menu pull-right">
-                    <li>
-                        <a href="more-userprofile.html">Edit profile</a>
-                    </li>
-                    <li>
-                        <a href="#">Account settings</a>
-                    </li>
                     <li>
                         <a href="{{route('login.logout')}}">Sair</a>
                     </li>
