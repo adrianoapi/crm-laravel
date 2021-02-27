@@ -22,10 +22,25 @@ class StudentController extends Controller
      */
     public function index()
     {
+        $pesuisar = NULL;
+        if(array_key_exists('filtro',$_GET))
+        {
+            if(strlen($_GET['pesquisar']))
+            {
+                $pesuisar = $_GET['pesquisar'];
+                $students = Student::where('name', 'like', '%' . $pesuisar . '%')
+                ->orderBy('name', 'asc')
+                ->paginate(100);
+            }else{
+                $students = Student::where('active', true)->orderBy('name', 'asc')->paginate(100);
+            }
+        }else{
+            $students = Student::where('active', true)->orderBy('name', 'asc')->paginate(100);
+        }
         $title = $this->title. " listagem";
-        $students = Student::where('active', true)->orderBy('name', 'asc')->paginate(1000);
 
-        return view('students.index', ['title' => $title, 'students' => $students]);
+
+        return view('students.index', ['title' => $title, 'students' => $students, 'pesuisar' => $pesuisar]);
     }
 
     /**
