@@ -36,6 +36,8 @@
                                                 <tr>
                                                     <th>Negociado</th>
                                                     <th>Material</th>
+                                                    <th>Abertas</th>
+                                                    <th>Total</th>
                                                     <th>Serviço</th>
                                                     <th>Multa</th>
                                                     <th>Total</th>
@@ -52,6 +54,7 @@
                                                             echo '<button class="btn btn-small  btn-danger">NÃO</button>';
                                                         }
                                                     ?></td>
+                                                    <td>{{$defaulting->m_parcelas}}/{{$defaulting->m_parcelas - $defaulting->m_parcela_pg}}</td>
                                                     <td>
                                                         <?php
                                                             $valor = str_replace(',', '.', str_replace('.', '', $defaulting->m_parcela_valor));
