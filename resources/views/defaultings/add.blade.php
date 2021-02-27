@@ -184,6 +184,7 @@ function calcular()
     var m_parcela_valor = $("#m_parcela_valor").val();
 
     var m_parcela_pendente = m_parcelas - m_parcela_pg;
+    $("#m_parcela_ab").val(m_parcela_pendente);
 
     var m_total = m_parcela_pendente * mascaraValor(m_parcela_valor);
 
@@ -195,6 +196,7 @@ function calcular()
     var s_parcela_valor = $("#s_parcela_valor").val();
 
     var s_parcela_pendente = s_parcelas - s_parcela_pg;
+    $("#s_parcela_ab").val(s_parcela_pendente);
 
     var s_total = s_parcela_pendente * mascaraValor(s_parcela_valor);
 
