@@ -37,7 +37,7 @@ class DefaultingController extends Controller
                     array_push($ids, $value->id);
                 endforeach;
 
-                $defaultings = Defaulting::whereIn('student_id', $ids)->paginate(100);
+                $defaultings = Defaulting::whereIn('student_id', $ids)->orderBy('dt_inadimplencia', 'desc')->paginate(100);
             }else{
                 $defaultings = Defaulting::orderBy('dt_inadimplencia', 'desc')->paginate(100);
             }

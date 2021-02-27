@@ -39,6 +39,7 @@
                             <table class="table table-hover table-nomargin table-colored-header">
                                 <thead>
                                     <tr>
+                                        <th>Inadimplência</th>
                                         <th>Nome</th>
                                         <th>Negociado</th>
                                         <th>Fones</th>
@@ -52,6 +53,7 @@
                                 <tbody>
                                 @foreach ($defaultings as $value)
                                     <tr>
+                                        <td>{{$value->dt_inadimplencia}}</td>
                                         <td><a href="{{route('defaultings.show', ['defaulting' => $value->id])}}" target="_parent">{{$value->student->name}}</a></td>
                                         <td><?php
                                             if($value->student->negociado){
@@ -90,13 +92,16 @@
                                                 @method('delete')
                                                 <?php if($value->student->negociado){ ?>
                                                     <a href="{{route('defaultings.show', ['defaulting' => $value->id])}}" class="btn btn-lime" rel="tooltip" title="" data-original-title="Negociar">
-                                                        <i class="icon-credit-card"></i> Negociar
+                                                        <i class="icon-credit-card"></i>
                                                     </a>
                                                 <?php }else{ ?>
                                                     <a href="{{route('defaultings.show', ['defaulting' => $value->id])}}" class="btn" rel="tooltip" title="" data-original-title="Negociar">
-                                                        <i class="icon-credit-card"></i> Negociar
+                                                        <i class="icon-credit-card"></i>
                                                     </a>
                                                 <?php } ?>
+                                                <a href="{{route('defaultings.edit', ['defaulting' => $value->id])}}" class="btn" rel="tooltip" title="" data-original-title="Editar">
+                                                    <i class="icon-edit"></i>
+                                                </a>
 
                                                 <button type="submit" class="btn btn-red" rel="tooltip" title="" data-original-title="Excluir">
                                                     <i class="icon-trash"></i>
