@@ -15,7 +15,7 @@
                 <div class="span12">
                     <div class="box box-bordered box-color">
                         <div class="box-title">
-                            <h3><i class="icon-th-list"></i> {{$title}}</h3>
+                            <h3><i class="icon-th-list"></i> {{$title}}: {{$defaulting->student->name}}</h3>
                         </div>
                         <div class="box-content nopadding">
                             <div class="tabs-container">
