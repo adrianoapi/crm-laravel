@@ -153,6 +153,10 @@ class StudentController extends Controller
 
         if($request->defaulting_id)
         {
+            $dataulting = Defaulting::find($request->defaulting_id);
+            $dataulting->student_name = $request->name;
+            $dataulting->save();
+
             return redirect()->route('defaultings.show', ['defaulting' => $request->defaulting_id]);
         }else{
             return redirect()->route('alunos.index');
