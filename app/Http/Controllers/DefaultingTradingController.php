@@ -39,16 +39,18 @@ class DefaultingTradingController extends Controller
         DefaultingTrading::where('defaulting_id', $request->defaulting_id)->delete();
 
         $i = 0;
-        foreach($request->parcela as $value):
-            $model = new DefaultingTrading();
-            $model->user_id     = Auth::id();
-            $model->defaulting_id = $request->defaulting_id;
-            $model->vencimento = $request->vencimento[$i];
-            $model->valor = $request->valor[$i];
-            $model->parcela = $request->parcela[$i];
-            $model->save();
-            $i++;
-        endforeach;
+        if(!empty($request->parcela)){
+            foreach($request->parcela as $value):
+                $model = new DefaultingTrading();
+                $model->user_id     = Auth::id();
+                $model->defaulting_id = $request->defaulting_id;
+                $model->vencimento = $request->vencimento[$i];
+                $model->valor = $request->valor[$i];
+                $model->parcela = $request->parcela[$i];
+                $model->save();
+                $i++;
+            endforeach;
+        }
 
         return redirect()->route('defaultings.index');
     }
