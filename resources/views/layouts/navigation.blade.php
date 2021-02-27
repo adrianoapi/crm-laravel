@@ -8,9 +8,9 @@
 					<li>
 						<a href="{{route('usuarios.index')}}">Usuarios</a>
 					</li>
-					<li>
+					<!--<li>
 						<a href="{{route('alunos.index')}}">Alunos</a>
-					</li>
+					</li>-->
 				</ul>
 				<div class="subnav-title">
 					<a href="#" class='toggle-subnav'><i class="icon-angle-down"></i><span>Financeiro</span></a>
