@@ -115,21 +115,21 @@
                                             <div class="row-fluid">
                                                 <div class="span2">
                                                     <div class="control-group">
-                                                        <label for="parcela" class="control-label">Parcela</label>
+                                                        <!--<label for="parcela" class="control-label">Parcela</label>-->
                                                         <div class="controls controls-row">
                                                             <input type="number" name="parcela[]" value="{{$value->parcela}}" id="parcela" placeholder="00" class="input-block-level" required="">                    </div>
                                                     </div>
                                                 </div>
                                                 <div class="span2">
                                                     <div class="control-group">
-                                                        <label for="data" class="control-label">Data</label>
+                                                        <!--<label for="data" class="control-label">Data</label>-->
                                                         <div class="controls controls-row">
-                                                            <input type="text" name="vencimento[]" value="{{$value->vencimento}}" id="vencimento" placeholder="00/00/0000" class="date input-block-level" required="" maxlength="10">                    </div>
+                                                            <input type="text" name="vencimento[]" value="{{$value->vencimento}}" id="vencimento" placeholder="00/00/0000" class="date input-block-level datepick" required="" maxlength="10">                    </div>
                                                     </div>
                                                 </div>
                                                 <div class="span2">
                                                     <div class="control-group">
-                                                        <label for="valor" class="control-label">Valor</label>
+                                                        <!--<label for="valor" class="control-label">Valor</label>-->
                                                         <div class="controls controls-row">
                                                             <input type="text" name="valor[]" value="{{$value->valor}}" id="valor" placeholder="100,00" class="money input-block-level" required="">                    </div>
                                                     </div>
@@ -414,15 +414,15 @@
                 inputs += '        <div class="row-fluid">';
                 inputs += '           <div class="span2">';
                 inputs += '                <div class="control-group">';
-                inputs += '                   <label for="parcela" class="control-label">Parcela</label>';
+                inputs += '                   <!--<label for="parcela" class="control-label">Parcela</label>-->';
                 inputs += '                    <div class="controls controls-row">';
-                inputs += '                        <input type="number" name="parcela[]" id="parcela" placeholder="00" class="input-block-level" required>';
+                inputs += '                        <input type="number" name="parcela[]" id="parcela" placeholder="0" class="input-block-level" required>';
                 inputs += '                    </div>';
                 inputs += '                </div>';
                 inputs += '            </div>';
                 inputs += '            <div class="span2">';
                 inputs += '                <div class="control-group">';
-                inputs += '                    <label for="data" class="control-label">Data</label>';
+                inputs += '                    <!--<label for="data" class="control-label">Data</label>-->';
                 inputs += '                   <div class="controls controls-row">';
                 inputs += '                        <input type="text" name="vencimento[]" id="vencimento" placeholder="00/00/0000" class="date input-block-level datepick" required>';
                 inputs += '                    </div>';
@@ -430,7 +430,7 @@
                 inputs += '            </div>';
                 inputs += '           <div class="span2">';
                 inputs += '                <div class="control-group">';
-                inputs += '                    <label for="valor" class="control-label">Valor</label>';
+                inputs += '                    <!--<label for="valor" class="control-label">Valor</label>-->';
                 inputs += '                    <div class="controls controls-row">';
                 inputs += '                        <input type="text" name="valor[]" id="valor" placeholder="100,00"  class="money input-block-level" required>';
                 inputs += '                    </div>';
@@ -481,6 +481,7 @@
                         success: function(data){
                             console.log(data);
                             inserirLinha(data['attributes']);
+                            $("#history").val('');
                         }
                 });
             }
@@ -501,6 +502,11 @@
                         language: 'pt-BR'
                     });
                 });
+            });
+
+            $('.datepick').datepicker({
+                format: 'dd/mm/yyyy',
+                language: 'pt-BR'
             });
 
             </script>

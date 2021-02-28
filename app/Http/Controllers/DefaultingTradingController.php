@@ -52,7 +52,7 @@ class DefaultingTradingController extends Controller
             endforeach;
         }
 
-        return redirect()->route('defaultings.index');
+        return redirect()->route('defaultings.show', ['defaulting' => $request->defaulting_id]);
     }
 
     /**
