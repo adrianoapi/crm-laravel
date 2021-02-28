@@ -28,11 +28,12 @@
                         </div>
 
                         <div class="box-content nopadding">
-                            <table class="table table-hover table-nomargin table-colored-header">
+                            <table class="table table-hover table-nomargin table-bordered table-colored-header">
                                 <thead>
                                     <tr>
                                         <th>Nome</th>
                                         <th>Negociado</th>
+                                        <th>Boleto</th>
                                         <th>Fones</th>
                                         <th>Material</th>
                                         <th>Serviço</th>
@@ -41,31 +42,42 @@
                                         <th class='hidden-350'>Ações</th>
                                     </tr>
                                     <tr>
-                                        <th colspan="4">
+                                        <th colspan="5">
                                             <form action="{{route('defaultings.index')}}" method="GET" class="span12" style="margin: 0;padding:0;">
                                             <div class="span12">
                                                 <div class="control-group">
                                                     <div class="controls controls-row">
-                                                        <input type="hidden" name="filtro" value="pesquisa">
-                                                        <input placeholder="Nome, telefone, ctr, uindade, curso..." type="text" name="pesquisar" value="{{$pesuisar}}" class="input-block-level">
+                                                        <input type="hidden" name="filtro" id="filtro" value="pesquisa">
+                                                        <input id="pesquisar" placeholder="Nome, telefone, ctr, uindade, curso..." type="text" name="pesquisar" value="{{$pesuisar}}" class="input-block-level">
                                                     </div>
                                                 </div>
 										    </div>
                                         </th>
-                                        <th colspan="2">
+                                        <th colspan="1">
                                             <div class="span12">
                                                 <div class="control-group">
                                                     <div class="controls controls-row">
                                                         <select name="negociado" id="negociado" class='input-block-level'>
-                                                            <option value="">Negociado?</option>
-                                                            <option value="true">SIM</option>
-                                                            <option value="false">NÃO</option>
+                                                            <option value="nao" {{!$negociado ? 'selected':''}}>Negociado Não</option>
+                                                            <option value="sim" {{$negociado ? 'selected':''}}>Negociado Sim</option>
                                                         </select>
                                                     </div>
                                                 </div>
                                             </div>
                                         </th>
                                         <th colspan="2">
+                                            <div class="span12">
+                                                <div class="control-group">
+                                                    <div class="controls controls-row">
+                                                        <select name="boleto" id="boleto" class='input-block-level'>
+                                                            <option value="nao" {{!$boleto ? 'selected':''}}>Boleto Não</option>
+                                                            <option value="sim" {{$boleto ? 'selected':''}}>Boleto Sim</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </th>
+                                        <th>
                                             <div class="span12">
                                                 <div class="control-group">
                                                     <div class="controls controls-row">
@@ -82,9 +94,19 @@
                                 <tbody>
                                 @foreach ($defaultings as $value)
                                     <tr>
-                                        <td><a href="{{route('defaultings.show', ['defaulting' => $value->id])}}" target="_parent">{{$value->student->name}}</a></td>
+                                        <td>
+                                            <a href="{{route('defaultings.show', ['defaulting' => $value->id])}}" target="_parent">{{$value->student->name}}</a>
+                                            <br><small>Unid: {{$value->student->cod_unidade}} / Curso: {{$value->student->cod_curso}} / CTR: {{$value->student->ctr}} / CPF: {{$value->student->celular}}</small>
+                                        </td>
                                         <td><?php
                                             if($value->student->negociado){
+                                                echo '<button class="btn btn-small  btn-success">SIM</button>';
+                                            }else{
+                                                echo '<button class="btn btn-small  btn-danger">NÃO</button>';
+                                            }
+                                        ?></td>
+                                        <td><?php
+                                            if($value->student->boleto){
                                                 echo '<button class="btn btn-small  btn-success">SIM</button>';
                                             }else{
                                                 echo '<button class="btn btn-small  btn-danger">NÃO</button>';
@@ -133,6 +155,14 @@
                                 @endforeach
                                 </tbody>
                             </table>
+                            <script>
+                            $("#negociado").change( function() {
+                                $("#pesquisar").val('');
+                            });
+                            $("#boleto").change( function() {
+                                $("#pesquisar").val('');
+                            });
+                            </script>
                             {{ $defaultings->links('layouts.pagination') }}
                         </div>
 
@@ -143,5 +173,6 @@
     </div>
 
 </div>
+
 
 @endsection

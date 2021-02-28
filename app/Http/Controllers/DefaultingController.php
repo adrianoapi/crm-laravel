@@ -22,16 +22,48 @@ class DefaultingController extends Controller
      */
     public function index()
     {
+        $students = NULL;
         $pesuisar = NULL;
+        $negociado = false;
+        $boleto = false;
+        /*echo '<pre>';
+        print_r($_GET);
+        die();*/
         if(array_key_exists('filtro',$_GET))
         {
+
             if(strlen($_GET['pesquisar']))
             {
                 $pesuisar = $_GET['pesquisar'];
-                $students = Student::where('name', 'like', '%' . $pesuisar . '%')
+                $students = Student::Where('name', 'like', '%' . $pesuisar . '%')
+                ->orWhere('ctr', 'like', '%' . $pesuisar . '%')
+                ->orWhere('cod_unidade', 'like', '%' . $pesuisar . '%')
+                ->orWhere('cod_curso', 'like', '%' . $pesuisar . '%')
+                ->orWhere('responsavel', 'like', '%' . $pesuisar . '%')
+                ->orWhere('cpf_cnpj', 'like', '%' . $pesuisar . '%')
+                ->orWhere('telefone', 'like', '%' . $pesuisar . '%')
+                ->orWhere('telefone', 'like', '%' . $pesuisar . '%')
+                ->orWhere('celular', 'like', '%' . $pesuisar . '%')
                 ->orderBy('name', 'asc')
                 ->get();
+            }elseif(strlen($_GET['negociado']) || strlen($_GET['boleto']))
+            {
+                if(strlen($_GET['negociado']))
+                {
+                    $negociado = $_GET['negociado'] == 'sim' ? true : false;
+                }
+                if(strlen($_GET['boleto']))
+                {
+                    $boleto = $_GET['boleto'] == 'sim' ? true : false;
+                }
+                $students = Student::where('negociado', $negociado)
+                ->where('boleto', $boleto)
+                ->orderBy('name', 'asc')
+                ->get();
+            }
 
+            if(!empty($students))
+            {
                 $ids = [];
                 foreach($students as $value):
                     array_push($ids, $value->id);
@@ -42,13 +74,20 @@ class DefaultingController extends Controller
                 $defaultings = Defaulting::orderBy('student_name', 'asc')->paginate(100);
             }
 
+
         }else{
             $defaultings = Defaulting::orderBy('student_name', 'asc')->paginate(100);
         }
 
         $title = $this->title. " listagem";
 
-        return view('defaultings.index', ['title' => $title, 'defaultings' => $defaultings, 'pesuisar' => $pesuisar]);
+        return view('defaultings.index', [
+            'title' => $title,
+            'defaultings' => $defaultings,
+            'pesuisar' => $pesuisar,
+            'negociado' => $negociado,
+            'boleto' => $boleto,
+            ]);
     }
 
     /**

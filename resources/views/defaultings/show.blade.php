@@ -312,7 +312,7 @@
                                         </div>
                                     </div>
                                     <div class="row-fluid">
-                                        <div class="span2">
+                                    <div class="span2">
                                             <div class="control-group">
                                                 <label for="negociado" class="control-label">Negociado*</label>
                                                 <div class="controls controls-row">
@@ -323,16 +323,19 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="row-fluid">
-                                        <div class="span12">
+                                        <div class="span2">
                                             <div class="control-group">
-                                                <label for="observacao" class="control-label">Observação</label>
+                                                <label for="negociado" class="control-label">Boleto Gerado</label>
                                                 <div class="controls controls-row">
-                                                    <textarea name="observacao" id="observacao" placeholder="observacao..." class="input-block-level">{{$student[0]->observacao}}</textarea>
+                                                    <select name="boleto" id="boleto" class='select2-me input-block-level' required>
+                                                        <option value="true" {{$student[0]->boleto ? 'selected':''}}>SIM</option>
+                                                        <option value="false" {{!$student[0]->boleto ? 'selected':''}}>NÃO</option>
+                                                    </select>
                                                 </div>
                                             </div>
                                         </div>
+                                    </div>
+                                    <div class="row-fluid">
                                         <div class="form-actions">
                                             <button type="submit" class="btn btn-primary">Salvar</button>
                                             <a href="{{route('defaultings.index')}}" class="btn">Cancelar</a>

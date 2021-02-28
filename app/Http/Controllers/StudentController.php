@@ -85,6 +85,7 @@ class StudentController extends Controller
         $model->estado = $request->estado;
         $model->observacao = $request->observacao;
         $model->negociado = $request->negociado == 'true' ? true : false;
+        $model->boleto = $request->boleto == 'true' ? true : false;
         $model->save();
 
         return redirect()->route('alunos.index');
@@ -149,6 +150,7 @@ class StudentController extends Controller
         $student->estado = $request->estado;
         $student->observacao = $request->observacao;
         $student->negociado = $request->negociado == 'true' ? true : false;
+        $student->boleto = $request->boleto == 'true' ? true : false;
         $student->save();
 
         if($request->defaulting_id)
