@@ -83,7 +83,7 @@ class StudentController extends Controller
         $model->bairro = $request->bairro;
         $model->cidade = $request->cidade;
         $model->estado = $request->estado;
-        $model->observacao = $request->observacao;
+        $model->fase = $request->fase;
         $model->negociado = $request->negociado == 'true' ? true : false;
         $model->boleto = $request->boleto == 'true' ? true : false;
         $model->save();
@@ -148,7 +148,7 @@ class StudentController extends Controller
         $student->bairro = $request->bairro;
         $student->cidade = $request->cidade;
         $student->estado = $request->estado;
-        $student->observacao = $request->observacao;
+        $student->fase = $request->fase;
         $student->negociado = $request->negociado == 'true' ? true : false;
         $student->boleto = $request->boleto == 'true' ? true : false;
         $student->save();

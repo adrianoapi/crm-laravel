@@ -15,6 +15,7 @@ class AddColumnsToStudents extends Migration
     {
         Schema::table('students', function (Blueprint $table) {
             $table->boolean('boleto')->default(false);
+            $table->enum('fase', ['segunda', 'terceira'])->default('segunda');
         });
     }
 
@@ -27,6 +28,7 @@ class AddColumnsToStudents extends Migration
     {
         Schema::table('students', function (Blueprint $table) {
             $table->dropColumn('boleto');
+            $table->dropColumn('fase');
         });
     }
 }

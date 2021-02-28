@@ -19,6 +19,10 @@
         <!-- Color CSS -->
         <link rel="stylesheet" href="{!! asset('flat-admin/css/themes.css') !!}">
 
+        <!-- Datepicker -->
+	    <link rel="stylesheet" href="{!! asset('flat-admin/css/plugins/datepicker/datepicker.css') !!}">
+
+
         <!-- jQuery -->
         <script src="{!! asset('flat-admin/js/jquery.min.js') !!}"></script>
         <!-- Nice Scroll -->
@@ -44,6 +48,9 @@
         <script src="{!! asset('flat-admin/js/application.min.js') !!}"></script>
         <!-- Just for demonstration -->
         <script src="{!! asset('flat-admin/js/demonstration.min.js') !!}"></script>
+
+        <!-- Datepicker -->
+	    <script src="{!! asset('flat-admin/js/plugins/datepicker/bootstrap-datepicker.js') !!}"></script>
 
         <script src="{!! asset('librarys/jquery.mask.min.js') !!}"></script>
 

@@ -334,6 +334,17 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        <div class="span2">
+                                            <div class="control-group">
+                                                <label for="fase" class="control-label">Fase</label>
+                                                <div class="controls controls-row">
+                                                    <select name="fase" id="fase" class='select2-me input-block-level' required>
+                                                        <option value="segunda" {{$student[0]->fase == 'segunda' ? 'selected':''}}>Segunda</option>
+                                                        <option value="terceira" {{$student[0]->fase == 'terceira' ? 'selected':''}}>Terceira</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                     <div class="row-fluid">
                                         <div class="form-actions">
@@ -413,7 +424,7 @@
                 inputs += '                <div class="control-group">';
                 inputs += '                    <label for="data" class="control-label">Data</label>';
                 inputs += '                   <div class="controls controls-row">';
-                inputs += '                        <input type="text" name="vencimento[]" id="vencimento" placeholder="00/00/0000" class="date input-block-level" required>';
+                inputs += '                        <input type="text" name="vencimento[]" id="vencimento" placeholder="00/00/0000" class="date input-block-level datepick" required>';
                 inputs += '                    </div>';
                 inputs += '                </div>';
                 inputs += '            </div>';
@@ -482,6 +493,15 @@
                 html +=  '<p>'+data['observacao']+'</p>';
                 $("#history-table").prepend("<tr><td>"+html+"</td></tr>");
             }
+
+            $(document).ready(function () {
+                $(document).on('focus', '.datepick', function () {
+                    $(this).datepicker({
+                        format: 'dd/mm/yyyy',
+                        language: 'pt-BR'
+                    });
+                });
+            });
 
             </script>
 

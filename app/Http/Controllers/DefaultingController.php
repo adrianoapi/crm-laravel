@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Auth;
 
 class DefaultingController extends Controller
 {
-    private $title  = 'Segunda Fase';
+    private $title  = 'CONTRATO - EVOLUTIME';
 
     public function __construct()
     {

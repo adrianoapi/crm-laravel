@@ -17,7 +17,7 @@
 				</div>
 				<ul class="subnav-menu">
 					<li>
-						<a href="{{route('defaultings.index')}}">Segunda Fase</a>
+						<a href="{{route('defaultings.index')}}">CONTRATO - EVOLUTIME</a>
 					</li>
 				</ul>
 			</div>

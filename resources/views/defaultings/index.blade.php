@@ -31,6 +31,7 @@
                             <table class="table table-hover table-nomargin table-bordered table-colored-header">
                                 <thead>
                                     <tr>
+                                        <th>Fase</th>
                                         <th>Nome</th>
                                         <th>Negociado</th>
                                         <th>Boleto</th>
@@ -42,7 +43,7 @@
                                         <th class='hidden-350'>Ações</th>
                                     </tr>
                                     <tr>
-                                        <th colspan="5">
+                                        <th colspan="6">
                                             <form action="{{route('defaultings.index')}}" method="GET" class="span12" style="margin: 0;padding:0;">
                                             <div class="span12">
                                                 <div class="control-group">
@@ -94,6 +95,7 @@
                                 <tbody>
                                 @foreach ($defaultings as $value)
                                     <tr>
+                                        <td>{{$value->student->fase}}</td>
                                         <td>
                                             <a href="{{route('defaultings.show', ['defaulting' => $value->id])}}" target="_parent">{{$value->student->name}}</a>
                                             <br><small>Unid: {{$value->student->cod_unidade}} / Curso: {{$value->student->cod_curso}} / CTR: {{$value->student->ctr}} / CPF: {{$value->student->celular}}</small>
