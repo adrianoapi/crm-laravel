@@ -23,15 +23,7 @@
                                 <i class="icon-reorder"></i> Novo</a>
                             </span>
                             <span class="tabs">
-                                <form action="{{route('defaultings.index')}}" method="GET" class="span12" style="margin: 0;padding:0;">
-                                    <div class="input-group span12">
-                                        <input type="hidden" name="filtro" value="pesquisa">
-                                        <input placeholder="Search" type="text" name="pesquisar" value="{{$pesuisar}}" class="form-control form-control-sm">
-                                        <span class="input-group-append">
-                                            <button type="submit" style="margin-top:-10px;" class="btn btn-sm btn-primary">Go!</button>
-                                        </span>
-                                    </div>
-                                </form>
+
                             </span>
                         </div>
 
@@ -39,7 +31,6 @@
                             <table class="table table-hover table-nomargin table-colored-header">
                                 <thead>
                                     <tr>
-                                        <th>Inadimplência</th>
                                         <th>Nome</th>
                                         <th>Negociado</th>
                                         <th>Fones</th>
@@ -49,11 +40,48 @@
                                         <th>Total</th>
                                         <th class='hidden-350'>Ações</th>
                                     </tr>
+                                    <tr>
+                                        <th colspan="4">
+                                            <form action="{{route('defaultings.index')}}" method="GET" class="span12" style="margin: 0;padding:0;">
+                                            <div class="span12">
+                                                <div class="control-group">
+                                                    <div class="controls controls-row">
+                                                        <input type="hidden" name="filtro" value="pesquisa">
+                                                        <input placeholder="Nome, telefone, ctr, uindade, curso..." type="text" name="pesquisar" value="{{$pesuisar}}" class="input-block-level">
+                                                    </div>
+                                                </div>
+										    </div>
+                                        </th>
+                                        <th colspan="2">
+                                            <div class="span12">
+                                                <div class="control-group">
+                                                    <div class="controls controls-row">
+                                                        <select name="negociado" id="negociado" class='input-block-level'>
+                                                            <option value="">Negociado?</option>
+                                                            <option value="true">SIM</option>
+                                                            <option value="false">NÃO</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </th>
+                                        <th colspan="2">
+                                            <div class="span12">
+                                                <div class="control-group">
+                                                    <div class="controls controls-row">
+                                                        <span class="input-group-append">
+                                                            <button type="submit" class="btn btn-sm" style="margin-top:-10px;">Pesquisar</button>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            </form>
+                                        </th>
+                                    </tr>
                                 </thead>
                                 <tbody>
                                 @foreach ($defaultings as $value)
                                     <tr>
-                                        <td>{{$value->dt_inadimplencia}}</td>
                                         <td><a href="{{route('defaultings.show', ['defaulting' => $value->id])}}" target="_parent">{{$value->student->name}}</a></td>
                                         <td><?php
                                             if($value->student->negociado){
