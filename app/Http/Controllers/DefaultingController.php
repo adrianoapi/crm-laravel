@@ -26,9 +26,7 @@ class DefaultingController extends Controller
         $pesuisar = NULL;
         $negociado = false;
         $boleto = false;
-        /*echo '<pre>';
-        print_r($_GET);
-        die();*/
+
         if(array_key_exists('filtro',$_GET))
         {
 
@@ -111,9 +109,11 @@ class DefaultingController extends Controller
      */
     public function store(Request $request)
     {
+        $student = Student::where('id', $request->student_id)->get();
         $segundaFase = new Defaulting();
         $segundaFase->user_id          = Auth::id();
         $segundaFase->student_id       = $request->student_id;
+        $segundaFase->student_name     = $student[0]->name;
         $segundaFase->dt_inadimplencia = $request->dt_inadimplencia;
 
         $segundaFase->m_parcelas = $request->m_parcelas;
