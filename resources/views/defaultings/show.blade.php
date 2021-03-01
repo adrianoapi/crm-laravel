@@ -31,62 +31,83 @@
                             <div class="tab-content padding tab-content-inline tab-content-bottom">
 
                                 <div class="tab-pane" id="negociacao">
-                                        <table class="table">
+                                        <table class="table table-bordered">
                                             <thead>
                                                 <tr>
                                                     <th>Negociado</th>
                                                     <th>Material</th>
+                                                    <th>Pagas</th>
+                                                    <th>Pendente</th>
                                                     <th>Total</th>
                                                     <th>Serviço</th>
+                                                    <th>Pagas</th>
+                                                    <th>Pendente</th>
                                                     <th>Total</th>
                                                     <th>Multa</th>
-                                                    <th>Total</th>
-                                                    <th>Adicionar</th>
+                                                    <th>Total L</th>
+                                                    <th>Total G</th>
                                                     <th>Ações</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 <tr>
                                                     <td><?php
+                                                        $m_parcelas = $defaulting->m_parcelas;
+                                                        $m_parcela_pg = $defaulting->m_parcela_pg;
+                                                        $m_pendente = $defaulting->m_parcelas - $defaulting->m_parcela_pg;
+                                                        $m_parcela_valor = $defaulting->m_parcela_valor;
+
+                                                        $s_parcelas = $defaulting->s_parcelas;
+                                                        $s_parcela_pg = $defaulting->s_parcela_pg;
+                                                        $s_pendente = $defaulting->s_parcelas - $defaulting->s_parcela_pg;
+                                                        $s_parcela_valor = $defaulting->s_parcela_valor;
+
                                                         if($defaulting->student->negociado){
                                                             echo '<button class="btn btn-small  btn-success">SIM</button>';
                                                         }else{
                                                             echo '<button class="btn btn-small  btn-danger">NÃO</button>';
                                                         }
                                                     ?></td>
-                                                    <td>{{$defaulting->m_parcelas}}/{{$defaulting->m_parcelas - $defaulting->m_parcela_pg}}</td>
+                                                    <td>{{$m_parcelas}} de {{$m_parcela_valor}}</td>
+                                                    <td>{{$m_parcela_pg}}</td>
+                                                    <td>{{$m_pendente}}</td>
                                                     <td>
                                                         <?php
-                                                            $valor = str_replace(',', '.', str_replace('.', '', $defaulting->m_parcela_valor));
-                                                            $valor = ($defaulting->m_parcelas - $defaulting->m_parcela_pg) * $valor;
-                                                            echo number_format($valor, 2, ',', '.');
+                                                            #primeiro total
+                                                            $valor = str_replace(',', '.', str_replace('.', '', $m_parcela_valor));
+                                                            $m_valor_total = ($m_parcelas - $m_parcela_pg) * $valor;
+                                                            echo number_format($m_valor_total, 2, ',', '.');
                                                         ?>
                                                     </td>
-                                                    <td>{{$defaulting->s_parcelas}}/{{$defaulting->s_parcelas - $defaulting->s_parcela_pg}}</td>
+                                                    <td>{{$s_parcelas}} de {{$s_parcela_valor}}</td>
+                                                    <td>{{$s_parcela_pg}}</td>
+                                                    <td>{{$s_pendente}}</td>
                                                     <td>
                                                         <?php
-                                                            $valor = str_replace(',', '.', str_replace('.', '', $defaulting->s_parcela_valor));
-                                                            $valor_total = ($defaulting->s_parcelas - $defaulting->s_parcela_pg) * $valor;
-                                                            echo number_format($valor_total, 2, ',', '.');
+                                                            #segundo total
+                                                            $valor = str_replace(',', '.', str_replace('.', '', $s_parcela_valor));
+                                                            $s_valor_total = ($defaulting->s_parcelas - $defaulting->s_parcela_pg) * $valor;
+                                                            echo number_format($s_valor_total, 2, ',', '.');
                                                         ?>
                                                     </td>
                                                     <td>
                                                         <?php
                                                             $multa = str_replace(',', '.', str_replace('.', '', $defaulting->multa));
-                                                            $multa = $multa * $valor_total / 100;
+                                                            $multa = $multa * $s_valor_total / 100;
                                                             echo number_format($multa, 2, ',', '.');
                                                         ?>
                                                     </td>
                                                     <td>
                                                         <?php
-                                                            $total = $valor_total + $multa;
+                                                            $total = $m_valor_total + $multa;
                                                             echo number_format($total, 2, ',', '.');
                                                         ?>
                                                     </td>
                                                     <td>
-                                                        <span class="add_form_field btn btn-teal">Parcela &nbsp;
-                                                            <span  span style="font-size:16px; font-weight:bold;">+ </span>
-                                                        </span>
+                                                        <?php
+                                                            $total = $m_valor_total + $s_valor_total;
+                                                            echo number_format($total, 2, ',', '.');
+                                                        ?>
                                                     </td>
                                                     <td>
                                                         <form action="{{route('defaultings.destroy', ['defaulting' => $defaulting->id])}}" method="POST" onSubmit="return confirm('Deseja excluir?');" style="padding: 0px;margin:0px;">
@@ -105,7 +126,10 @@
                                                 </tr>
                                             </tbody>
                                         </table>
-                                                        <hr>
+                                        <br>
+                                        <span class="add_form_field btn btn-teal">Parcela &nbsp;
+                                            <span  span style="font-size:16px; font-weight:bold;">+ </span>
+                                        </span>
                                         <form action="{{route('defaultingTradings.store')}}" method="POST" class='form-vertical'>
                                             @csrf
                                             <input type="hidden" name="defaulting_id" value="{{$defaulting->id}}">
