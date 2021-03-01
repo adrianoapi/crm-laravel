@@ -22,10 +22,11 @@ class DefaultingController extends Controller
      */
     public function index()
     {
+        $ids = [];
         $students = NULL;
         $pesuisar = NULL;
-        $negociado = false;
-        $boleto = false;
+        $negociado = '';
+        $boleto = '';
 
         if(array_key_exists('filtro',$_GET))
         {
@@ -45,21 +46,44 @@ class DefaultingController extends Controller
                 ->orWhere('celular', 'like', '%' . $pesuisar . '%')
                 ->orderBy('name', 'asc')
                 ->get();
-            }elseif(strlen($_GET['negociado']) || strlen($_GET['boleto']))
+
+                foreach($students as $value):
+                    array_push($ids, $value->id);
+                endforeach;
+            }
+
+            if(strlen($_GET['negociado']))
             {
-                if(strlen($_GET['negociado']))
-                {
-                    $negociado = $_GET['negociado'] == 'sim' ? true : false;
-                }
-                if(strlen($_GET['boleto']))
-                {
-                    $boleto = $_GET['boleto'] == 'sim' ? true : false;
-                }
-                $students = Student::where('negociado', $negociado)
+                $negociado = $_GET['negociado'] == 'sim' ? true : false;
+                $students  = Student::whereIn('id', $ids)
+                ->where('negociado', $negociado)
+                ->where('active', true)
+                ->get();
+
+                $ids = [];
+                foreach($students as $value):
+                    array_push($ids, $value->id);
+                endforeach;
+
+                $negociado = $_GET['negociado'];
+            }
+
+
+
+            if(strlen($_GET['boleto']))
+            {
+                $boleto = $_GET['boleto'] == 'sim' ? true : false;
+                $students = Student::whereIn('id', $ids)
                 ->where('boleto', $boleto)
                 ->where('active', true)
-                ->orderBy('name', 'asc')
                 ->get();
+
+                $ids = [];
+                foreach($students as $value):
+                    array_push($ids, $value->id);
+                endforeach;
+
+                $boleto = $_GET['boleto'];
             }
 
             if(!empty($students))
@@ -83,6 +107,7 @@ class DefaultingController extends Controller
         }
 
         $title = $this->title. " listagem";
+
 
         return view('defaultings.index', [
             'title' => $title,

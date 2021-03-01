@@ -47,8 +47,9 @@
                                                 <div class="control-group">
                                                     <div class="controls controls-row">
                                                         <select name="negociado" id="negociado" class='input-block-level'>
-                                                            <option value="nao" {{!$negociado ? 'selected':''}}>Negociado Não</option>
-                                                            <option value="sim" {{$negociado ? 'selected':''}}>Negociado Sim</option>
+                                                            <option value="" {{$negociado == '' ? 'selected':''}}>Negociado?</option>
+                                                            <option value="sim" {{$negociado == 'sim' ? 'selected':''}}>Sim</option>
+                                                            <option value="nao" {{$negociado == 'nao' ? 'selected':''}}>Não</option>
                                                         </select>
                                                     </div>
                                                 </div>
@@ -59,8 +60,9 @@
                                                 <div class="control-group">
                                                     <div class="controls controls-row">
                                                         <select name="boleto" id="boleto" class='input-block-level'>
-                                                            <option value="nao" {{!$boleto ? 'selected':''}}>Boleto Não</option>
-                                                            <option value="sim" {{$boleto ? 'selected':''}}>Boleto Sim</option>
+                                                            <option value="" {{$boleto == '' ? 'selected':''}}>Boleto?</option>
+                                                            <option value="sim" {{$boleto == 'sim' ? 'selected':''}}>Sim</option>
+                                                            <option value="nao" {{$boleto == 'nao' ? 'selected':''}}>Não</option>
                                                         </select>
                                                     </div>
                                                 </div>
@@ -162,14 +164,6 @@
                                 @endforeach
                                 </tbody>
                             </table>
-                            <script>
-                            $("#negociado").change( function() {
-                                $("#pesquisar").val('');
-                            });
-                            $("#boleto").change( function() {
-                                $("#pesquisar").val('');
-                            });
-                            </script>
                             {{ $defaultings->links('layouts.pagination') }}
                         </div>
 
