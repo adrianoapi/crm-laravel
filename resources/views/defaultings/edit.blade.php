@@ -143,9 +143,17 @@
                                     </div>
                                     <div class="span2">
                                         <div class="control-group">
-                                            <label for="total" class="control-label">Total</label>
+                                            <label for="total" class="control-label">Total Líquido</label>
                                             <div class="controls controls-row">
                                                 <input type="text" name="total" id="total" onkeypress="calcular()" onselect="calcular()" max="100" step=".01"  class="input-block-level" disabled>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="span2">
+                                        <div class="control-group">
+                                            <label for="total" class="control-label">Total Geral</label>
+                                            <div class="controls controls-row">
+                                                <input type="text" name="total_geral" id="total_geral" onkeypress="calcular()" onselect="calcular()" max="100" step=".01"  class="input-block-level" disabled>
                                             </div>
                                         </div>
                                     </div>
@@ -207,8 +215,11 @@ function calcular()
     var multa = mascaraValor($("#multa").val());
     multa = multa * s_total / 100;
 
-    var total = m_total + s_total + Math.round(multa);
+    var total = m_total + multa;
     $("#total").val(currencyFormat(total));
+
+    var total = m_total + s_total;
+    $("#total_geral").val(currencyFormat(total));
 
 }
 
