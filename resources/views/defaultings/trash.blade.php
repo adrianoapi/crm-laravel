@@ -19,8 +19,8 @@
                                 {{$title}}
                             </h3>
                             <span class="tabs">
-                                <a href="{{route('defaultings.create')}}" class="btn btn-primary">
-                                <i class="icon-reorder"></i> Novo</a>
+                                <a href="{{route('defaultings.index')}}" class="btn btn-primary">
+                                <i class="icon-reorder"></i> Voltar</a>
                             </span>
                             <span class="tabs">
 
