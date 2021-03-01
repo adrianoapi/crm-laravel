@@ -26,11 +26,8 @@
 										<div class="control-group">
 											<label for="student_id" class="control-label">Aluno</label>
 											<div class="controls controls-row">
-                                                <select name="student_id" id="student_id" class='select2-me input-block-level' required>
-                                                    @foreach($students as $student)
-                                                    <option value="{{$student->id}}" {{$student->id == $defaulting->student_id ? 'selected':''}}>{{$student->name}}</option>
-                                                    @endforeach
-                                                </select>
+                                                <input type="text" name="name" id="name" value="{{$defaulting->student->name}}" placeholder="nome aluno" max="10" class="input-block-level" disabled>
+                                                <input type="hidden" name="student_id" value="{{$defaulting->student_id}}">
 											</div>
 										</div>
 									</div>

@@ -98,7 +98,7 @@ class DefaultingController extends Controller
     public function create()
     {
         $title = $this->title. " cadastrar";
-        $students = Student::where('active', true)->orderBy('name', 'asc')->paginate(100);
+        $students = Student::where('active', true)->orderBy('name', 'asc')->paginate(100000);
 
         return view('defaultings.add', ['students' => $students, 'title' => $title]);
     }
