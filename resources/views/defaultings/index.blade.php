@@ -31,16 +31,6 @@
                             <table class="table table-hover table-nomargin table-bordered table-colored-header">
                                 <thead>
                                     <tr>
-                                        <th>Fase</th>
-                                        <th>Nome</th>
-                                        <th>Negociado</th>
-                                        <th>Boleto</th>
-                                        <th>Fones</th>
-                                        <th>Total Líquido</th>
-                                        <th>Total Geral</th>
-                                        <th class='hidden-350'>Ações</th>
-                                    </tr>
-                                    <tr>
                                         <th colspan="4">
                                             <form action="{{route('defaultings.index')}}" method="GET" class="span12" style="margin: 0;padding:0;">
                                             <div class="span12">
@@ -88,6 +78,16 @@
                                             </div>
                                             </form>
                                         </th>
+                                    </tr>
+                                    <tr>
+                                        <th>Fase</th>
+                                        <th>Nome</th>
+                                        <th>Negociado</th>
+                                        <th>Boleto</th>
+                                        <th>Fones</th>
+                                        <th>Total Líquido</th>
+                                        <th>Total Geral</th>
+                                        <th class='hidden-350'>Ações</th>
                                     </tr>
                                 </thead>
                                 <tbody>
