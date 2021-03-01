@@ -37,4 +37,25 @@ class DefaultingTrading extends Model
     {
         return $this->attributes['valor'] = number_format($value, 2, ",", ".");
     }
+
+    public function setDtPagamentoAttribute($value)
+    {
+        $date = str_replace('/', '-', $value);
+        return $this->attributes['dt_pagamento'] = date("Y-m-d", strtotime($date));
+    }
+
+    public function getDtPagamentoAttribute($value)
+    {
+        return $this->attributes['dt_pagamento'] = date("d/m/Y", strtotime($value));
+    }
+
+    public function setValorPagoAttribute($value)
+    {
+        return $this->attributes['valor_pago'] = str_replace(',', '.', str_replace('.', '', $value));
+    }
+
+    public function getValorPagoAttribute($value)
+    {
+        return $this->attributes['valor_pago'] = number_format($value, 2, ",", ".");
+    }
 }

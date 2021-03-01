@@ -134,6 +134,20 @@
                                                             <input type="text" name="valor[]" value="{{$value->valor}}" id="valor" placeholder="100,00" class="money input-block-level" required="">                    </div>
                                                     </div>
                                                 </div>
+                                                <div class="span2">
+                                                    <div class="control-group">
+                                                        <!--<label for="data" class="control-label">Data Pg</label>-->
+                                                        <div class="controls controls-row">
+                                                            <input type="text" name="dt_pagamento[]" value="{{$value->dt_pagamento}}" id="dt_pagamento" placeholder="00/00/0000" class="date input-block-level datepick" required="" maxlength="10">                    </div>
+                                                    </div>
+                                                </div>
+                                                <div class="span2">
+                                                    <div class="control-group">
+                                                        <!--<label for="valor" class="control-label">Valor Pg</label>-->
+                                                        <div class="controls controls-row">
+                                                            <input type="text" name="valor_pago[]" value="{{$value->valor_pago}}" id="valor_pago" placeholder="100,00" class="money input-block-level" required="">                    </div>
+                                                    </div>
+                                                </div>
                                                 <a href="#" class="delete">Delete</a>
                                             </div>
                                             @endforeach
@@ -433,6 +447,22 @@
                 inputs += '                    <!--<label for="valor" class="control-label">Valor</label>-->';
                 inputs += '                    <div class="controls controls-row">';
                 inputs += '                        <input type="text" name="valor[]" id="valor" placeholder="100,00"  class="money input-block-level" required>';
+                inputs += '                    </div>';
+                inputs += '               </div>';
+                inputs += '            </div>';
+                inputs += '            <div class="span2">';
+                inputs += '                <div class="control-group">';
+                inputs += '                    <!--<label for="data" class="control-label">Data Pg</label>-->';
+                inputs += '                   <div class="controls controls-row">';
+                inputs += '                        <input type="text" name="dt_pagamento[]" id="dt_pagamento" placeholder="00/00/0000" class="date input-block-level datepick" required>';
+                inputs += '                    </div>';
+                inputs += '                </div>';
+                inputs += '            </div>';
+                inputs += '           <div class="span2">';
+                inputs += '                <div class="control-group">';
+                inputs += '                    <!--<label for="valor" class="control-label">Valor</label>-->';
+                inputs += '                    <div class="controls controls-row">';
+                inputs += '                        <input type="text" name="valor_pago[]" id="valor_pago" placeholder="100,00"  class="money input-block-level" required>';
                 inputs += '                    </div>';
                 inputs += '               </div>';
                 inputs += '            </div>';
