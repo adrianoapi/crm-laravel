@@ -46,7 +46,9 @@ class DefaultingTrading extends Model
 
     public function getDtPagamentoAttribute($value)
     {
-        return $this->attributes['dt_pagamento'] = date("d/m/Y", strtotime($value));
+        if(strlen($value)){
+            return $this->attributes['dt_pagamento'] = date("d/m/Y", strtotime($value));
+        }
     }
 
     public function setValorPagoAttribute($value)

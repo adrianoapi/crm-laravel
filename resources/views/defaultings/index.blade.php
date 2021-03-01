@@ -36,14 +36,12 @@
                                         <th>Negociado</th>
                                         <th>Boleto</th>
                                         <th>Fones</th>
-                                        <th>Material</th>
-                                        <th>Serviço</th>
-                                        <th>Multa</th>
-                                        <th>Total</th>
+                                        <th>Total Líquido</th>
+                                        <th>Total Geral</th>
                                         <th class='hidden-350'>Ações</th>
                                     </tr>
                                     <tr>
-                                        <th colspan="6">
+                                        <th colspan="4">
                                             <form action="{{route('defaultings.index')}}" method="GET" class="span12" style="margin: 0;padding:0;">
                                             <div class="span12">
                                                 <div class="control-group">
@@ -101,6 +99,17 @@
                                             <br><small>Unid: {{$value->student->cod_unidade}} / Curso: {{$value->student->cod_curso}} / CTR: {{$value->student->ctr}} / CPF: {{$value->student->celular}}</small>
                                         </td>
                                         <td><?php
+
+                                            $m_parcelas = $value->m_parcelas;
+                                            $m_parcela_pg = $value->m_parcela_pg;
+                                            $m_pendente = $value->m_parcelas - $value->m_parcela_pg;
+                                            $m_parcela_valor = $value->m_parcela_valor;
+
+                                            $s_parcelas = $value->s_parcelas;
+                                            $s_parcela_pg = $value->s_parcela_pg;
+                                            $s_pendente = $value->s_parcelas - $value->s_parcela_pg;
+                                            $s_parcela_valor = $value->s_parcela_valor;
+
                                             if($value->student->negociado){
                                                 echo '<button class="btn btn-small  btn-success">SIM</button>';
                                             }else{
@@ -117,30 +126,26 @@
                                         <td>{{$value->student->telefone}}/{{$value->student->celular}}</td>
                                         <td>
                                             <?php
-                                                $valor = str_replace(',', '.', str_replace('.', '', $value->m_parcela_valor));
-                                                $valor = ($value->m_parcelas - $value->m_parcela_pg) * $valor;
-                                                echo number_format($valor, 2, ',', '.');
-                                            ?>
-                                        </td>
-                                        <td>
-                                            <?php
-                                                $valor = str_replace(',', '.', str_replace('.', '', $value->s_parcela_valor));
-                                                $valor_total = ($value->s_parcelas - $value->s_parcela_pg) * $valor;
-                                                echo number_format($valor_total, 2, ',', '.');
-                                            ?>
-                                        </td>
-                                        <td>
-                                            <?php
+                                                #Total Líquido
+                                                $valor = str_replace(',', '.', str_replace('.', '', $s_parcela_valor));
+                                                $s_valor_total = ($value->s_parcelas - $value->s_parcela_pg) * $valor;
+
                                                 $multa = str_replace(',', '.', str_replace('.', '', $value->multa));
-                                                $multa = $multa * $valor_total / 100;
-                                                echo number_format($multa, 2, ',', '.');
-                                            ?>
-                                        </td>
-                                        <td>
-                                            <?php
-                                                $total = $valor_total + $multa;
+                                                $multa = $multa * $s_valor_total / 100;
+
+                                                $valor = str_replace(',', '.', str_replace('.', '', $m_parcela_valor));
+                                                $m_valor_total = ($m_parcelas - $m_parcela_pg) * $valor;
+
+                                                $total = $m_valor_total + $multa;
                                                 echo number_format($total, 2, ',', '.');
                                             ?>
+                                        </td>
+                                        <td>
+                                            <?php
+                                            #Total Geral
+                                            $total = $m_valor_total + $s_valor_total;
+                                            echo number_format($total, 2, ',', '.');
+                                           ?>
                                         </td>
                                         <td class='hidden-1024'>
                                             <?php if($value->student->negociado){ ?>

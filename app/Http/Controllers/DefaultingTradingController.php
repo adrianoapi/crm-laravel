@@ -47,8 +47,13 @@ class DefaultingTradingController extends Controller
                 $model->vencimento = $request->vencimento[$i];
                 $model->valor = $request->valor[$i];
                 $model->parcela = $request->parcela[$i];
-                $model->dt_pagamento = $request->dt_pagamento[$i];
-                $model->valor_pago = $request->valor_pago[$i];
+                if(strlen($request->dt_pagamento[$i])){
+                    $model->dt_pagamento = $request->dt_pagamento[$i];
+                }
+                if(strlen($request->valor_pago[$i]))
+                {
+                    $model->valor_pago = $request->valor_pago[$i];
+                }
                 $model->save();
                 $i++;
             endforeach;
