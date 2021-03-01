@@ -50,8 +50,13 @@ class DefaultingController extends Controller
                 foreach($students as $value):
                     array_push($ids, $value->id);
                 endforeach;
+            }else{
+                $students  = Student::where('active', true)->get();
+                $ids = [];
+                foreach($students as $value):
+                    array_push($ids, $value->id);
+                endforeach;
             }
-
             if(strlen($_GET['negociado']))
             {
                 $negociado = $_GET['negociado'] == 'sim' ? true : false;
