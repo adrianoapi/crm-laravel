@@ -105,11 +105,39 @@
                                                 </tr>
                                             </tbody>
                                         </table>
-
+                                                        <hr>
                                         <form action="{{route('defaultingTradings.store')}}" method="POST" class='form-vertical'>
                                             @csrf
                                             <input type="hidden" name="defaulting_id" value="{{$defaulting->id}}">
                                             <div class="row-fluid container1">
+
+                                            <div class="row-fluid">
+                                                <div class="span2">
+                                                    <div class="control-group">
+                                                        <label for="parcela" class="control-label">Parcela</label>
+                                                    </div>
+                                                </div>
+                                                <div class="span2">
+                                                    <div class="control-group">
+                                                        <label for="data" class="control-label">Data</label>
+                                                    </div>
+                                                </div>
+                                                <div class="span2">
+                                                    <div class="control-group">
+                                                        <label for="valor" class="control-label">Valor</label>
+                                                    </div>
+                                                </div>
+                                                <div class="span2">
+                                                    <div class="control-group">
+                                                        <label for="data" class="control-label">Data Pagamento</label>
+                                                    </div>
+                                                </div>
+                                                <div class="span2">
+                                                    <div class="control-group">
+                                                        <label for="valor" class="control-label">Valor Pagamento</label>
+                                                    </div>
+                                                </div>
+                                            </div>
 
                                             @foreach ($defaulting->defaultingTradings as $value)
                                             <div class="row-fluid">
