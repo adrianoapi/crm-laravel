@@ -33,7 +33,8 @@ class DefaultingController extends Controller
             if(strlen($_GET['pesquisar']))
             {
                 $pesuisar = $_GET['pesquisar'];
-                $students = Student::Where('name', 'like', '%' . $pesuisar . '%')
+                $students = Student::where('name', 'like', '%' . $pesuisar . '%')
+                ->where('active', true)
                 ->orWhere('ctr', 'like', '%' . $pesuisar . '%')
                 ->orWhere('cod_unidade', 'like', '%' . $pesuisar . '%')
                 ->orWhere('cod_curso', 'like', '%' . $pesuisar . '%')
@@ -56,6 +57,7 @@ class DefaultingController extends Controller
                 }
                 $students = Student::where('negociado', $negociado)
                 ->where('boleto', $boleto)
+                ->where('active', true)
                 ->orderBy('name', 'asc')
                 ->get();
             }
@@ -67,14 +69,17 @@ class DefaultingController extends Controller
                     array_push($ids, $value->id);
                 endforeach;
 
-                $defaultings = Defaulting::whereIn('student_id', $ids)->orderBy('student_name', 'asc')->paginate(100);
+                $defaultings = Defaulting::whereIn('student_id', $ids)
+                                        ->where('active', true)
+                                        ->orderBy('student_name', 'asc')
+                                        ->paginate(100);
             }else{
-                $defaultings = Defaulting::orderBy('student_name', 'asc')->paginate(100);
+                $defaultings = Defaulting::where('active', true)->orderBy('student_name', 'asc')->paginate(100);
             }
 
 
         }else{
-            $defaultings = Defaulting::orderBy('student_name', 'asc')->paginate(100);
+            $defaultings = Defaulting::where('active', true)->orderBy('student_name', 'asc')->paginate(100);
         }
 
         $title = $this->title. " listagem";
@@ -85,7 +90,7 @@ class DefaultingController extends Controller
             'pesuisar' => $pesuisar,
             'negociado' => $negociado,
             'boleto' => $boleto,
-            ]);
+        ]);
     }
 
     /**
@@ -199,8 +204,21 @@ class DefaultingController extends Controller
      */
     public function destroy(Defaulting $defaulting)
     {
-        $defaulting->delete();
+        $defaulting->active = false;
+        $defaulting->save();
         return redirect()->route('defaultings.index');
+    }
+
+    public function trash()
+    {
+        $title = $this->title. " lixeira";
+        $defaultings = Defaulting::where('active', false)
+                                ->orderBy('student_name', 'asc')
+                                ->paginate(100);
+        return view('defaultings.trash', [
+            'title' => $title,
+            'defaultings' => $defaultings,
+        ]);
     }
 
     public function getEstados()
