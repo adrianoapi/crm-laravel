@@ -42,18 +42,28 @@ class DefaultingController extends Controller
                 ->orderBy('name', 'asc')
                 ->get();
 
+                $ids = [];
+                foreach($students as $value):
+                    array_push($ids, $value->id);
+                endforeach;
+            }else{
+                $students  = Student::where('active', true)->get();
+                $ids = [];
                 foreach($students as $value):
                     array_push($ids, $value->id);
                 endforeach;
             }
+
             if(strlen($_GET['unidade']))
             {
                 $unidade = $_GET['unidade'];
-                $students = Student::where('cod_unidade', 'like', '%' . $unidade . '%')
+                $students = Student::whereIn('id', $ids)
+                ->where('cod_unidade', 'like', '%' . $unidade . '%')
                 ->where('active', true)
                 ->orderBy('name', 'asc')
                 ->get();
 
+                $ids = [];
                 foreach($students as $value):
                     array_push($ids, $value->id);
                 endforeach;
@@ -61,22 +71,18 @@ class DefaultingController extends Controller
             if(strlen($_GET['ctr']))
             {
                 $ctr = $_GET['ctr'];
-                $students = Student::where('ctr', 'like', '%' . $ctr . '%')
+                $students = Student::whereIn('id', $ids)
+                ->where('ctr', 'like', '%' . $ctr . '%')
                 ->where('active', true)
                 ->orderBy('name', 'asc')
                 ->get();
 
-                foreach($students as $value):
-                    array_push($ids, $value->id);
-                endforeach;
-            }
-            /*else{
-                $students  = Student::where('active', true)->get();
                 $ids = [];
                 foreach($students as $value):
                     array_push($ids, $value->id);
                 endforeach;
-            }*/
+            }
+
             if(strlen($_GET['negociado']))
             {
                 $negociado = $_GET['negociado'] == 'sim' ? true : false;
