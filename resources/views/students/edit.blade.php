@@ -48,7 +48,7 @@
 									</div>
                                     <div class="span2">
 										<div class="control-group">
-											<label for="nascimento" class="control-label">Nacimento</label>
+											<label for="nascimento" class="control-label">Nascimento</label>
 											<div class="controls controls-row">
 												<input type="text" name="nascimento" id="nascimento"  value="{{$student->nascimento}}" placeholder="(00) 0000-0000" max="20" class="date input-block-level">
 											</div>

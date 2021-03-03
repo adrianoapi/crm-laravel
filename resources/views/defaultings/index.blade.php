@@ -35,13 +35,31 @@
                             <table class="table table-hover table-nomargin table-bordered table-colored-header">
                                 <thead>
                                     <tr>
-                                        <th colspan="4">
+                                        <th colspan="2">
                                             <form action="{{route('defaultings.index')}}" method="GET" class="span12" style="margin: 0;padding:0;">
                                             <div class="span12">
                                                 <div class="control-group">
                                                     <div class="controls controls-row">
                                                         <input type="hidden" name="filtro" id="filtro" value="pesquisa">
-                                                        <input id="pesquisar" placeholder="Nome, telefone, ctr, uindade, curso..." type="text" name="pesquisar" value="{{$pesuisar}}" class="input-block-level">
+                                                        <input id="pesquisar" placeholder="Nome ou cpf" type="text" name="pesquisar" value="{{$pesuisar}}" class="input-block-level">
+                                                    </div>
+                                                </div>
+										    </div>
+                                        </th>
+                                        <th colspan="1">
+                                            <div class="span12">
+                                                <div class="control-group">
+                                                    <div class="controls controls-row">
+                                                        <input id="unidade" placeholder="unidade" type="text" name="unidade" value="{{$unidade}}" class="input-block-level">
+                                                    </div>
+                                                </div>
+										    </div>
+                                        </th>
+                                        <th colspan="1">
+                                            <div class="span12">
+                                                <div class="control-group">
+                                                    <div class="controls controls-row">
+                                                        <input id="ctr" placeholder="ctr" type="text" name="ctr" value="{{$ctr}}" class="input-block-level">
                                                     </div>
                                                 </div>
 										    </div>

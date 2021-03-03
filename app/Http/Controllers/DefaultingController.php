@@ -23,6 +23,8 @@ class DefaultingController extends Controller
     public function index()
     {
         $ids = [];
+        $unidade = NULL;
+        $ctr = NULL;
         $students = NULL;
         $pesuisar = NULL;
         $negociado = '';
@@ -36,27 +38,45 @@ class DefaultingController extends Controller
                 $pesuisar = $_GET['pesquisar'];
                 $students = Student::where('name', 'like', '%' . $pesuisar . '%')
                 ->where('active', true)
-                ->orWhere('ctr', 'like', '%' . $pesuisar . '%')
-                ->orWhere('cod_unidade', 'like', '%' . $pesuisar . '%')
-                ->orWhere('cod_curso', 'like', '%' . $pesuisar . '%')
-                ->orWhere('responsavel', 'like', '%' . $pesuisar . '%')
                 ->orWhere('cpf_cnpj', 'like', '%' . $pesuisar . '%')
-                ->orWhere('telefone', 'like', '%' . $pesuisar . '%')
-                ->orWhere('telefone', 'like', '%' . $pesuisar . '%')
-                ->orWhere('celular', 'like', '%' . $pesuisar . '%')
                 ->orderBy('name', 'asc')
                 ->get();
 
                 foreach($students as $value):
                     array_push($ids, $value->id);
                 endforeach;
-            }else{
+            }
+            if(strlen($_GET['unidade']))
+            {
+                $unidade = $_GET['unidade'];
+                $students = Student::where('cod_unidade', 'like', '%' . $unidade . '%')
+                ->where('active', true)
+                ->orderBy('name', 'asc')
+                ->get();
+
+                foreach($students as $value):
+                    array_push($ids, $value->id);
+                endforeach;
+            }
+            if(strlen($_GET['ctr']))
+            {
+                $ctr = $_GET['ctr'];
+                $students = Student::where('ctr', 'like', '%' . $ctr . '%')
+                ->where('active', true)
+                ->orderBy('name', 'asc')
+                ->get();
+
+                foreach($students as $value):
+                    array_push($ids, $value->id);
+                endforeach;
+            }
+            /*else{
                 $students  = Student::where('active', true)->get();
                 $ids = [];
                 foreach($students as $value):
                     array_push($ids, $value->id);
                 endforeach;
-            }
+            }*/
             if(strlen($_GET['negociado']))
             {
                 $negociado = $_GET['negociado'] == 'sim' ? true : false;
@@ -120,6 +140,8 @@ class DefaultingController extends Controller
             'pesuisar' => $pesuisar,
             'negociado' => $negociado,
             'boleto' => $boleto,
+            'unidade' => $unidade,
+            'ctr' => $ctr,
         ]);
     }
 
