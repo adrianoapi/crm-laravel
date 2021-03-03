@@ -19,9 +19,6 @@
                                 {{$title}}
                             </h3>
                             <span class="tabs">
-                                <a href="{{route('defaultings.trash')}}" class="btn btn-default">
-                                <i class="icon-trash"></i> Lixeira
-                                </a>
                                 <a href="{{route('defaultings.create')}}" class="btn btn-primary">
                                 <i class="icon-reorder"></i> Novo
                                 </a>

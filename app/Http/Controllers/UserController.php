@@ -20,6 +20,13 @@ class UserController extends Controller
         $this->middleware('auth');
     }
 
+    public function levelCheck()
+    {
+        if(Auth::user()->level <= 1){
+            die('Você não tem permissão!');
+        }
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -27,6 +34,7 @@ class UserController extends Controller
      */
     public function index()
     {
+        $this->levelCheck();
         $title = $this->title. " listagem";
         $users = User::where('active', true)->orderBy('name', 'asc')->paginate(100);
 
@@ -40,6 +48,7 @@ class UserController extends Controller
      */
     public function create()
     {
+        $this->levelCheck();
         $title = $this->title. " cadastar";
 
         return view('users.add', ['title' => $title, 'levels' => $this->levels]);
@@ -54,6 +63,7 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
+        $this->levelCheck();
         $model = new User();
         $model->name      = $request->name;
         $model->email     = $request->email;
@@ -73,6 +83,7 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
+        $this->levelCheck();
         $title = $this->title. " alterar";
         return view('users.edit', ['title' => $title, 'levels' => $this->levels, 'user' => $user]);
     }
@@ -86,6 +97,7 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
+        $this->levelCheck();
         $user->name  = $request->name;
         $user->level = $request->level;
 
@@ -110,6 +122,7 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
+        $this->levelCheck();
         $user->active = false;
         $user->save();
 
