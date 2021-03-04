@@ -400,6 +400,7 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        <?php if(Auth::user()->level > 1) {?>
                                         <div class="span2">
                                             <div class="control-group">
                                                 <label for="fase" class="control-label">Fase</label>
@@ -411,6 +412,16 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        <?php }else{?>
+                                        <div class="span2">
+                                            <div class="control-group">
+                                                <label for="fase" class="control-label">Fase</label>
+                                                <div class="controls controls-row">
+                                                    <input type="text" name="cidade" id="fase"  value="{{$student[0]->fase}}" placeholder="fase" max="255" class="input-block-level" disabled>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <?php }?>
                                     </div>
                                     <div class="row-fluid">
                                         <div class="form-actions">

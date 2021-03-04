@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\DefaultingTrading;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class DefaultingTradingController extends Controller
 {
@@ -36,6 +37,16 @@ class DefaultingTradingController extends Controller
      */
     public function store(Request $request)
     {
+
+        if(Auth::user()->level <= 1)
+        {
+            $result = DB::table('defaulting_tradings')->where('defaulting_id', $request->defaulting_id)->exists();
+            if(!empty($result))
+            {
+                die('Você não tem permissão editar uma negociação!');
+            }
+        }
+
         DefaultingTrading::where('defaulting_id', $request->defaulting_id)->delete();
 
         $i = 0;

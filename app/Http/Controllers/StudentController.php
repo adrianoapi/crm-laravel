@@ -148,7 +148,9 @@ class StudentController extends Controller
         $student->bairro = $request->bairro;
         $student->cidade = $request->cidade;
         $student->estado = $request->estado;
-        $student->fase = $request->fase;
+        if(Auth::user()->level > 1){
+            $student->fase = $request->fase;
+        }
         $student->negociado = $request->negociado == 'true' ? true : false;
         $student->boleto = $request->boleto == 'true' ? true : false;
         $student->save();
