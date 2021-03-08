@@ -15,7 +15,7 @@
                 <div class="span12">
                     <div class="box box-bordered box-color">
                         <div class="box-title">
-                            <h3><i class="icon-th-list"></i> {{$title}}: {{$defaulting->student->name}}</h3>
+                            <h3><i class="icon-th-list"></i> {{$title}}: {{$graphic->student->name}}</h3>
                         </div>
                         <div class="box-content nopadding">
                             <div class="tabs-container">
@@ -35,86 +35,30 @@
                                             <thead>
                                                 <tr>
                                                     <th>Negociado</th>
-                                                    <th>Material</th>
-                                                    <th>Pagas</th>
-                                                    <th>Pendente</th>
+                                                    <th>Parcela</th>
+                                                    <th>Valor</th>
                                                     <th>Total</th>
-                                                    <th>Serviço</th>
-                                                    <th>Pagas</th>
-                                                    <th>Pendente</th>
-                                                    <th>Total</th>
-                                                    <th>Multa</th>
-                                                    <th>Total L</th>
-                                                    <th>Total G</th>
                                                     <th>Ações</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 <tr>
                                                     <td><?php
-                                                        $m_parcelas = $defaulting->m_parcelas;
-                                                        $m_parcela_pg = $defaulting->m_parcela_pg;
-                                                        $m_pendente = $defaulting->m_parcelas - $defaulting->m_parcela_pg;
-                                                        $m_parcela_valor = $defaulting->m_parcela_valor;
-
-                                                        $s_parcelas = $defaulting->s_parcelas;
-                                                        $s_parcela_pg = $defaulting->s_parcela_pg;
-                                                        $s_pendente = $defaulting->s_parcelas - $defaulting->s_parcela_pg;
-                                                        $s_parcela_valor = $defaulting->s_parcela_valor;
-
-                                                        if($defaulting->negociado){
+                                                        if($graphic->negociado){
                                                             echo '<button class="btn btn-small  btn-success">SIM</button>';
                                                         }else{
                                                             echo '<button class="btn btn-small  btn-danger">NÃO</button>';
                                                         }
                                                     ?></td>
-                                                    <td>{{$m_parcelas}} de {{$m_parcela_valor}}</td>
-                                                    <td>{{$m_parcela_pg}}</td>
-                                                    <td>{{$m_pendente}}</td>
+                                                    <td>{{$graphic->parcela}}</td>
+                                                    <td>{{$graphic->valor}}</td>
+                                                    <td>{{$graphic->total}}</td>
                                                     <td>
-                                                        <?php
-                                                            #primeiro total
-                                                            $valor = str_replace(',', '.', str_replace('.', '', $m_parcela_valor));
-                                                            $m_valor_total = ($m_parcelas - $m_parcela_pg) * $valor;
-                                                            echo number_format($m_valor_total, 2, ',', '.');
-                                                        ?>
-                                                    </td>
-                                                    <td>{{$s_parcelas}} de {{$s_parcela_valor}}</td>
-                                                    <td>{{$s_parcela_pg}}</td>
-                                                    <td>{{$s_pendente}}</td>
-                                                    <td>
-                                                        <?php
-                                                            #segundo total
-                                                            $valor = str_replace(',', '.', str_replace('.', '', $s_parcela_valor));
-                                                            $s_valor_total = ($defaulting->s_parcelas - $defaulting->s_parcela_pg) * $valor;
-                                                            echo number_format($s_valor_total, 2, ',', '.');
-                                                        ?>
-                                                    </td>
-                                                    <td>
-                                                        <?php
-                                                            $multa = str_replace(',', '.', str_replace('.', '', $defaulting->multa));
-                                                            $multa = $multa * $s_valor_total / 100;
-                                                            echo number_format($multa, 2, ',', '.');
-                                                        ?>
-                                                    </td>
-                                                    <td>
-                                                        <?php
-                                                            $total = $m_valor_total + $multa;
-                                                            echo number_format($total, 2, ',', '.');
-                                                        ?>
-                                                    </td>
-                                                    <td>
-                                                        <?php
-                                                            $total = $m_valor_total + $s_valor_total;
-                                                            echo number_format($total, 2, ',', '.');
-                                                        ?>
-                                                    </td>
-                                                    <td>
-                                                        <form action="{{route('defaultings.destroy', ['defaulting' => $defaulting->id])}}" method="POST" onSubmit="return confirm('Deseja excluir?');" style="padding: 0px;margin:0px;">
+                                                        <form action="{{route('graphics.destroy', ['graphic' => $graphic->id])}}" method="POST" onSubmit="return confirm('Deseja excluir?');" style="padding: 0px;margin:0px;">
                                                             @csrf
                                                             @method('delete')
 
-                                                            <a href="{{route('defaultings.edit', ['defaulting' => $defaulting->id])}}" class="btn" rel="tooltip" title="" data-original-title="Editar">
+                                                            <a href="{{route('graphics.edit', ['graphic' => $graphic->id])}}" class="btn" rel="tooltip" title="" data-original-title="Editar">
                                                                 <i class="icon-edit"></i>
                                                             </a>
 
@@ -130,9 +74,9 @@
                                         <span class="add_form_field btn btn-teal">Adicionar Parcela &nbsp;
                                             <span  span style="font-size:16px; font-weight:bold;">+ </span>
                                         </span>
-                                        <form action="{{route('defaultingTradings.store')}}" method="POST" class='form-vertical'>
+                                        <form action="{{route('graphicTradings.store')}}" method="POST" class='form-vertical'>
                                             @csrf
-                                            <input type="hidden" name="defaulting_id" value="{{$defaulting->id}}">
+                                            <input type="hidden" name="graphic_id" value="{{$graphic->id}}">
                                             <div class="row-fluid container1">
 
                                             <div class="row-fluid">
@@ -163,7 +107,7 @@
                                                 </div>
                                             </div>
 
-                                            @foreach ($defaulting->defaultingTradings as $value)
+                                            @foreach ($graphic->graphicTradings as $value)
                                             <div class="row-fluid">
                                                 <div class="span2">
                                                     <div class="control-group">
@@ -209,7 +153,7 @@
                                             <div class="row-fluid">
                                                 <div class="form-actions">
                                                     <button type="submit" class="btn btn-primary">Salvar</button>
-                                                    <a href="{{route('defaultings.index')}}" class="btn">Cancelar</a>
+                                                    <a href="{{route('graphics.index')}}" class="btn">Cancelar</a>
                                                 </div>
                                             </div>
                                         </form>
@@ -219,7 +163,7 @@
                                     <form action="{{route('alunos.update', ['student' => $student[0]->id])}}" method="POST" class='form-vertical'>
                                     @csrf
                                     @method('PUT')
-                                    <input type="hidden" name="defaulting_id" value="{{$defaulting->id}}">
+                                    <input type="hidden" name="graphic_id" value="{{$graphic->id}}">
                                     <div class="row-fluid">
                                         <div class="span1">
                                             <div class="control-group">
@@ -383,8 +327,8 @@
                                                 <label for="negociado" class="control-label">Negociado*</label>
                                                 <div class="controls controls-row">
                                                     <select name="negociado" id="negociado" class='select2-me input-block-level' required>
-                                                        <option value="true" {{$defaulting->negociado ? 'selected':''}}>SIM</option>
-                                                        <option value="false" {{!$defaulting->negociado ? 'selected':''}}>NÃO</option>
+                                                        <option value="true" {{$graphic->negociado ? 'selected':''}}>SIM</option>
+                                                        <option value="false" {{!$graphic->negociado ? 'selected':''}}>NÃO</option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -394,39 +338,17 @@
                                                 <label for="negociado" class="control-label">Boleto Gerado</label>
                                                 <div class="controls controls-row">
                                                     <select name="boleto" id="boleto" class='select2-me input-block-level' required>
-                                                        <option value="true" {{$defaulting->boleto ? 'selected':''}}>SIM</option>
-                                                        <option value="false" {{!$defaulting->boleto ? 'selected':''}}>NÃO</option>
+                                                        <option value="true" {{$graphic->boleto ? 'selected':''}}>SIM</option>
+                                                        <option value="false" {{!$graphic->boleto ? 'selected':''}}>NÃO</option>
                                                     </select>
                                                 </div>
                                             </div>
                                         </div>
-                                        <?php if(Auth::user()->level > 1) {?>
-                                        <div class="span2">
-                                            <div class="control-group">
-                                                <label for="fase" class="control-label">Fase</label>
-                                                <div class="controls controls-row">
-                                                    <select name="fase" id="fase" class='select2-me input-block-level' required>
-                                                        <option value="segunda" {{$defaulting->fase == 'segunda' ? 'selected':''}}>Segunda</option>
-                                                        <option value="terceira" {{$defaulting->fase == 'terceira' ? 'selected':''}}>Terceira</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <?php }else{?>
-                                        <div class="span2">
-                                            <div class="control-group">
-                                                <label for="fase" class="control-label">Fase</label>
-                                                <div class="controls controls-row">
-                                                    <input type="text" name="cidade" id="fase"  value="{{$defaulting[0]->fase}}" placeholder="fase" max="255" class="input-block-level" disabled>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <?php }?>
                                     </div>
                                     <div class="row-fluid">
                                         <div class="form-actions">
                                             <button type="submit" class="btn btn-primary">Salvar</button>
-                                            <a href="{{route('defaultings.index')}}" class="btn">Cancelar</a>
+                                            <a href="{{route('graphics.index')}}" class="btn">Cancelar</a>
                                         </div>
                                     </div>
                                 </form>
@@ -460,7 +382,7 @@
                             <table id="history-table" class="table table-hover table-nomargin table-colored-header">
 
                                 <tbody>
-                                @foreach ($defaulting->defaultingHistories as $value)
+                                @foreach ($graphic->graphicHistories as $value)
                                 <tr>
                                     <td>
                                     Data: <strong>{{$value->created_at}}</strong>&nbsp;-&nbsp;Usuário: <strong>{{$value->user->name}}</strong>
@@ -563,12 +485,12 @@
             {
                 var value = $("#history").val();
                 $.ajax({
-                    url: "{{route('defaultingHistories.store')}}",
+                    url: "{{route('graphicHistories.store')}}",
                     type: "POST",
                     data: {
                         "_token": "{{csrf_token()}}",
                         "observacao": value,
-                        "defaulting_id": {{$defaulting->id}},
+                        "graphic_id": {{$graphic->id}},
                     },
                     dataType: 'json',
                         success: function(data){

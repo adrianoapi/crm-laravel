@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Student;
 use App\Defaulting;
+use App\Graphic;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -83,9 +84,9 @@ class StudentController extends Controller
         $model->bairro = $request->bairro;
         $model->cidade = $request->cidade;
         $model->estado = $request->estado;
-        $model->fase = $request->fase;
-        $model->negociado = $request->negociado == 'true' ? true : false;
-        $model->boleto = $request->boleto == 'true' ? true : false;
+        #$model->fase = $request->fase;
+        #$model->negociado = $request->negociado == 'true' ? true : false;
+        #$model->boleto = $request->boleto == 'true' ? true : false;
         $model->save();
 
         return redirect()->route('alunos.index');
@@ -148,20 +149,31 @@ class StudentController extends Controller
         $student->bairro = $request->bairro;
         $student->cidade = $request->cidade;
         $student->estado = $request->estado;
-        if(Auth::user()->level > 1){
-            $student->fase = $request->fase;
-        }
-        $student->negociado = $request->negociado == 'true' ? true : false;
-        $student->boleto = $request->boleto == 'true' ? true : false;
+
         $student->save();
 
         if($request->defaulting_id)
         {
             $dataulting = Defaulting::find($request->defaulting_id);
             $dataulting->student_name = $request->name;
+            if(Auth::user()->level > 1){
+                $dataulting->fase = $request->fase;
+            }
+            $dataulting->negociado = $request->negociado == 'true' ? true : false;
+            $dataulting->boleto = $request->boleto == 'true' ? true : false;
             $dataulting->save();
 
             return redirect()->route('defaultings.show', ['defaulting' => $request->defaulting_id]);
+
+        }elseif($request->graphic_id){
+            $graphic = Graphic::find($request->graphic_id);
+            $graphic->student_name = $request->name;
+            $graphic->negociado = $request->negociado == 'true' ? true : false;
+            $graphic->boleto = $request->boleto == 'true' ? true : false;
+            $graphic->save();
+
+            return redirect()->route('graphics.show', ['graphic' => $request->graphic_id]);
+
         }else{
             return redirect()->route('alunos.index');
         }

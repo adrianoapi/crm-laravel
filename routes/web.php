@@ -55,6 +55,26 @@ Route::prefix('segunda-fase-historico')->group(function(){
     Route::post('store', 'DefaultingHistoryController@store' )->name('defaultingHistories.store');
 });
 
+Route::prefix('grafica')->group(function(){
+    Route::get('/', 'GraphicController@index')->name('graphics.index');
+    Route::get('novo',        'GraphicController@create')->name('graphics.create');
+    #Route::get('lixeira',      'GraphicController@trash' )->name('graphics.trash');
+    Route::post('store',      'GraphicController@store' )->name('graphics.store');
+    Route::get('show/{graphic}', 'GraphicController@show'  )->name('graphics.show');
+    Route::get('edit/{graphic}', 'GraphicController@edit'  )->name('graphics.edit');
+    Route::put('edit/{graphic}', 'GraphicController@update')->name('graphics.update');
+
+    Route::delete('destroy/{graphic}', 'GraphicController@destroy')->name('graphics.destroy');
+});
+
+Route::prefix('grafica-negociacao')->group(function(){
+    Route::post('store',      'GraphicTradingController@store' )->name('graphicTradings.store');
+});
+
+Route::prefix('grafica-historico')->group(function(){
+    Route::post('store', 'graphicHistoryController@store' )->name('graphicHistories.store');
+});
+
 Route::prefix('alunos')->group(function(){
     Route::get('/', 'StudentController@index')->name('alunos.index');
     Route::get('novo',        'StudentController@create')->name('alunos.create');

@@ -34,7 +34,6 @@ class CreateStudentsTable extends Migration
             $table->string('cidade')->nullable(true);
             $table->date('nascimento')->nullable(true);
             $table->string('estado', 2)->nullable(true);
-            $table->string('observacao')->nullable(true);
             $table->boolean('negociado')->default(false);
             $table->boolean('active')->default(true);
             $table->timestamps();

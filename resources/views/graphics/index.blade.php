@@ -19,7 +19,7 @@
                                 {{$title}}
                             </h3>
                             <span class="tabs">
-                                <a href="{{route('defaultings.create')}}" class="btn btn-primary">
+                                <a href="{{route('graphics.create')}}" class="btn btn-primary">
                                 <i class="icon-reorder"></i> Novo
                                 </a>
                             </span>
@@ -32,8 +32,8 @@
                             <table class="table table-hover table-nomargin table-bordered table-colored-header">
                                 <thead>
                                     <tr>
-                                        <th colspan="2">
-                                            <form action="{{route('defaultings.index')}}" method="GET" class="span12" style="margin: 0;padding:0;">
+                                        <th colspan="1">
+                                            <form action="{{route('graphics.index')}}" method="GET" class="span12" style="margin: 0;padding:0;">
                                             <div class="span12">
                                                 <div class="control-group">
                                                     <div class="controls controls-row">
@@ -74,7 +74,7 @@
                                                 </div>
                                             </div>
                                         </th>
-                                        <th colspan="2">
+                                        <th colspan="1">
                                             <div class="span12">
                                                 <div class="control-group">
                                                     <div class="controls controls-row">
@@ -101,35 +101,22 @@
                                         </th>
                                     </tr>
                                     <tr>
-                                        <th>Fase</th>
                                         <th>Nome</th>
                                         <th>Negociado</th>
                                         <th>Boleto</th>
                                         <th>Fones</th>
-                                        <th>Total Líquido</th>
-                                        <th>Total Geral</th>
+                                        <th>Total</th>
                                         <th class='hidden-350'>Ações</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                @foreach ($defaultings as $value)
+                                @foreach ($graphics as $value)
                                     <tr>
-                                        <td>{{$value->fase}}</td>
                                         <td>
-                                            <a href="{{route('defaultings.show', ['defaulting' => $value->id])}}" target="_parent">{{$value->student->name}}</a>
+                                            <a href="{{route('graphics.show', ['graphic' => $value->id])}}" target="_parent">{{$value->student->name}}</a>
                                             <br><small>Unid: {{$value->student->cod_unidade}} / Curso: {{$value->student->cod_curso}} / CTR: {{$value->student->ctr}} / CPF: {{$value->student->cpf_cnpj}}</small>
                                         </td>
                                         <td><?php
-
-                                            $m_parcelas = $value->m_parcelas;
-                                            $m_parcela_pg = $value->m_parcela_pg;
-                                            $m_pendente = $value->m_parcelas - $value->m_parcela_pg;
-                                            $m_parcela_valor = $value->m_parcela_valor;
-
-                                            $s_parcelas = $value->s_parcelas;
-                                            $s_parcela_pg = $value->s_parcela_pg;
-                                            $s_pendente = $value->s_parcelas - $value->s_parcela_pg;
-                                            $s_parcela_valor = $value->s_parcela_valor;
 
                                             if($value->negociado){
                                                 echo '<button class="btn btn-small  btn-success">SIM</button>';
@@ -145,36 +132,14 @@
                                             }
                                         ?></td>
                                         <td>{{$value->student->telefone}}/{{$value->student->celular}}</td>
-                                        <td>
-                                            <?php
-                                                #Total Líquido
-                                                $valor = str_replace(',', '.', str_replace('.', '', $s_parcela_valor));
-                                                $s_valor_total = ($value->s_parcelas - $value->s_parcela_pg) * $valor;
-
-                                                $multa = str_replace(',', '.', str_replace('.', '', $value->multa));
-                                                $multa = $multa * $s_valor_total / 100;
-
-                                                $valor = str_replace(',', '.', str_replace('.', '', $m_parcela_valor));
-                                                $m_valor_total = ($m_parcelas - $m_parcela_pg) * $valor;
-
-                                                $total = $m_valor_total + $multa;
-                                                echo number_format($total, 2, ',', '.');
-                                            ?>
-                                        </td>
-                                        <td>
-                                            <?php
-                                            #Total Geral
-                                            $total = $m_valor_total + $s_valor_total;
-                                            echo number_format($total, 2, ',', '.');
-                                           ?>
-                                        </td>
+                                        <td>{{$value->total}}</td>
                                         <td class='hidden-1024'>
                                             <?php if($value->student->negociado){ ?>
-                                                <a href="{{route('defaultings.show', ['defaulting' => $value->id])}}" class="btn btn-lime" rel="tooltip" title="" data-original-title="Negociar">
+                                                <a href="{{route('graphics.show', ['graphic' => $value->id])}}" class="btn btn-lime" rel="tooltip" title="" data-original-title="Negociar">
                                                     <i class="icon-credit-card"></i>
                                                 </a>
                                             <?php }else{ ?>
-                                                <a href="{{route('defaultings.show', ['defaulting' => $value->id])}}" class="btn" rel="tooltip" title="" data-original-title="Negociar">
+                                                <a href="{{route('graphics.show', ['graphic' => $value->id])}}" class="btn" rel="tooltip" title="" data-original-title="Negociar">
                                                     <i class="icon-credit-card"></i>
                                                 </a>
                                             <?php } ?>
@@ -183,7 +148,7 @@
                                 @endforeach
                                 </tbody>
                             </table>
-                            {{ $defaultings->links('layouts.pagination') }}
+                            {{ $graphics->links('layouts.pagination') }}
                         </div>
 
                     </div>

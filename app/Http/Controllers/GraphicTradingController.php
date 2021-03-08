@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\DefaultingTrading;
+use App\GraphicTrading;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 
-class DefaultingTradingController extends Controller
+class GraphicTradingController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -39,21 +38,21 @@ class DefaultingTradingController extends Controller
     {
         if(Auth::user()->level <= 1)
         {
-            $result = DB::table('defaulting_tradings')->where('defaulting_id', $request->defaulting_id)->exists();
+            $result = DB::table('graphic_tradings')->where('graphic_id', $request->graphic_id)->exists();
             if(!empty($result))
             {
                 die('Você não tem permissão editar uma negociação!');
             }
         }
 
-        DefaultingTrading::where('defaulting_id', $request->defaulting_id)->delete();
+        GraphicTrading::where('graphic_id', $request->graphic_id)->delete();
 
         $i = 0;
         if(!empty($request->parcela)){
             foreach($request->parcela as $value):
-                $model = new DefaultingTrading();
+                $model = new GraphicTrading();
                 $model->user_id     = Auth::id();
-                $model->defaulting_id = $request->defaulting_id;
+                $model->graphic_id = $request->graphic_id;
                 $model->vencimento = $request->vencimento[$i];
                 $model->valor = $request->valor[$i];
                 $model->parcela = $request->parcela[$i];
@@ -69,16 +68,16 @@ class DefaultingTradingController extends Controller
             endforeach;
         }
 
-        return redirect()->route('defaultings.show', ['defaulting' => $request->defaulting_id]);
+        return redirect()->route('graphics.show', ['graphic' => $request->graphic_id]);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\DefaultingTrading  $defaultingTrading
+     * @param  \App\GraphicTrading  $graphicTrading
      * @return \Illuminate\Http\Response
      */
-    public function show(DefaultingTrading $defaultingTrading)
+    public function show(GraphicTrading $graphicTrading)
     {
         //
     }
@@ -86,10 +85,10 @@ class DefaultingTradingController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\DefaultingTrading  $defaultingTrading
+     * @param  \App\GraphicTrading  $graphicTrading
      * @return \Illuminate\Http\Response
      */
-    public function edit(DefaultingTrading $defaultingTrading)
+    public function edit(GraphicTrading $graphicTrading)
     {
         //
     }
@@ -98,10 +97,10 @@ class DefaultingTradingController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\DefaultingTrading  $defaultingTrading
+     * @param  \App\GraphicTrading  $graphicTrading
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, DefaultingTrading $defaultingTrading)
+    public function update(Request $request, GraphicTrading $graphicTrading)
     {
         //
     }
@@ -109,10 +108,10 @@ class DefaultingTradingController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\DefaultingTrading  $defaultingTrading
+     * @param  \App\GraphicTrading  $graphicTrading
      * @return \Illuminate\Http\Response
      */
-    public function destroy(DefaultingTrading $defaultingTrading)
+    public function destroy(GraphicTrading $graphicTrading)
     {
         //
     }

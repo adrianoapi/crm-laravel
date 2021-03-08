@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateDefaultingTradingsTable extends Migration
+class CreateGraphicTradingsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,10 @@ class CreateDefaultingTradingsTable extends Migration
      */
     public function up()
     {
-        Schema::create('defaulting_tradings', function (Blueprint $table) {
+        Schema::create('graphic_tradings', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('defaulting_id');
+            $table->unsignedBigInteger('graphic_id');
             $table->integer('parcela');
             $table->decimal('valor', 10, 2);
             $table->date('vencimento');
@@ -25,7 +25,7 @@ class CreateDefaultingTradingsTable extends Migration
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('CASCADE');
-            $table->foreign('defaulting_id')->references('id')->on('defaultings')->onDelete('CASCADE');
+            $table->foreign('graphic_id')->references('id')->on('graphics')->onDelete('CASCADE');
         });
     }
 
@@ -36,6 +36,6 @@ class CreateDefaultingTradingsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('defaulting_tradings');
+        Schema::dropIfExists('graphic_tradings');
     }
 }

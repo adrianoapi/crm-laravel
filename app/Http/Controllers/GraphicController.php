@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Defaulting;
+use App\Graphic;
 use App\Student;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class DefaultingController extends Controller
+class GraphicController extends Controller
 {
-    private $title  = 'CONTRATO - EVOLUTIME';
+    private $title  = 'GRAFICA - ENNT';
 
     public function __construct()
     {
@@ -86,7 +86,7 @@ class DefaultingController extends Controller
            if(strlen($_GET['negociado']))
             {
                 $negociado = $_GET['negociado'] == 'sim' ? true : false;
-                $students  = Defaulting::whereIn('student_id', $ids)
+                $students  = Graphic::whereIn('student_id', $ids)
                 ->where('negociado', $negociado)
                 ->where('active', true)
                 ->get();
@@ -104,7 +104,7 @@ class DefaultingController extends Controller
             if(strlen($_GET['boleto']))
             {
                 $boleto = $_GET['boleto'] == 'sim' ? true : false;
-                $students = Defaulting::whereIn('student_id', $ids)
+                $students = Graphic::whereIn('student_id', $ids)
                 ->where('boleto', $boleto)
                 ->where('active', true)
                 ->get();
@@ -124,25 +124,25 @@ class DefaultingController extends Controller
                     array_push($ids, $value->id);
                 endforeach;
 
-                $defaultings = Defaulting::whereIn('student_id', $ids)
+                $graphics = Graphic::whereIn('student_id', $ids)
                                         ->where('active', true)
                                         ->orderBy('student_name', 'asc')
                                         ->paginate(100);
             }else{
-                $defaultings = Defaulting::where('active', true)->orderBy('student_name', 'asc')->paginate(100);
+                $graphics = Graphic::where('active', true)->orderBy('student_name', 'asc')->paginate(100);
             }
 
 
         }else{
-            $defaultings = Defaulting::where('active', true)->orderBy('student_name', 'asc')->paginate(100);
+            $graphics = Graphic::where('active', true)->orderBy('student_name', 'asc')->paginate(100);
         }
 
         $title = $this->title. " listagem";
 
 
-        return view('defaultings.index', [
+        return view('graphics.index', [
             'title' => $title,
-            'defaultings' => $defaultings,
+            'graphics' => $graphics,
             'pesuisar' => $pesuisar,
             'negociado' => $negociado,
             'boleto' => $boleto,
@@ -161,7 +161,7 @@ class DefaultingController extends Controller
         $title = $this->title. " cadastrar";
         $students = Student::where('active', true)->orderBy('name', 'asc')->paginate(100000);
 
-        return view('defaultings.add', ['students' => $students, 'title' => $title]);
+        return view('graphics.add', ['students' => $students, 'title' => $title]);
     }
 
     /**
@@ -173,41 +173,35 @@ class DefaultingController extends Controller
     public function store(Request $request)
     {
         $student = Student::where('id', $request->student_id)->get();
-        $segundaFase = new Defaulting();
-        $segundaFase->user_id          = Auth::id();
-        $segundaFase->student_id       = $request->student_id;
-        $segundaFase->student_name     = $student[0]->name;
-        $segundaFase->dt_inadimplencia = $request->dt_inadimplencia;
+        $segundaFase = new Graphic();
+        $segundaFase->user_id       = Auth::id();
+        $segundaFase->student_id    = $request->student_id;
+        $segundaFase->student_name  = $student[0]->name;
+        $segundaFase->dt_vencimento = $request->dt_vencimento;
 
-        $segundaFase->m_parcelas = $request->m_parcelas;
-        $segundaFase->m_parcela_pg = $request->m_parcela_pg;
-        $segundaFase->m_parcela_valor = $request->m_parcela_valor;
-
-        $segundaFase->s_parcelas = $request->s_parcelas;
-        $segundaFase->s_parcela_pg = $request->s_parcela_pg;
-        $segundaFase->s_parcela_valor = $request->s_parcela_valor;
-
-        $segundaFase->multa = $request->multa;
+        $segundaFase->valor   = $request->valor;
+        $segundaFase->parcela = $request->parcela;
+        $segundaFase->total   = $request->total;
 
         $segundaFase->save();
 
-        return redirect()->route('defaultings.index');
+        return redirect()->route('graphics.index');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Defaulting  $defaulting
+     * @param  \App\Graphic  $graphic
      * @return \Illuminate\Http\Response
      */
-    public function show(Defaulting $defaulting)
+    public function show(Graphic $graphic)
     {
         $title = $this->title. " negociar";
-        $student = Student::where('id', $defaulting->student_id)->get();
+        $student = Student::where('id', $graphic->student_id)->get();
 
-        return view('defaultings.show', [
+        return view('graphics.show', [
             'title' => $title,
-            'defaulting' => $defaulting,
+            'graphic' => $graphic,
             'student' => $student,
             'estados' => $this->getEstados()
         ]);
@@ -216,67 +210,53 @@ class DefaultingController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Defaulting  $defaulting
+     * @param  \App\Graphic  $graphic
      * @return \Illuminate\Http\Response
      */
-    public function edit(Defaulting $defaulting)
+    public function edit(Graphic $graphic)
     {
         $title = $this->title. " alterar";
         $students = Student::where('active', true)->orderBy('name', 'asc')->paginate(1000);
 
-        return view('defaultings.edit', ['title' => $title, 'students' => $students, 'defaulting' => $defaulting]);
+        return view('graphics.edit', [
+            'title' => $title,
+            'students' => $students,
+            'graphic' => $graphic
+            ]);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Defaulting  $defaulting
+     * @param  \App\Graphic  $graphic
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Defaulting $defaulting)
+    public function update(Request $request, Graphic $graphic)
     {
-        $defaulting->student_id       = $request->student_id;
-        $defaulting->dt_inadimplencia = $request->dt_inadimplencia;
+        $graphic->student_id       = $request->student_id;
+        $graphic->dt_vencimento = $request->dt_vencimento;
 
-        $defaulting->m_parcelas = $request->m_parcelas;
-        $defaulting->m_parcela_pg = $request->m_parcela_pg;
-        $defaulting->m_parcela_valor = $request->m_parcela_valor;
+        $graphic->valor = $request->valor;
+        $graphic->parcela = $request->parcela;
+        $graphic->total = $request->total;
 
-        $defaulting->s_parcelas = $request->s_parcelas;
-        $defaulting->s_parcela_pg = $request->s_parcela_pg;
-        $defaulting->s_parcela_valor = $request->s_parcela_valor;
+        $graphic->save();
 
-        $defaulting->multa = $request->multa;
-
-        $defaulting->save();
-
-        return redirect()->route('defaultings.show', ['defaulting' => $defaulting->id]);
+        return redirect()->route('graphics.show', ['graphic' => $graphic->id]);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Defaulting  $defaulting
+     * @param  \App\Graphic  $graphic
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Defaulting $defaulting)
+    public function destroy(Graphic $graphic)
     {
-        $defaulting->active = false;
-        $defaulting->save();
-        return redirect()->route('defaultings.index');
-    }
-
-    public function trash()
-    {
-        $title = $this->title. " lixeira";
-        $defaultings = Defaulting::where('active', false)
-                                ->orderBy('student_name', 'asc')
-                                ->paginate(100);
-        return view('defaultings.trash', [
-            'title' => $title,
-            'defaultings' => $defaultings,
-        ]);
+        $graphic->active = false;
+        $graphic->save();
+        return redirect()->route('graphics.index');
     }
 
     public function getEstados()

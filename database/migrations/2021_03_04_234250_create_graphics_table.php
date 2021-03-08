@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateDefaultingsTable extends Migration
+class CreateGraphicsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,22 +13,17 @@ class CreateDefaultingsTable extends Migration
      */
     public function up()
     {
-        Schema::create('defaultings', function (Blueprint $table) {
+        Schema::create('graphics', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('student_id');
             $table->string('student_name', 100)->nullable(true);
-            $table->date('dt_inadimplencia')->nullable(true);
-            $table->integer('m_parcelas')->nullable(true);
-            $table->integer('m_parcela_pg')->nullable(true);
-            $table->decimal('m_parcela_valor', 10, 2)->nullable(true);
-            $table->integer('s_parcelas')->nullable(true);
-            $table->integer('s_parcela_pg')->nullable(true);
-            $table->decimal('s_parcela_valor', 10, 2)->nullable(true);
-            $table->decimal('multa', 10, 2)->nullable(true);
+            $table->date('dt_vencimento')->nullable(true);
+            $table->decimal('valor', 10, 2);
+            $table->integer('parcela');
+            $table->decimal('total', 10, 2);
             $table->boolean('negociado')->default(false);
             $table->boolean('boleto')->default(false);
-            $table->enum('fase', ['segunda', 'terceira'])->default('segunda');
             $table->boolean('active')->default(true);
             $table->timestamps();
 
@@ -44,6 +39,6 @@ class CreateDefaultingsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('defaultings');
+        Schema::dropIfExists('graphics');
     }
 }

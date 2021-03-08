@@ -21,6 +21,9 @@
 					<li>
 						<a href="{{route('defaultings.index')}}">CONTRATO - EVOLUTIME</a>
 					</li>
+					<li>
+						<a href="{{route('graphics.index')}}">GRAFICA - ENNT</a>
+					</li>
 				</ul>
 			</div>
 
