@@ -163,6 +163,10 @@ class StudentController extends Controller
             $dataulting->boleto = $request->boleto == 'true' ? true : false;
             $dataulting->save();
 
+            $graphic = Graphic::find($request->graphic_id);
+            $graphic->student_name = $request->name;
+            $graphic->save();
+
             return redirect()->route('defaultings.show', ['defaulting' => $request->defaulting_id]);
 
         }elseif($request->graphic_id){
@@ -171,6 +175,10 @@ class StudentController extends Controller
             $graphic->negociado = $request->negociado == 'true' ? true : false;
             $graphic->boleto = $request->boleto == 'true' ? true : false;
             $graphic->save();
+
+            $dataulting = Defaulting::find($request->defaulting_id);
+            $dataulting->student_name = $request->name;
+            $dataulting->save();
 
             return redirect()->route('graphics.show', ['graphic' => $request->graphic_id]);
 

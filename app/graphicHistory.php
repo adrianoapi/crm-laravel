@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class graphicHistory extends Model
+class GraphicHistory extends Model
 {
     public function user()
     {
