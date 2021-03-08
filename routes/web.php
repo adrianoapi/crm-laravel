@@ -72,7 +72,7 @@ Route::prefix('grafica-negociacao')->group(function(){
 });
 
 Route::prefix('grafica-historico')->group(function(){
-    Route::post('store', 'graphicHistoryController@store' )->name('graphicHistories.store');
+    Route::post('store', 'GraphicHistoryController@store' )->name('graphicHistories.store');
 });
 
 Route::prefix('alunos')->group(function(){
