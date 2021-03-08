@@ -117,13 +117,8 @@ class GraphicController extends Controller
                 $boleto = $_GET['boleto'];
             }
 
-            if(!empty($students))
+            if(!empty($ids))
             {
-                $ids = [];
-                foreach($students as $value):
-                    array_push($ids, $value->id);
-                endforeach;
-
                 $graphics = Graphic::whereIn('student_id', $ids)
                                         ->where('active', true)
                                         ->orderBy('student_name', 'asc')

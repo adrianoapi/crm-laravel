@@ -91,6 +91,7 @@ class DefaultingController extends Controller
                 ->where('active', true)
                 ->get();
 
+
                 $ids = [];
                 foreach($students as $value):
                     array_push($ids, $value->student_id);
@@ -117,13 +118,8 @@ class DefaultingController extends Controller
                 $boleto = $_GET['boleto'];
             }
 
-            if(!empty($students))
+            if(!empty($ids))
             {
-                $ids = [];
-                foreach($students as $value):
-                    array_push($ids, $value->id);
-                endforeach;
-
                 $defaultings = Defaulting::whereIn('student_id', $ids)
                                         ->where('active', true)
                                         ->orderBy('student_name', 'asc')
