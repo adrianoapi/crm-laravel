@@ -134,7 +134,6 @@ class GraphicController extends Controller
 
         $title = $this->title. " listagem";
 
-
         return view('graphics.index', [
             'title' => $title,
             'graphics' => $graphics,

@@ -15,4 +15,5 @@ class GraphicHistory extends Model
     {
         return $this->belongsTo(Graphic::class, 'graphic_id', 'id');
     }
+
 }
