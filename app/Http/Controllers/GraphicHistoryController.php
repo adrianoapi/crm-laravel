@@ -52,10 +52,10 @@ class GraphicHistoryController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\graphicHistory  $graphicHistory
+     * @param  \App\GraphicHistory  $GraphicHistory
      * @return \Illuminate\Http\Response
      */
-    public function show(graphicHistory $graphicHistory)
+    public function show(GraphicHistory $GraphicHistory)
     {
         //
     }
@@ -63,10 +63,10 @@ class GraphicHistoryController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\graphicHistory  $graphicHistory
+     * @param  \App\GraphicHistory  $GraphicHistory
      * @return \Illuminate\Http\Response
      */
-    public function edit(graphicHistory $graphicHistory)
+    public function edit(GraphicHistory $GraphicHistory)
     {
         //
     }
@@ -75,10 +75,10 @@ class GraphicHistoryController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\graphicHistory  $graphicHistory
+     * @param  \App\GraphicHistory  $GraphicHistory
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, graphicHistory $graphicHistory)
+    public function update(Request $request, GraphicHistory $GraphicHistory)
     {
         //
     }
@@ -86,10 +86,10 @@ class GraphicHistoryController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\graphicHistory  $graphicHistory
+     * @param  \App\GraphicHistory  $GraphicHistory
      * @return \Illuminate\Http\Response
      */
-    public function destroy(graphicHistory $graphicHistory)
+    public function destroy(GraphicHistory $GraphicHistory)
     {
         //
     }
