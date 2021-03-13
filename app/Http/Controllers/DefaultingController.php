@@ -118,16 +118,10 @@ class DefaultingController extends Controller
                 $boleto = $_GET['boleto'];
             }
 
-            if(!empty($ids))
-            {
-                $defaultings = Defaulting::whereIn('student_id', $ids)
+            $defaultings = Defaulting::whereIn('student_id', $ids)
                                         ->where('active', true)
                                         ->orderBy('student_name', 'asc')
                                         ->paginate(100);
-            }else{
-                $defaultings = Defaulting::where('active', true)->orderBy('student_name', 'asc')->paginate(100);
-            }
-
 
         }else{
             $defaultings = Defaulting::where('active', true)->orderBy('student_name', 'asc')->paginate(100);

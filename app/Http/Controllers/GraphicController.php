@@ -117,16 +117,10 @@ class GraphicController extends Controller
                 $boleto = $_GET['boleto'];
             }
 
-            if(!empty($ids))
-            {
-                $graphics = Graphic::whereIn('student_id', $ids)
-                                        ->where('active', true)
-                                        ->orderBy('student_name', 'asc')
-                                        ->paginate(100);
-            }else{
-                $graphics = Graphic::where('active', true)->orderBy('student_name', 'asc')->paginate(100);
-            }
-
+            $graphics = Graphic::whereIn('student_id', $ids)
+                                    ->where('active', true)
+                                    ->orderBy('student_name', 'asc')
+                                    ->paginate(100);
 
         }else{
             $graphics = Graphic::where('active', true)->orderBy('student_name', 'asc')->paginate(100);

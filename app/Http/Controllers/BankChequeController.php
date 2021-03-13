@@ -118,16 +118,10 @@ class BankChequeController extends Controller
                 $boleto = $_GET['boleto'];
             }
 
-            if(!empty($ids))
-            {
-                $bankCheques = BankCheque::whereIn('student_id', $ids)
+            $bankCheques = BankCheque::whereIn('student_id', $ids)
                                         ->where('active', true)
                                         ->orderBy('student_name', 'asc')
                                         ->paginate(100);
-            }else{
-                $bankCheques = BankCheque::where('active', true)->orderBy('student_name', 'asc')->paginate(100);
-            }
-
 
         }else{
             $bankCheques = BankCheque::where('active', true)->orderBy('student_name', 'asc')->paginate(100);
