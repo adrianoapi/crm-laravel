@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Student;
 use App\Defaulting;
 use App\Graphic;
+use App\BankCheque;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -163,10 +164,16 @@ class StudentController extends Controller
             $dataulting->boleto = $request->boleto == 'true' ? true : false;
             $dataulting->save();
 
-            $graphic = Graphic::find($request->graphic_id);
+            $graphic = Graphic::where('student_id', $student->student_id)->first();
             if(!empty($graphic)){
                 $graphic->student_name = $request->name;
                 $graphic->save();
+            }
+
+            $bankCheque = BankCheque::where('student_id', $student->student_id)->first();
+            if(!empty($bankCheque)){
+                $bankCheque->student_name = $request->name;
+                $bankCheque->save();
             }
 
             return redirect()->route('defaultings.show', ['defaulting' => $request->defaulting_id]);
@@ -178,13 +185,40 @@ class StudentController extends Controller
             $graphic->boleto = $request->boleto == 'true' ? true : false;
             $graphic->save();
 
-            $dataulting = Defaulting::find($request->defaulting_id);
+            $dataulting = Defaulting::where('student_id', $student->student_id)->first();
             if(!empty($dataulting)){
                 $dataulting->student_name = $request->name;
                 $dataulting->save();
             }
 
+            $bankCheque = BankCheque::where('student_id', $student->student_id)->first();
+            if(!empty($bankCheque)){
+                $bankCheque->student_name = $request->name;
+                $bankCheque->save();
+            }
+
             return redirect()->route('graphics.show', ['graphic' => $request->graphic_id]);
+
+        }elseif($request->bank_cheque_id){
+            $graphic = BankCheque::find($request->bank_cheque_id);
+            $graphic->student_name = $request->name;
+            $graphic->negociado = $request->negociado == 'true' ? true : false;
+            $graphic->boleto = $request->boleto == 'true' ? true : false;
+            $graphic->save();
+
+            $graphic = Graphic::where('student_id', $student->student_id)->first();
+            if(!empty($graphic)){
+                $graphic->student_name = $request->name;
+                $graphic->save();
+            }
+
+            $dataulting = Defaulting::where('student_id', $student->student_id)->first();
+            if(!empty($dataulting)){
+                $dataulting->student_name = $request->name;
+                $dataulting->save();
+            }
+
+            return redirect()->route('bankCheques.show', ['bankCheque' => $request->bank_cheque_id]);
 
         }else{
             return redirect()->route('alunos.index');

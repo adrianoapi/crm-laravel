@@ -55,6 +55,26 @@ Route::prefix('segunda-fase-historico')->group(function(){
     Route::post('store', 'DefaultingHistoryController@store' )->name('defaultingHistories.store');
 });
 
+Route::prefix('cheque')->group(function(){
+    Route::get('/', 'BankChequeController@index')->name('bankCheques.index');
+    Route::get('novo',        'BankChequeController@create')->name('bankCheques.create');
+    #Route::get('lixeira',      'BankChequeController@trash' )->name('bankCheques.trash');
+    Route::post('store',      'BankChequeController@store' )->name('bankCheques.store');
+    Route::get('show/{bankCheque}', 'BankChequeController@show'  )->name('bankCheques.show');
+    Route::get('edit/{bankCheque}', 'BankChequeController@edit'  )->name('bankCheques.edit');
+    Route::put('edit/{bankCheque}', 'BankChequeController@update')->name('bankCheques.update');
+
+    Route::delete('destroy/{graphic}', 'BankChequeController@destroy')->name('bankCheques.destroy');
+});
+
+Route::prefix('cheque-negociacao')->group(function(){
+    Route::post('store',      'BankChequeTradingController@store' )->name('bankChequeTradings.store');
+});
+
+Route::prefix('cheque-historico')->group(function(){
+    Route::post('store', 'BankChequeHistoryController@store' )->name('bankChequeHistories.store');
+});
+
 Route::prefix('grafica')->group(function(){
     Route::get('/', 'GraphicController@index')->name('graphics.index');
     Route::get('novo',        'GraphicController@create')->name('graphics.create');

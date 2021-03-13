@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Auth;
 
 class BankChequeController extends Controller
 {
-    private $title  = 'GRAFICA - ENNT';
+    private $title  = 'CHEQUE - EVOLUTIME';
 
     public function __construct()
     {
@@ -153,7 +153,10 @@ class BankChequeController extends Controller
      */
     public function create()
     {
-        //
+        $title = $this->title. " cadastrar";
+        $students = Student::where('active', true)->orderBy('name', 'asc')->paginate(100000);
+
+        return view('bankCheques.add', ['students' => $students, 'title' => $title]);
     }
 
     /**
@@ -164,7 +167,21 @@ class BankChequeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $student = Student::where('id', $request->student_id)->get();
+        $bankCheque = new BankCheque();
+        $bankCheque->user_id       = Auth::id();
+        $bankCheque->student_id    = $request->student_id;
+        $bankCheque->student_name  = $student[0]->name;
+        $bankCheque->dt_vencimento = $request->dt_vencimento;
+
+        $bankCheque->valor = $request->valor;
+        $bankCheque->cheque = $request->cheque;
+        $bankCheque->agencia = $request->agencia;
+        $bankCheque->banco = $request->banco;
+
+        $bankCheque->save();
+
+        return redirect()->route('bankCheques.index');
     }
 
     /**
@@ -175,7 +192,15 @@ class BankChequeController extends Controller
      */
     public function show(BankCheque $bankCheque)
     {
-        //
+        $title = $this->title. " negociar";
+        $student = Student::where('id', $bankCheque->student_id)->get();
+
+        return view('bankCheques.show', [
+            'title' => $title,
+            'bankCheque' => $bankCheque,
+            'student' => $student,
+            'estados' => $this->getEstados()
+        ]);
     }
 
     /**
@@ -186,7 +211,14 @@ class BankChequeController extends Controller
      */
     public function edit(BankCheque $bankCheque)
     {
-        //
+        $title = $this->title. " alterar";
+        $students = Student::where('active', true)->orderBy('name', 'asc')->paginate(1000);
+
+        return view('bankCheques.edit', [
+            'title' => $title,
+            'students' => $students,
+            'bankCheque' => $bankCheque
+        ]);
     }
 
     /**
@@ -198,7 +230,17 @@ class BankChequeController extends Controller
      */
     public function update(Request $request, BankCheque $bankCheque)
     {
-        //
+        $bankCheque->student_id    = $request->student_id;
+        $bankCheque->dt_vencimento = $request->dt_vencimento;
+
+        $bankCheque->valor   = $request->valor;
+        $bankCheque->cheque  = $request->cheque;
+        $bankCheque->agencia = $request->agencia;
+        $bankCheque->banco   = $request->banco;
+
+        $bankCheque->save();
+
+        return redirect()->route('bankCheques.show', ['bankCheque' => $bankCheque->id]);
     }
 
     /**
@@ -209,6 +251,41 @@ class BankChequeController extends Controller
      */
     public function destroy(BankCheque $bankCheque)
     {
-        //
+        $bankCheque->active = false;
+        $bankCheque->save();
+        return redirect()->route('bankCheques.index');
+    }
+
+    public function getEstados()
+    {
+        return [
+            'AC' => 'Acre',
+            'AL' => 'Alagoas',
+            'AP' => 'Amapá',
+            'AM' => 'Amazonas',
+            'BA' => 'Bahia',
+            'CE' => 'Ceará',
+            'DF' => 'Distrito Federal',
+            'ES' => 'Espírito Santo',
+            'GO' => 'Goiás',
+            'MA' => 'Maranhão',
+            'MT' => 'Mato Grosso',
+            'MS' => 'Mato Grosso do Sul',
+            'MG' => 'Minas Gerais',
+            'PA' => 'Pará',
+            'PB' => 'Paraíba',
+            'PR' => 'Paraná',
+            'PE' => 'Pernambuco',
+            'PI' => 'Piauí',
+            'RJ' => 'Rio de Janeiro',
+            'RN' => 'Rio Grande do Norte',
+            'RS' => 'Rio Grande do Sul',
+            'RO' => 'Rondônia',
+            'RR' => 'Roraima',
+            'SC' => 'Santa Catarina',
+            'SP' => 'São Paulo',
+            'SE' => 'Sergipe',
+            'TO' => 'Tocantins',
+        ];
     }
 }
