@@ -78,6 +78,7 @@ Route::prefix('cheque-historico')->group(function(){
 Route::prefix('grafica')->group(function(){
     Route::get('/', 'GraphicController@index')->name('graphics.index');
     Route::get('novo',        'GraphicController@create')->name('graphics.create');
+    Route::get('pdf',      'GraphicController@pdf' )->name('graphics.pdf');
     #Route::get('lixeira',      'GraphicController@trash' )->name('graphics.trash');
     Route::post('store',      'GraphicController@store' )->name('graphics.store');
     Route::get('show/{graphic}', 'GraphicController@show'  )->name('graphics.show');
