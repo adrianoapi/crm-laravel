@@ -143,18 +143,119 @@ class GraphicController extends Controller
 
     public function pdf()
     {
+        $ids = [];
+        $unidade = NULL;
+        $ctr = NULL;
+        $students = NULL;
+        $pesuisar = NULL;
+        $negociado = '';
+        $boleto = '';
+
+        if(array_key_exists('filtro',$_GET))
+        {
+
+            if(strlen($_GET['pesquisar']))
+            {
+                $pesuisar = $_GET['pesquisar'];
+                $students = Student::where('name', 'like', '%' . $pesuisar . '%')
+                ->where('active', true)
+                ->orWhere('cpf_cnpj', 'like', '%' . $pesuisar . '%')
+                ->orderBy('name', 'asc')
+                ->get();
+
+                $ids = [];
+                foreach($students as $value):
+                    array_push($ids, $value->id);
+                endforeach;
+            }else{
+                $students  = Student::where('active', true)->get();
+                $ids = [];
+                foreach($students as $value):
+                    array_push($ids, $value->id);
+                endforeach;
+            }
+
+            if(strlen($_GET['unidade']))
+            {
+                $unidade = $_GET['unidade'];
+                $students = Student::whereIn('id', $ids)
+                ->where('cod_unidade', 'like', '%' . $unidade . '%')
+                ->where('active', true)
+                ->orderBy('name', 'asc')
+                ->get();
+
+                $ids = [];
+                foreach($students as $value):
+                    array_push($ids, $value->id);
+                endforeach;
+            }
+            if(strlen($_GET['ctr']))
+            {
+                $ctr = $_GET['ctr'];
+                $students = Student::whereIn('id', $ids)
+                ->where('ctr', 'like', '%' . $ctr . '%')
+                ->where('active', true)
+                ->orderBy('name', 'asc')
+                ->get();
+
+                $ids = [];
+                foreach($students as $value):
+                    array_push($ids, $value->id);
+                endforeach;
+            }
+
+           if(strlen($_GET['negociado']))
+            {
+                $negociado = $_GET['negociado'] == 'sim' ? true : false;
+                $students  = Graphic::whereIn('student_id', $ids)
+                ->where('negociado', $negociado)
+                ->where('active', true)
+                ->get();
+
+                $ids = [];
+                foreach($students as $value):
+                    array_push($ids, $value->student_id);
+                endforeach;
+
+                $negociado = $_GET['negociado'];
+            }
+
+
+
+            if(strlen($_GET['boleto']))
+            {
+                $boleto = $_GET['boleto'] == 'sim' ? true : false;
+                $students = Graphic::whereIn('student_id', $ids)
+                ->where('boleto', $boleto)
+                ->where('active', true)
+                ->get();
+
+                $ids = [];
+                foreach($students as $value):
+                    array_push($ids, $value->student_id);
+                endforeach;
+
+                $boleto = $_GET['boleto'];
+            }
+
+
+            $graphics = Graphic::whereIn('student_id', $ids)
+                                    ->where('active', true)
+                                    ->orderBy('student_name', 'asc')
+                                    ->paginate(300);
+
+        }else{
+            $graphics = Graphic::where('active', true)->orderBy('student_name', 'asc')->paginate(300);
+        }
 
         // instantiate and use the dompdf class
         $dompdf = new Dompdf();
-        $dompdf->loadHtml('hello world');
+        $html = view('graphics.pdf', ['graphics' => $graphics])->render();
 
-        // (Optional) Setup the paper size and orientation
-        $dompdf->setPaper('A4', 'landscape');
+        $dompdf->loadHtml($html);
 
-        // Render the HTML as PDF
+        $dompdf->setPaper('A4');
         $dompdf->render();
-
-        // Output the generated PDF to Browser
         $dompdf->stream();
     }
 
