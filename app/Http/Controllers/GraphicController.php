@@ -6,6 +6,7 @@ use App\Graphic;
 use App\Student;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class GraphicController extends Controller
 {
@@ -147,7 +148,22 @@ class GraphicController extends Controller
     public function create()
     {
         $title = $this->title. " cadastrar";
-        $students = Student::where('active', true)->orderBy('name', 'asc')->paginate(100000);
+
+        $results = DB::table('students')
+        ->join('graphics', 'students.id', '=', 'graphics.student_id')
+        ->where('graphics.active', true)
+        ->select('students.id')
+        ->get();
+
+        $ids = [];
+        foreach($results as $value):
+            array_push($ids, $value->id);
+        endforeach;
+
+        $students = Student::where('active', true)
+                    ->whereNotIn('id', $ids)
+                    ->orderBy('name', 'asc')
+                    ->paginate(10000);
 
         return view('graphics.add', ['students' => $students, 'title' => $title]);
     }

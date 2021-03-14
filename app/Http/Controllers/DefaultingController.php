@@ -6,6 +6,7 @@ use App\Defaulting;
 use App\Student;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class DefaultingController extends Controller
 {
@@ -149,7 +150,22 @@ class DefaultingController extends Controller
     public function create()
     {
         $title = $this->title. " cadastrar";
-        $students = Student::where('active', true)->orderBy('name', 'asc')->paginate(100000);
+
+        $results = DB::table('students')
+        ->join('defaultings', 'students.id', '=', 'defaultings.student_id')
+        ->where('defaultings.active', true)
+        ->select('students.id')
+        ->get();
+
+        $ids = [];
+        foreach($results as $value):
+            array_push($ids, $value->id);
+        endforeach;
+
+        $students = Student::where('active', true)
+                    ->whereNotIn('id', $ids)
+                    ->orderBy('name', 'asc')
+                    ->paginate(10000);
 
         return view('defaultings.add', ['students' => $students, 'title' => $title]);
     }

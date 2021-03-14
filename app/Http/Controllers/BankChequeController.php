@@ -6,6 +6,7 @@ use App\BankCheque;
 use App\Student;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class BankChequeController extends Controller
 {
@@ -148,7 +149,22 @@ class BankChequeController extends Controller
     public function create()
     {
         $title = $this->title. " cadastrar";
-        $students = Student::where('active', true)->orderBy('name', 'asc')->paginate(100000);
+
+        $results = DB::table('students')
+        ->join('bank_cheques', 'students.id', '=', 'bank_cheques.student_id')
+        ->where('bank_cheques.active', true)
+        ->select('students.id')
+        ->get();
+
+        $ids = [];
+        foreach($results as $value):
+            array_push($ids, $value->id);
+        endforeach;
+
+        $students = Student::where('active', true)
+                    ->whereNotIn('id', $ids)
+                    ->orderBy('name', 'asc')
+                    ->paginate(10000);
 
         return view('bankCheques.add', ['students' => $students, 'title' => $title]);
     }
