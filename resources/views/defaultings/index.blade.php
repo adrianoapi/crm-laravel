@@ -33,7 +33,7 @@
                                             <i class="icon-reorder"></i> PDF
                                         </button>
                                     @else
-                                        <a href="{{route('defaultings.create')}}" class="btn btn-primary">
+                                        <a href="{{route('alunos.create', ['modulo' => 'contrato'])}}" class="btn btn-primary">
                                             <i class="icon-reorder"></i> Novo
                                         </a>
                                     @endif

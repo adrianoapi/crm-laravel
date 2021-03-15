@@ -100,7 +100,7 @@ Route::prefix('grafica-historico')->group(function(){
 
 Route::prefix('alunos')->group(function(){
     Route::get('/', 'StudentController@index')->name('alunos.index');
-    Route::get('novo',        'StudentController@create')->name('alunos.create');
+    Route::get('novo/{modulo}',        'StudentController@create')->name('alunos.create');
     Route::post('store',      'StudentController@store' )->name('alunos.store');
     Route::get('edit/{student}', 'StudentController@edit'  )->name('alunos.edit');
     Route::put('edit/{student}', 'StudentController@update')->name('alunos.update');

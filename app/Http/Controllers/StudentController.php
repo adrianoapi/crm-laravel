@@ -50,11 +50,14 @@ class StudentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($value)
     {
         $title = $this->title. " cadastrar";
 
-        return view('students.add', [ 'title' => $title, 'estados' => $this->getEstados()]);
+        return view('students.add', [
+            'title' => $title,
+            'modulo' => $value,
+            'estados' => $this->getEstados()]);
     }
 
     /**
@@ -89,6 +92,69 @@ class StudentController extends Controller
         #$model->negociado = $request->negociado == 'true' ? true : false;
         #$model->boleto = $request->boleto == 'true' ? true : false;
         $model->save();
+
+        if($request->modulo == 'cheque'){
+            $bankCheque = new BankCheque();
+            $bankCheque->user_id       = Auth::id();
+            $bankCheque->student_id    = $model->id;
+            $bankCheque->student_name  = $request->name;
+            $bankCheque->dt_vencimento = date('Y-m-d');
+
+            $bankCheque->valor   = '0.00';
+            $bankCheque->cheque  = '0';
+            $bankCheque->agencia = '0';
+            $bankCheque->banco   = '0';
+
+            if($bankCheque->save())
+            {
+                return redirect()->route('bankCheques.show', ['bankCheque' => $bankCheque->id]);
+            }else{
+                die('erro ao cadastrar "cheque"');
+            }
+
+        }elseif($request->modulo  == 'contrato'){
+            $segundaFase = new Defaulting();
+            $segundaFase->user_id          = Auth::id();
+            $segundaFase->student_id       = $model->id;
+            $segundaFase->student_name     = $request->name;
+            $segundaFase->dt_inadimplencia = date('Y-m-d');
+
+            $segundaFase->m_parcelas = 0;
+            $segundaFase->m_parcela_pg = 0;
+            $segundaFase->m_parcela_valor = '0.00';
+
+            $segundaFase->s_parcelas = 0;
+            $segundaFase->s_parcela_pg = 0;
+            $segundaFase->s_parcela_valor = '0.00';
+
+            $segundaFase->multa = '10.00';
+
+            if($segundaFase->save())
+            {
+                return redirect()->route('defaultings.show', ['defaulting' => $segundaFase->id]);
+            }else{
+                die('erro ao cadastrar "cadastro fase"');
+            }
+
+        }elseif($request->modulo  == 'grafica'){
+            $grafica = new Graphic();
+            $grafica->user_id       = Auth::id();
+            $grafica->student_id    = $model->id;
+            $grafica->student_name  = $request->name;
+            $grafica->dt_vencimento = date('Y-m-d');
+
+            $grafica->valor   = '0.00';
+            $grafica->parcela = 0;
+            $grafica->total   = '0.00';
+
+            if($grafica->save())
+            {
+                return redirect()->route('graphics.show', ['graphic' => $grafica->id]);
+            }else{
+                die('erro ao cadastrar "grafica"');
+            }
+
+        }
 
         return redirect()->route('alunos.index');
     }

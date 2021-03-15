@@ -24,6 +24,7 @@
                                         <div class="control-group">
                                             <label for="cod_unidade" class="control-label">Unidade*</label>
                                             <div class="controls controls-row">
+                                            <input type="hidden" name="modulo" value="{{$modulo}}">
                                                 <input type="text" name="cod_unidade" id="cod_unidade" placeholder="00000" max="100" class="input-block-level">
                                             </div>
                                         </div>
@@ -178,7 +179,7 @@
 										</div>
 									</div>
 								</div>
-								<div class="row-fluid">
+								<!--<div class="row-fluid">
                                     <div class="span2">
                                         <div class="control-group">
                                             <label for="negociado" class="control-label">Negociado*</label>
@@ -192,14 +193,14 @@
                                     </div>
                                 </div>
 								<div class="row-fluid">
-									<div class="span12">
+									<!--<div class="span12">
 										<div class="control-group">
 											<label for="observacao" class="control-label">Observação</label>
 											<div class="controls controls-row">
 												<textarea name="observacao" id="observacao" placeholder="observacao..." class="input-block-level"></textarea>
 											</div>
 										</div>
-									</div>
+									</div>-->
 									<div class="form-actions">
 										<button type="submit" class="btn btn-primary">Salvar</button>
 										<a href="{{route('alunos.index')}}" class="btn">Cancelar</a>
