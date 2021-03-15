@@ -19,9 +19,25 @@
                                 {{$title}}
                             </h3>
                             <span class="tabs">
-                                <a href="{{route('defaultings.create')}}" class="btn btn-primary">
-                                <i class="icon-reorder"></i> Novo
-                                </a>
+                                <form action="{{route('defaultings.pdf')}}" method="GET" class="span12" style="margin: 0;padding:0;">
+                                    <input placeholder="Nome ou cpf" type="hidden" name="pesquisar" value="{{$pesuisar}}" class="input-block-level">
+                                    <input placeholder="unidade" type="hidden" name="unidade" value="{{$unidade}}" class="input-block-level">
+                                    <input placeholder="ctr" type="hidden" name="ctr" value="{{$ctr}}" class="input-block-level">
+                                    <input placeholder="negociado" type="hidden" name="negociado" value="{{$negociado}}" class="input-block-level">
+                                    <input placeholder="boleto" type="hidden" name="boleto" value="{{$boleto}}" class="input-block-level">
+                                    <input type="hidden" name="filtro" id="filtro" value="pesquisa">
+
+
+                                    @if(count($defaultings) > 0 && array_key_exists('filtro', $_GET))
+                                        <button type="submit" class="btn btn-success" style="margin-top:-10px;">
+                                            <i class="icon-reorder"></i> PDF
+                                        </button>
+                                    @else
+                                        <a href="{{route('defaultings.create')}}" class="btn btn-primary">
+                                            <i class="icon-reorder"></i> Novo
+                                        </a>
+                                    @endif
+                                </form>
                             </span>
                             <span class="tabs">
 

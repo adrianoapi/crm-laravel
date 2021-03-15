@@ -7,6 +7,7 @@ use App\Student;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Dompdf\Dompdf;
 
 class DefaultingController extends Controller
 {
@@ -140,6 +141,127 @@ class DefaultingController extends Controller
             'unidade' => $unidade,
             'ctr' => $ctr,
         ]);
+    }
+
+    public function pdf()
+    {
+        $ids = [];
+        $unidade = NULL;
+        $ctr = NULL;
+        $students = NULL;
+        $pesuisar = NULL;
+        $negociado = '';
+        $boleto = '';
+
+        if(array_key_exists('filtro',$_GET))
+        {
+
+            if(strlen($_GET['pesquisar']))
+            {
+                $pesuisar = $_GET['pesquisar'];
+                $students = Student::where('name', 'like', '%' . $pesuisar . '%')
+                ->where('active', true)
+                ->orWhere('cpf_cnpj', 'like', '%' . $pesuisar . '%')
+                ->orderBy('name', 'asc')
+                ->get();
+
+                $ids = [];
+                foreach($students as $value):
+                    array_push($ids, $value->id);
+                endforeach;
+            }else{
+                $students  = Student::where('active', true)->get();
+                $ids = [];
+                foreach($students as $value):
+                    array_push($ids, $value->id);
+                endforeach;
+            }
+
+            if(strlen($_GET['unidade']))
+            {
+                $unidade = $_GET['unidade'];
+                $students = Student::whereIn('id', $ids)
+                ->where('cod_unidade', 'like', '%' . $unidade . '%')
+                ->where('active', true)
+                ->orderBy('name', 'asc')
+                ->get();
+
+                $ids = [];
+                foreach($students as $value):
+                    array_push($ids, $value->id);
+                endforeach;
+            }
+            if(strlen($_GET['ctr']))
+            {
+                $ctr = $_GET['ctr'];
+                $students = Student::whereIn('id', $ids)
+                ->where('ctr', 'like', '%' . $ctr . '%')
+                ->where('active', true)
+                ->orderBy('name', 'asc')
+                ->get();
+
+                $ids = [];
+                foreach($students as $value):
+                    array_push($ids, $value->id);
+                endforeach;
+            }
+
+           if(strlen($_GET['negociado']))
+            {
+                $negociado = $_GET['negociado'] == 'sim' ? true : false;
+                $students  = Defaulting::whereIn('student_id', $ids)
+                ->where('negociado', $negociado)
+                ->where('active', true)
+                ->get();
+
+
+                $ids = [];
+                foreach($students as $value):
+                    array_push($ids, $value->student_id);
+                endforeach;
+
+                $negociado = $_GET['negociado'];
+            }
+
+
+
+            if(strlen($_GET['boleto']))
+            {
+                $boleto = $_GET['boleto'] == 'sim' ? true : false;
+                $students = Defaulting::whereIn('student_id', $ids)
+                ->where('boleto', $boleto)
+                ->where('active', true)
+                ->get();
+
+                $ids = [];
+                foreach($students as $value):
+                    array_push($ids, $value->student_id);
+                endforeach;
+
+                $boleto = $_GET['boleto'];
+            }
+
+            $defaultings = Defaulting::whereIn('student_id', $ids)
+                                        ->where('active', true)
+                                        ->orderBy('student_name', 'asc')
+                                        ->paginate(300);
+
+        }else{
+            $defaultings = Defaulting::where('active', true)->orderBy('student_name', 'asc')->paginate(300);
+        }
+
+        $title = $this->title. " listagem";
+
+        // instantiate and use the dompdf class
+        $dompdf = new Dompdf();
+        $html = view('defaultings.pdf', ['defaultings' => $defaultings])->render();
+
+        $dompdf->loadHtml($html);
+
+        $dompdf->setPaper('A4');
+        $dompdf->render();
+        $dompdf->stream();
+
     }
 
     /**
