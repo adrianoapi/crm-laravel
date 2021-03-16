@@ -16,4 +16,12 @@ class GraphicHistory extends Model
         return $this->belongsTo(Graphic::class, 'graphic_id', 'id');
     }
 
+    public function getCreatedAtAttribute($value)
+    {
+        $value = date('Y-m-d H:i:s', strtotime("$value -180 minutes"));
+        return $this->attributes['created_at'] = date("d/m/Y H:i:s", strtotime($value));
+    }
+
+
+
 }

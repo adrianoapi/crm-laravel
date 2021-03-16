@@ -42,9 +42,10 @@ class GraphicHistoryController extends Controller
         $model->observacao = $request->observacao;
         if($model->save())
         {
+            $hora = date('Y-m-d H:i:s', strtotime("$model->created_at -180 minutes"));
             return response()->json([
                 'status' => true,
-                'attributes' => $model->getAttributes()
+                'attributes' => $model->getAttributes(),
             ]);
         }
     }
