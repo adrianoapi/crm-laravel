@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateBankChequesTable extends Migration
+class CreateBankChequePlotsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,15 @@ class CreateBankChequesTable extends Migration
      */
     public function up()
     {
-        Schema::create('bank_cheques', function (Blueprint $table) {
+        Schema::create('bank_cheque_plots', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('bank_cheque_id');
-            $table->date('dt_vencimento')->nullable(true);
-            $table->string('banco', 10)->nullable(true);
-            $table->string('agencia', 10)->nullable(true);
-            $table->string('cheque', 20)->nullable(true);
+            $table->integer('parcela');
             $table->decimal('valor', 10, 2);
+            $table->date('vencimento');
+            $table->date('dt_pagamento')->nullable(true);
+            $table->decimal('valor_pago', 10, 2)->nullable(true);
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('CASCADE');
@@ -36,6 +36,6 @@ class CreateBankChequesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('bank_cheques');
+        Schema::dropIfExists('bank_cheque_plots');
     }
 }
