@@ -17,11 +17,11 @@ class CreateBankChequePlotsTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('bank_cheque_id');
-            $table->integer('parcela');
+            $table->date('vencimento')->nullable(true);
+            $table->string('banco', 10)->nullable(true);
+            $table->string('agencia', 10)->nullable(true);
+            $table->string('cheque', 20)->nullable(true);
             $table->decimal('valor', 10, 2);
-            $table->date('vencimento');
-            $table->date('dt_pagamento')->nullable(true);
-            $table->decimal('valor_pago', 10, 2)->nullable(true);
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('CASCADE');
