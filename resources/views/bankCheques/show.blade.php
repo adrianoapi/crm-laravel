@@ -64,6 +64,30 @@
                                                 </tr>
                                             </tbody>
                                         </table>
+
+                                        <table class="table table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    <th>Vencimento</th>
+                                                    <th>Banco</th>
+                                                    <th>Agencia</th>
+                                                    <th>Cheque</th>
+                                                    <th>Valor</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                            @foreach ($bankCheque->BankChequePlots as $value)
+                                                <tr>
+                                                    <td>{{$value->vencimento}}</td>
+                                                    <td>{{$value->banco}}</td>
+                                                    <td>{{$value->agencia}}</td>
+                                                    <td>{{$value->cheque}}</td>
+                                                    <td>{{$value->valor}}</td>
+                                                </tr>
+                                            @endforeach
+                                            </tbody>
+                                        </table>
+
                                         <br>
                                         <span class="add_form_field btn btn-teal">Adicionar Parcela &nbsp;
                                             <span  span style="font-size:16px; font-weight:bold;">+ </span>
