@@ -35,10 +35,6 @@
                                             <thead>
                                                 <tr>
                                                     <th>Negociado</th>
-                                                    <th>Banco</th>
-                                                    <th>Agência</th>
-                                                    <th>Cheque</th>
-                                                    <th>Valor</th>
                                                     <th>Ações</th>
                                                 </tr>
                                             </thead>
@@ -51,10 +47,6 @@
                                                             echo '<button class="btn btn-small  btn-danger">NÃO</button>';
                                                         }
                                                     ?></td>
-                                                    <td>{{$bankCheque->banco}}</td>
-                                                    <td>{{$bankCheque->agencia}}</td>
-                                                    <td>{{$bankCheque->cheque}}</td>
-                                                    <td>{{$bankCheque->valor}}</td>
                                                     <td>
                                                         <form action="{{route('bankCheques.destroy', ['bankCheque' => $bankCheque->id])}}" method="POST" onSubmit="return confirm('Deseja excluir?');" style="padding: 0px;margin:0px;">
                                                             @csrf

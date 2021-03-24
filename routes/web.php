@@ -73,6 +73,10 @@ Route::prefix('cheque-negociacao')->group(function(){
     Route::post('store',      'BankChequeTradingController@store' )->name('bankChequeTradings.store');
 });
 
+Route::prefix('cheques')->group(function(){
+    Route::post('store',      'BankChequePlotController@store' )->name('bankChequePlots.store');
+});
+
 Route::prefix('cheque-historico')->group(function(){
     Route::post('store', 'BankChequeHistoryController@store' )->name('bankChequeHistories.store');
 });

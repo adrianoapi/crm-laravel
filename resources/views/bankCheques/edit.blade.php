@@ -17,90 +17,95 @@
 							<h3><i class="icon-th-list"></i> {{$title}}</h3>
 						</div>
 						<div class="box-content">
-                        <form action="{{route('bankCheques.update', ['bankCheque' => $bankCheque->id])}}" method="POST" class='form-vertical'>
+
+
+                            <span class="add_form_field btn btn-teal">Adicionar Parcela &nbsp;
+                                <span  span style="font-size:16px; font-weight:bold;">+ </span>
+                            </span>
+
+                            <form action="{{route('bankChequePlots.store')}}" method="POST" class='form-vertical'>
                                 @csrf
-                                @method('PUT')
+                                @method('POST')
+                                <input type="hidden" name="bank_cheque_id" value="{{$bankCheque->id}}">
+                                <div class="row-fluid container1">
 
-                                <span class="add_form_field btn btn-teal">Adicionar Parcela &nbsp;
-                                    <span  span style="font-size:16px; font-weight:bold;">+ </span>
-                                </span>
-
-                                <form action="{{route('bankChequeTradings.store')}}" method="POST" class='form-vertical'>
-                                            @csrf
-                                            <input type="hidden" name="bank_cheque_id" value="{{$bankCheque->id}}">
-                                            <div class="row-fluid container1">
-
-                                            <div class="row-fluid">
-                                                <div class="span2">
-                                                    <div class="control-group">
-                                                        <label for="vencimento" class="control-label">Vencimento</label>
-                                                    </div>
-                                                </div>
-                                                <div class="span2">
-                                                    <div class="control-group">
-                                                        <label for="banco" class="control-label">Banco</label>
-                                                    </div>
-                                                </div>
-                                                <div class="span2">
-                                                    <div class="control-group">
-                                                        <label for="valor" class="control-label">Agência</label>
-                                                    </div>
-                                                </div>
-                                                <div class="span2">
-                                                    <div class="control-group">
-                                                        <label for="data" class="control-label">Cheque</label>
-                                                    </div>
-                                                </div>
-                                                <div class="span2">
-                                                    <div class="control-group">
-                                                        <label for="valor" class="control-label">Valor</label>
-                                                    </div>
-                                                </div>
+                                    <div class="row-fluid">
+                                        <div class="span2">
+                                            <div class="control-group">
+                                                <label for="vencimento" class="control-label">Vencimento</label>
                                             </div>
-
-                                            <!--laco for-->
-                                            <div class="row-fluid">
-                                                <div class="span2">
-                                                    <div class="control-group">
-                                                        <!--<label for="vencimento" class="control-label">vencimento</label>-->
-                                                        <div class="controls controls-row">
-                                                            <input type="text" name="vencimento[]" value="" id="vencimento" placeholder="00/00/0000" class="date input-block-level datepick" required="" maxlength="10"></div>
-                                                    </div>
-                                                </div>
-                                                <div class="span2">
-                                                    <div class="control-group">
-                                                        <!--<label for="banco" class="control-label">banco</label>-->
-                                                        <div class="controls controls-row">
-                                                            <input type="text" name="banco[]" value="" id="banco" placeholder="123" class="input-block-level" required=""></div>
-                                                    </div>
-                                                </div>
-                                                <div class="span2">
-                                                    <div class="control-group">
-                                                        <!--<label for="agencia" class="control-label">agencia</label>-->
-                                                        <div class="controls controls-row">
-                                                            <input type="text" name="agencia[]" value="" id="agencia" placeholder="456" class="input-block-level" required=""></div>
-                                                    </div>
-                                                </div>
-                                                <div class="span2">
-                                                    <div class="control-group">
-                                                        <!--<label for="cheque" class="control-label">cheque</label>-->
-                                                        <div class="controls controls-row">
-                                                            <input type="text" name="cheque[]" value="" id="cheque" placeholder="789-0" class="input-block-level" required=""></div>
-                                                    </div>
-                                                </div>
-                                                <div class="span2">
-                                                    <div class="control-group">
-                                                        <!--<label for="valor" class="control-label">Valor</label>-->
-                                                        <div class="controls controls-row">
-                                                            <input type="text" name="valor[]" value="" id="valor" placeholder="100,00" class="money input-block-level" required=""></div>
-                                                    </div>
-                                                </div>
-                                                <a href="#" class="delete">Delete</a>
+                                        </div>
+                                        <div class="span2">
+                                            <div class="control-group">
+                                                <label for="banco" class="control-label">Banco</label>
                                             </div>
-                                            <!--/laco for-->
+                                        </div>
+                                        <div class="span2">
+                                            <div class="control-group">
+                                                <label for="valor" class="control-label">Agência</label>
+                                            </div>
+                                        </div>
+                                        <div class="span2">
+                                            <div class="control-group">
+                                                <label for="cheque" class="control-label">Cheque</label>
+                                            </div>
+                                        </div>
+                                        <div class="span2">
+                                            <div class="control-group">
+                                                <label for="valor" class="control-label">Valor</label>
+                                            </div>
+                                        </div>
+                                    </div>
 
+                                    @foreach ($bankCheque->BankChequePlots as $value)
+                                    <div class="row-fluid">
+                                        <div class="span2">
+                                            <div class="control-group">
+                                                <!--<label for="vencimento" class="control-label">vencimento</label>-->
+                                                <div class="controls controls-row">
+                                                    <input type="text" name="vencimento[]" value="{{$value->vencimento}}" id="vencimento" placeholder="00/00/0000" class="date input-block-level datepick" required="" maxlength="10"></div>
+                                            </div>
+                                        </div>
+                                        <div class="span2">
+                                            <div class="control-group">
+                                                <!--<label for="banco" class="control-label">banco</label>-->
+                                                <div class="controls controls-row">
+                                                    <input type="text" name="banco[]" value="{{$value->banco}}" id="banco" placeholder="123" class="input-block-level" required=""></div>
+                                            </div>
+                                        </div>
+                                        <div class="span2">
+                                            <div class="control-group">
+                                                <!--<label for="agencia" class="control-label">agencia</label>-->
+                                                <div class="controls controls-row">
+                                                    <input type="text" name="agencia[]" value="{{$value->agencia}}" id="agencia" placeholder="456" class="input-block-level" required=""></div>
+                                            </div>
+                                        </div>
+                                        <div class="span2">
+                                            <div class="control-group">
+                                                <!--<label for="cheque" class="control-label">cheque</label>-->
+                                                <div class="controls controls-row">
+                                                    <input type="text" name="cheque[]" value="{{$value->cheque}}" id="cheque" placeholder="789-0" class="input-block-level" required=""></div>
+                                            </div>
+                                        </div>
+                                        <div class="span2">
+                                            <div class="control-group">
+                                                <!--<label for="valor" class="control-label">Valor</label>-->
+                                                <div class="controls controls-row">
+                                                    <input type="text" name="valor[]" value="{{$value->valor}}" id="valor" placeholder="100,00" class="money input-block-level" required=""></div>
+                                            </div>
+                                        </div>
+                                        <a href="#" class="delete">Delete</a>
+                                    </div>
+                                    @endforeach
+                                </div>
 
-							</form>
+                                <div class="row-fluid">
+                                    <div class="form-actions">
+                                        <button type="submit" class="btn btn-primary">Salvar</button>
+                                        <a href="{{route('bankCheques.index')}}" class="btn">Cancelar</a>
+                                    </div>
+                                </div>
+                            </form>
 						</div>
 					</div>
 				</div>

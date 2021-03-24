@@ -21,6 +21,11 @@ class BankCheque extends Model
         return $this->hasMany(BankChequeTrading::class, 'bank_cheque_id', 'id')->orderBy('parcela', 'asc');
     }
 
+    public function BankChequePlots()
+    {
+        return $this->hasMany(BankChequePlot::class, 'bank_cheque_id', 'id')->orderBy('vencimento', 'asc');
+    }
+
     public function bankChequeHistories()
     {
         return $this->hasMany(BankChequeHistory::class, 'bank_cheque_id', 'id')->orderBy('created_at', 'desc');
