@@ -259,6 +259,7 @@ class DefaultingController extends Controller
         $dompdf->loadHtml($html);
 
         $dompdf->setPaper('A4');
+        $dompdf->set_paper('letter', 'landscape');
         $dompdf->render();
         $dompdf->stream();
 

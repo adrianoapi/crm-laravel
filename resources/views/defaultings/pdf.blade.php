@@ -2,10 +2,16 @@
     <thead>
         <tr>
             <th>Fase</th>
+            <th>Uni</th>
+            <th>Cod</th>
+            <th>Ctr</th>
+            <th>Cpf</th>
             <th>Nome</th>
+            <th>Telefone</th>
+            <th>Celular</th>
+            <th>Comercial</th>
             <th>Negociado</th>
             <th>Boleto</th>
-            <th>Fones</th>
             <th>Total Líquido</th>
             <th>Total Geral</th>
         </tr>
@@ -14,10 +20,14 @@
     @foreach ($defaultings as $value)
         <tr>
             <td>{{$value->fase}}</td>
-            <td>
-                {{$value->student->name}}
-                <br><small>Unid: {{$value->student->cod_unidade}} / Curso: {{$value->student->cod_curso}} / CTR: {{$value->student->ctr}} / CPF: {{$value->student->cpf_cnpj}}</small>
-            </td>
+            <td>{{$value->student->cod_unidade}}</td>
+            <td>{{$value->student->cod_curso}}</td>
+            <td>{{$value->student->ctr}}</td>
+            <td>{{$value->student->cpf_cnpj}}</td>
+            <td>{{$value->student->name}}</td>
+            <td>{{$value->student->telefone}}</td>
+            <td>{{$value->student->celular}}</td>
+            <td>{{$value->student->comercial}}</td>
             <td><?php
 
                 $m_parcelas = $value->m_parcelas;
