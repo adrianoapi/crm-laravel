@@ -47,12 +47,12 @@
                                         </div>
                                         <div class="span2">
                                             <div class="control-group">
-                                                <label for="cheque" class="control-label">Cheque</label>
+                                                <label for="conta" class="control-label">Conta</label>
                                             </div>
                                         </div>
                                         <div class="span2">
                                             <div class="control-group">
-                                                <label for="conta" class="control-label">Conta</label>
+                                                <label for="cheque" class="control-label">Cheque</label>
                                             </div>
                                         </div>
                                         <div class="span2">
