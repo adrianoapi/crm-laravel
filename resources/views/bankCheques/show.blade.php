@@ -71,6 +71,7 @@
                                                     <th>Vencimento</th>
                                                     <th>Banco</th>
                                                     <th>Agencia</th>
+                                                    <th>Conta</th>
                                                     <th>Cheque</th>
                                                     <th>Valor</th>
                                                 </tr>
@@ -81,6 +82,7 @@
                                                     <td>{{$value->vencimento}}</td>
                                                     <td>{{$value->banco}}</td>
                                                     <td>{{$value->agencia}}</td>
+                                                    <td>{{$value->conta}}</td>
                                                     <td>{{$value->cheque}}</td>
                                                     <td>{{$value->valor}}</td>
                                                 </tr>

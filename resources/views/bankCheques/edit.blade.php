@@ -52,6 +52,11 @@
                                         </div>
                                         <div class="span2">
                                             <div class="control-group">
+                                                <label for="conta" class="control-label">Conta</label>
+                                            </div>
+                                        </div>
+                                        <div class="span2">
+                                            <div class="control-group">
                                                 <label for="valor" class="control-label">Valor</label>
                                             </div>
                                         </div>
