@@ -53,6 +53,7 @@ class BankChequePlotController extends Controller
                 $model->vencimento = $request->vencimento[$i];
                 $model->banco = $request->banco[$i];
                 $model->agencia = $request->agencia[$i];
+                $model->conta = $request->conta[$i];
                 $model->cheque = $request->cheque[$i];
                 $model->valor = $request->valor[$i];
                 $model->save();

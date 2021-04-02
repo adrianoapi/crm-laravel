@@ -82,6 +82,13 @@
                                         </div>
                                         <div class="span2">
                                             <div class="control-group">
+                                                <!--<label for="agencia" class="control-label">agencia</label>-->
+                                                <div class="controls controls-row">
+                                                    <input type="text" name="conta[]" value="{{$value->conta}}" id="conta" placeholder="12345" class="input-block-level" required=""></div>
+                                            </div>
+                                        </div>
+                                        <div class="span2">
+                                            <div class="control-group">
                                                 <!--<label for="cheque" class="control-label">cheque</label>-->
                                                 <div class="controls controls-row">
                                                     <input type="text" name="cheque[]" value="{{$value->cheque}}" id="cheque" placeholder="789-0" class="input-block-level" required=""></div>
@@ -144,6 +151,13 @@
         inputs += '                <div class="control-group">';
         inputs += '                    <div class="controls controls-row">';
         inputs += '                        <input type="text" name="agencia[]" id="agencia" placeholder="456"  class="input-block-level" required>';
+        inputs += '                    </div>';
+        inputs += '               </div>';
+        inputs += '            </div>';
+        inputs += '           <div class="span2">';
+        inputs += '                <div class="control-group">';
+        inputs += '                    <div class="controls controls-row">';
+        inputs += '                        <input type="text" name="conta[]" id="conta" placeholder="12345"  class="input-block-level" required>';
         inputs += '                    </div>';
         inputs += '               </div>';
         inputs += '            </div>';
