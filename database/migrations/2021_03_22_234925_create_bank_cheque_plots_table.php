@@ -20,6 +20,7 @@ class CreateBankChequePlotsTable extends Migration
             $table->date('vencimento')->nullable(true);
             $table->string('banco', 10)->nullable(true);
             $table->string('agencia', 10)->nullable(true);
+            $table->string('conta', 20)->nullable(true);
             $table->string('cheque', 20)->nullable(true);
             $table->decimal('valor', 10, 2);
             $table->timestamps();
