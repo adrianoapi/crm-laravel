@@ -35,14 +35,14 @@
                                                 <label for="vencimento" class="control-label">Vencimento</label>
                                             </div>
                                         </div>
-                                        <div class="span2">
+                                        <div class="span1">
                                             <div class="control-group">
                                                 <label for="banco" class="control-label">Banco</label>
                                             </div>
                                         </div>
-                                        <div class="span2">
+                                        <div class="span1">
                                             <div class="control-group">
-                                                <label for="valor" class="control-label">Agência</label>
+                                                <label for="agencia" class="control-label">Agência</label>
                                             </div>
                                         </div>
                                         <div class="span2">
@@ -71,14 +71,14 @@
                                                     <input type="text" name="vencimento[]" value="{{$value->vencimento}}" id="vencimento" placeholder="00/00/0000" class="date input-block-level datepick" required="" maxlength="10"></div>
                                             </div>
                                         </div>
-                                        <div class="span2">
+                                        <div class="span1">
                                             <div class="control-group">
                                                 <!--<label for="banco" class="control-label">banco</label>-->
                                                 <div class="controls controls-row">
                                                     <input type="text" name="banco[]" value="{{$value->banco}}" id="banco" placeholder="123" class="input-block-level" required=""></div>
                                             </div>
                                         </div>
-                                        <div class="span2">
+                                        <div class="span1">
                                             <div class="control-group">
                                                 <!--<label for="agencia" class="control-label">agencia</label>-->
                                                 <div class="controls controls-row">
@@ -145,14 +145,14 @@
         inputs += '                    </div>';
         inputs += '                </div>';
         inputs += '            </div>';
-        inputs += '            <div class="span2">';
+        inputs += '            <div class="span1">';
         inputs += '                <div class="control-group">';
         inputs += '                   <div class="controls controls-row">';
         inputs += '                        <input type="text" name="banco[]" id="banco" placeholder="123" class="input-block-level" required>';
         inputs += '                    </div>';
         inputs += '                </div>';
         inputs += '            </div>';
-        inputs += '           <div class="span2">';
+        inputs += '           <div class="span1">';
         inputs += '                <div class="control-group">';
         inputs += '                    <div class="controls controls-row">';
         inputs += '                        <input type="text" name="agencia[]" id="agencia" placeholder="456"  class="input-block-level" required>';
