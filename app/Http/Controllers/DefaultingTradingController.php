@@ -52,12 +52,16 @@ class DefaultingTradingController extends Controller
         if(!empty($request->parcela)){
             foreach($request->parcela as $value):
                 $model = new DefaultingTrading();
-                $model->user_id     = Auth::id();
+                $model->user_id       = Auth::id();
                 $model->defaulting_id = $request->defaulting_id;
+
                 $model->vencimento = $request->vencimento[$i];
-                $model->valor = $request->valor[$i];
-                $model->parcela = $request->parcela[$i];
-                if(strlen($request->dt_pagamento[$i])){
+                $model->pagamento  = $request->pagamento[$i];
+                $model->valor      = $request->valor[$i];
+                $model->parcela    = $request->parcela[$i];
+
+                if(strlen($request->dt_pagamento[$i]))
+                {
                     $model->dt_pagamento = $request->dt_pagamento[$i];
                 }
                 if(strlen($request->valor_pago[$i]))

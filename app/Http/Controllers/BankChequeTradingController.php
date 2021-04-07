@@ -60,7 +60,8 @@ class BankChequeTradingController extends Controller
                 $model->valor      = $request->valor[$i];
                 $model->parcela    = $request->parcela[$i];
 
-                if(strlen($request->dt_pagamento[$i])){
+                if(strlen($request->dt_pagamento[$i]))
+                {
                     $model->dt_pagamento = $request->dt_pagamento[$i];
                 }
                 if(strlen($request->valor_pago[$i]))

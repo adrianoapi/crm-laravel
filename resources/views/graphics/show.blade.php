@@ -80,7 +80,7 @@
                                             <div class="row-fluid container1">
 
                                             <div class="row-fluid">
-                                                <div class="span2">
+                                                <div class="span1">
                                                     <div class="control-group">
                                                         <label for="parcela" class="control-label">Parcela</label>
                                                     </div>
@@ -102,6 +102,11 @@
                                                 </div>
                                                 <div class="span2">
                                                     <div class="control-group">
+                                                        <label for="pagamento" class="control-label">Pagamento</label>
+                                                    </div>
+                                                </div>
+                                                <div class="span2">
+                                                    <div class="control-group">
                                                         <label for="valor" class="control-label">Valor Pagamento</label>
                                                     </div>
                                                 </div>
@@ -109,7 +114,7 @@
 
                                             @foreach ($graphic->graphicTradings as $value)
                                             <div class="row-fluid">
-                                                <div class="span2">
+                                                <div class="span1">
                                                     <div class="control-group">
                                                         <!--<label for="parcela" class="control-label">Parcela</label>-->
                                                         <div class="controls controls-row">
@@ -135,6 +140,20 @@
                                                         <!--<label for="data" class="control-label">Data Pg</label>-->
                                                         <div class="controls controls-row">
                                                             <input type="text" name="dt_pagamento[]" value="{{$value->dt_pagamento}}" id="dt_pagamento" placeholder="00/00/0000" class="date input-block-level datepick" maxlength="10"></div>
+                                                    </div>
+                                                </div>
+                                                <div class="span2">
+                                                    <div class="control-group">
+                                                        <!--<label for="data" class="control-label">Data Pg</label>-->
+                                                        <div class="controls controls-row">
+                                                            <select name="pagamento[]" id="pagamento" class='select2-me input-block-level' required>
+                                                                <option value="dinheiro" {{$value->pagamento == 'dinheiro' ? 'selected':''}}>Dinheiro</option>
+                                                                <option value="cartao"   {{$value->pagamento == 'cartao'   ? 'selected':''}}>Cartão</option>
+                                                                <option value="cheque"   {{$value->pagamento == 'cheque'   ? 'selected':''}}>Cheque</option>
+                                                                <option value="boleto"   {{$value->pagamento == 'boleto'   ? 'selected':''}}>Boleto</option>
+                                                                <option value="deposito" {{$value->pagamento == 'deposito' ? 'selected':''}}>Deposito</option>
+                                                            </select>
+                                                        </div>
                                                     </div>
                                                 </div>
                                                 <div class="span2">
@@ -411,7 +430,7 @@
                 var add_button = $(".add_form_field");
                 var inputs = '';
                 inputs += '        <div class="row-fluid">';
-                inputs += '           <div class="span2">';
+                inputs += '           <div class="span1">';
                 inputs += '                <div class="control-group">';
                 inputs += '                   <!--<label for="parcela" class="control-label">Parcela</label>-->';
                 inputs += '                    <div class="controls controls-row">';
@@ -443,6 +462,20 @@
                 inputs += '                    </div>';
                 inputs += '                </div>';
                 inputs += '            </div>';
+                inputs += '            <div class="span2">';
+                inputs += '                <div class="control-group">';
+                inputs += '                    <!--<label for="data" class="control-label">Data Pg</label>-->';
+                inputs += '                   <div class="controls controls-row">';
+                inputs += '                         <select name="pagamento[]" id="pagamento" class=\'select2-me input-block-level\' required>';
+                inputs += '                             <option value="dinheiro">Dinheiro</option>';
+                inputs += '                             <option value="cartao">Cartão</option>';
+                inputs += '                             <option value="cheque">Cheque</option>';
+                inputs += '                             <option value="boleto">Boleto</option>';
+                inputs += '                             <option value="deposito">Deposito</option>';
+                inputs += '                         </select>';
+                inputs += '                    </div>';
+                inputs += '                </div>';
+                inputs += '           </div>';
                 inputs += '           <div class="span2">';
                 inputs += '                <div class="control-group">';
                 inputs += '                    <!--<label for="valor" class="control-label">Valor</label>-->';

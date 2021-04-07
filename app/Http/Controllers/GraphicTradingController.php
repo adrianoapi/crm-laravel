@@ -53,11 +53,15 @@ class GraphicTradingController extends Controller
             foreach($request->parcela as $value):
                 $model = new GraphicTrading();
                 $model->user_id     = Auth::id();
-                $model->graphic_id = $request->graphic_id;
+                $model->graphic_id  = $request->graphic_id;
+
                 $model->vencimento = $request->vencimento[$i];
-                $model->valor = $request->valor[$i];
-                $model->parcela = $request->parcela[$i];
-                if(strlen($request->dt_pagamento[$i])){
+                $model->pagamento  = $request->pagamento[$i];
+                $model->valor      = $request->valor[$i];
+                $model->parcela    = $request->parcela[$i];
+
+                if(strlen($request->dt_pagamento[$i]))
+                {
                     $model->dt_pagamento = $request->dt_pagamento[$i];
                 }
                 if(strlen($request->valor_pago[$i]))

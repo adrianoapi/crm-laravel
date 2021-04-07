@@ -495,7 +495,7 @@
                 inputs += '                         </select>';
                 inputs += '                    </div>';
                 inputs += '                </div>';
-                inputs += '            </div>';
+                inputs += '           </div>';
                 inputs += '           <div class="span2">';
                 inputs += '                <div class="control-group">';
                 inputs += '                    <!--<label for="valor" class="control-label">Valor</label>-->';
