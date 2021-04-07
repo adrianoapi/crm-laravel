@@ -124,3 +124,7 @@ Route::prefix('usuarios')->group(function(){
 
     Route::delete('destroy/{user}', 'UserController@destroy')->name('usuarios.destroy');
 });
+
+Route::prefix('caixa')->group(function(){
+    Route::get('/', 'FinanceController@index' )->name('caixa.index');
+});
