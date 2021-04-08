@@ -93,7 +93,7 @@
                                         <th>CPF/CNPJ</th>
                                         <th>Parcela</th>
                                         <th>Dt Pagamento</th>
-                                        <th>Valor Pago</th>
+                                        <th>{{($pagamento)  ? 'Pago' : 'À Receber'}}</th>
                                         <th>Pagamento</th>
                                     </tr>
                                 </thead>
@@ -114,7 +114,7 @@
                                         <td>{{$value->ctr}}</td>
                                         <td>
                                         @if($value->modulo == 'cheque')
-                                        <a href="{{route('graphics.show', ['graphic' => $value->id])}}" target="_blank">{{$value->name}}</a>
+                                        <a href="{{route('bankCheques.show', ['graphic' => $value->id])}}" target="_blank">{{$value->name}}</a>
                                         @elseif($value->modulo == 'contrato')
                                         <a href="{{route('defaultings.show', ['defaulting' => $value->id])}}" target="_blank">{{$value->name}}</a>
                                         @else
@@ -124,7 +124,7 @@
                                         <td>{{$value->cpf_cnpj}}</td>
                                         <td>{{$value->parcela}}</td>
                                         <td>{{$value->dt_pagamento}}</td>
-                                        <td>{{$value->valor_pago}}</td>
+                                        <td>{{($pagamento) ? $value->valor_pago : $value->valor}}</td>
                                         <td>{{$value->pagamento}}</td>
                                     </tr>
                                 @endforeach

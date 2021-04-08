@@ -34,6 +34,7 @@ class FinanceController extends Controller
             $pagamento = ($_GET['pagamento'] == 'sim') ? true : false;
         }
 
+        $pgtEfetuado = ($pagamento) ? 'IS NOT NULL' : 'IS NULL';
 
         $expensive = DB::select("SELECT de.fase, st.cod_unidade, st.cod_curso, st.ctr, st.name, st.cpf_cnpj,
         if(bc.id > 0,bc.id, if(de.id > 0, de.id, gr.id)) AS id,
@@ -58,8 +59,9 @@ class FinanceController extends Controller
         LEFT JOIN crm_laravel.graphic_tradings AS grt
                ON (gr.id = grt.graphic_id)
         where
-        if(bc.id > 0, bct.dt_pagamento, if(de.id > 0, det.dt_pagamento, grt.dt_pagamento)) >= '{$this->dtInicial}' AND
-        if(bc.id > 0, bct.dt_pagamento, if(de.id > 0, det.dt_pagamento, grt.dt_pagamento)) <= '{$this->dtFinal}'
+        if(bc.id > 0, bct.vencimento, if(de.id > 0, det.vencimento, grt.vencimento)) >= '{$this->dtInicial}' AND
+        if(bc.id > 0, bct.vencimento, if(de.id > 0, det.vencimento, grt.vencimento)) <= '{$this->dtFinal}'   AND
+        if(bc.id > 0, bct.dt_pagamento, if(de.id > 0, det.dt_pagamento, grt.dt_pagamento)) {$pgtEfetuado}
         order by st.name ASC
         limit 1000"
         );
