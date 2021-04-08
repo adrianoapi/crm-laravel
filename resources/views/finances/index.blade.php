@@ -40,7 +40,7 @@
                             <table class="table table-hover table-nomargin table-bordered table-colored-header">
                                 <thead>
                                     <tr>
-                                        <th colspan="2">
+                                        <th colspan="3">
                                             <form action="{{route('caixa.index')}}" method="GET" class="span12" style="margin: 0;padding:0;">
                                             <div class="span12">
                                                 <div class="control-group">
@@ -74,7 +74,7 @@
                                                 </div>
                                             </div>
                                         </th>
-                                        <th colspan="6">
+                                        <th colspan="3">
                                             <div class="span12">
                                                 <div class="control-group">
                                                     <div class="controls controls-row">
@@ -87,15 +87,12 @@
                                         </th>
                                     </tr>
                                     <tr>
-                                        <th>fase</th>
+                                        <th>Módulo</th>
                                         <th>unidade</th>
                                         <th>curso</th>
                                         <th>ctr</th>
                                         <th>name</th>
                                         <th>cpf_cnpj</th>
-                                        <th>parcela</th>
-                                        <th>valor</th>
-                                        <th>vencimento</th>
                                         <th>dt_pagamento</th>
                                         <th>valor_pago</th>
                                         <th>pagamento</th>
@@ -104,15 +101,20 @@
                                 <tbody>
                                 @foreach ($caixa as $value)
                                     <tr>
-                                        <td>{{$value->fase}}</td>
+                                        <td>
+                                        @if($value->modulo == 'cheque')
+                                            cheque
+                                        @elseif($value->modulo == 'contrato')
+                                            {{$value->fase}}
+                                        @else
+                                            grafica
+                                        @endif
+                                        </td>
                                         <td>{{$value->cod_unidade}}</td>
                                         <td>{{$value->cod_curso}}</td>
                                         <td>{{$value->ctr}}</td>
                                         <td>{{$value->name}}</td>
                                         <td>{{$value->cpf_cnpj}}</td>
-                                        <td>{{$value->parcela}}</td>
-                                        <td>{{$value->valor}}</td>
-                                        <td>{{$value->vencimento}}</td>
                                         <td>{{$value->dt_pagamento}}</td>
                                         <td>{{$value->valor_pago}}</td>
                                         <td>{{$value->pagamento}}</td>

@@ -17,14 +17,12 @@ class FinanceController extends Controller
 
     public function index()
     {
-        $title = $this->title. " listar";
-        $expensive = DB::select("SELECT
-
-        de.fase, st.cod_unidade, st.cod_curso, st.ctr, st.name, st.cpf_cnpj,
+        $title = $this->title. " Dashboard";
+        $expensive = DB::select("SELECT de.fase, st.cod_unidade, st.cod_curso, st.ctr, st.name, st.cpf_cnpj,
         if(bc.id > 0,'cheque', if(de.id > 0, 'contrato', 'grafica')) AS modulo,
-        if(bc.id > 0, bct.parcela, if(de.id > 0, det.parcela, grt.parcela)) AS parcela,
-        if(bc.id > 0, bct.valor, if(de.id > 0, det.valor, grt.valor)) AS valor,
-        if(bc.id > 0, bct.vencimento, if(de.id > 0, det.vencimento, grt.vencimento)) AS vencimento,
+        --if(bc.id > 0, bct.parcela, if(de.id > 0, det.parcela, grt.parcela)) AS parcela,
+        --if(bc.id > 0, bct.valor, if(de.id > 0, det.valor, grt.valor)) AS valor,
+        --if(bc.id > 0, bct.vencimento, if(de.id > 0, det.vencimento, grt.vencimento)) AS vencimento,
         if(bc.id > 0, bct.dt_pagamento, if(de.id > 0, det.dt_pagamento, grt.dt_pagamento)) AS dt_pagamento,
         if(bc.id > 0, bct.valor_pago, if(de.id > 0, det.valor_pago, grt.valor_pago)) AS valor_pago,
         if(bc.id > 0, bct.pagamento, if(de.id > 0, det.pagamento, grt.pagamento)) AS pagamento
