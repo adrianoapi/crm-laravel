@@ -18,6 +18,11 @@
 					<a href="#" class='toggle-subnav'><i class="icon-angle-down"></i><span>Financeiro</span></a>
 				</div>
 				<ul class="subnav-menu">
+                    @if(Auth::user()->level > 1)
+                    <li>
+                        <a href="{{route('caixa.index')}}">CAIXA</a>
+                    </li>
+                    @endif
 					<li>
 						<a href="{{route('defaultings.index')}}">CONTRATO - EVOLUTIME</a>
 					</li>
