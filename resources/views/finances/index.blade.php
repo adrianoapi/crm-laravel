@@ -98,13 +98,15 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                <?php $total = 0; ?>
                                 @foreach ($caixa as $value)
+                                <?php $total = ($pagamento) ? $total + $value->valor_pago : $total + $value->valor;?>
                                     <tr>
                                         <td>
                                         @if($value->modulo == 'cheque')
                                             Cheque
                                         @elseif($value->modulo == 'contrato')
-                                            {{$value->fase}}
+                                            {{ucfirst($value->fase)}}
                                         @else
                                             Grafica
                                         @endif
@@ -129,6 +131,13 @@
                                     </tr>
                                 @endforeach
                                 </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <td colspan="7"></td>
+                                        <td><strong>Total</strong></td>
+                                        <td colspan="2"><strong>{{number_format($total, 2, ',', '.')}}</strong></td>
+                                    </tr>
+                                </tfoot>
                             </table>
                         </div>
 
