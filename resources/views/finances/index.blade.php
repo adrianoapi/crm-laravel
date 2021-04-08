@@ -45,8 +45,7 @@
                                             <div class="span12">
                                                 <div class="control-group">
                                                     <div class="controls controls-row">
-                                                        <input type="hidden" name="data_inicio" id="data_inicio" value="data_inicio">
-                                                        <input id="pesquisar" placeholder="{{date('01/m/Y')}}" type="text" name="pesquisar" value="" class="input-block-level">
+                                                        <input id="dt_inicio" placeholder="{{date('01/m/Y')}}" type="text" name="dt_inicio" value="{{$dt_inicio}}" class="input-block-level datepick" require>
                                                     </div>
                                                 </div>
                                             </div>
@@ -55,26 +54,24 @@
                                             <div class="span12">
                                                 <div class="control-group">
                                                     <div class="controls controls-row">
-                                                        <input type="hidden" name="data_inicio" id="data_inicio" value="data_inicio">
-                                                        <input id="pesquisar" placeholder="{{date('t/m/Y')}}" type="text" name="pesquisar" value="" class="input-block-level">
+                                                        <input id="dt_fim" placeholder="{{date('t/m/Y')}}" type="text" name="dt_fim" value="{{$dt_fim}}" class="input-block-level datepick" require>
                                                     </div>
                                                 </div>
                                             </div>
                                         </th>
-                                        <th colspan="2">
+                                        <th colspan="4">
                                             <div class="span12">
                                                 <div class="control-group">
                                                     <div class="controls controls-row">
-                                                        <select name="boleto" id="boleto" class='input-block-level'>
-                                                            <option value="">selecione pagamento...</option>
-                                                            <option value="sim">Sim</option>
-                                                            <option value="nao">Não</option>
+                                                        <select name="pagamento" id="pagamento" class='input-block-level'>
+                                                            <option value="sim" {{($pagamento)  ? 'selected':''}}>Pagamento Sim</option>
+                                                            <option value="nao" {{!($pagamento) ? 'selected':''}}>Pagamento Não</option>
                                                         </select>
                                                     </div>
                                                 </div>
                                             </div>
                                         </th>
-                                        <th colspan="3">
+                                        <th>
                                             <div class="span12">
                                                 <div class="control-group">
                                                     <div class="controls controls-row">
@@ -84,18 +81,20 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                            </form>
                                         </th>
                                     </tr>
                                     <tr>
                                         <th>Módulo</th>
-                                        <th>unidade</th>
-                                        <th>curso</th>
-                                        <th>ctr</th>
-                                        <th>name</th>
-                                        <th>cpf_cnpj</th>
-                                        <th>dt_pagamento</th>
-                                        <th>valor_pago</th>
-                                        <th>pagamento</th>
+                                        <th>Unidade</th>
+                                        <th>Curso</th>
+                                        <th>CTR</th>
+                                        <th>Nome</th>
+                                        <th>CPF/CNPJ</th>
+                                        <th>Parcela</th>
+                                        <th>Dt Pagamento</th>
+                                        <th>Valor Pago</th>
+                                        <th>Pagamento</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -103,18 +102,27 @@
                                     <tr>
                                         <td>
                                         @if($value->modulo == 'cheque')
-                                            cheque
+                                            Cheque
                                         @elseif($value->modulo == 'contrato')
                                             {{$value->fase}}
                                         @else
-                                            grafica
+                                            Grafica
                                         @endif
                                         </td>
                                         <td>{{$value->cod_unidade}}</td>
                                         <td>{{$value->cod_curso}}</td>
                                         <td>{{$value->ctr}}</td>
-                                        <td>{{$value->name}}</td>
+                                        <td>
+                                        @if($value->modulo == 'cheque')
+                                        <a href="{{route('graphics.show', ['graphic' => $value->id])}}" target="_blank">{{$value->name}}</a>
+                                        @elseif($value->modulo == 'contrato')
+                                        <a href="{{route('defaultings.show', ['defaulting' => $value->id])}}" target="_blank">{{$value->name}}</a>
+                                        @else
+                                        <a href="{{route('graphics.show', ['graphic' => $value->id])}}" target="_blank">{{$value->name}}</a>
+                                        @endif
+                                        </td>
                                         <td>{{$value->cpf_cnpj}}</td>
+                                        <td>{{$value->parcela}}</td>
                                         <td>{{$value->dt_pagamento}}</td>
                                         <td>{{$value->valor_pago}}</td>
                                         <td>{{$value->pagamento}}</td>
@@ -133,4 +141,30 @@
 </div>
 
 
+<script>
+
+// Mascaras formulario
+(function( $ ) {
+$(function() {
+    $('.date').mask('00/00/0000');
+});
+})(jQuery);
+
+
+
+$(document).ready(function () {
+    $(document).on('focus', '.datepick', function () {
+        $(this).datepicker({
+            format: 'dd/mm/yyyy',
+            language: 'pt-BR'
+        });
+    });
+});
+
+$('.datepick').datepicker({
+    format: 'dd/mm/yyyy',
+    language: 'pt-BR'
+});
+
+</script>
 @endsection
