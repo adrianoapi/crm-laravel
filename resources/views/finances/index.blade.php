@@ -125,7 +125,7 @@
                                         </td>
                                         <td>{{$value->cpf_cnpj}}</td>
                                         <td>{{$value->parcela}}</td>
-                                        <td>{{$value->dt_pagamento}}</td>
+                                        <td>{{($pagamento) ? $value->dt_pagamento : $value->vencimento}}</td>
                                         <td>{{($pagamento) ? $value->valor_pago : $value->valor}}</td>
                                         <td>{{$value->pagamento}}</td>
                                     </tr>
