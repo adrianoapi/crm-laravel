@@ -46,17 +46,17 @@ class FinanceController extends Controller
         if(bc.id > 0, bct.valor_pago, if(de.id > 0, det.valor_pago, grt.valor_pago)) AS valor_pago,
         if(bc.id > 0, bct.pagamento, if(de.id > 0, det.pagamento, grt.pagamento)) AS pagamento
         FROM students AS st
-        LEFT JOIN crm_laravel.bank_cheques AS bc
+        LEFT JOIN bank_cheques AS bc
                ON (st.id = bc.student_id)
-        LEFT JOIN crm_laravel.bank_cheque_tradings AS bct
+        LEFT JOIN bank_cheque_tradings AS bct
                ON (bc.id = bct.bank_cheque_id)
-        LEFT JOIN crm_laravel.defaultings  AS de
+        LEFT JOIN defaultings  AS de
                ON (st.id = de.student_id)
-        LEFT JOIN crm_laravel.defaulting_tradings AS det
+        LEFT JOIN defaulting_tradings AS det
                ON (de.id = det.defaulting_id)
-        LEFT JOIN crm_laravel.graphics     AS gr
+        LEFT JOIN graphics     AS gr
                ON (st.id = gr.student_id)
-        LEFT JOIN crm_laravel.graphic_tradings AS grt
+        LEFT JOIN graphic_tradings AS grt
                ON (gr.id = grt.graphic_id)
         where
         if(bc.id > 0, bct.vencimento, if(de.id > 0, det.vencimento, grt.vencimento)) >= '{$this->dtInicial}' AND
