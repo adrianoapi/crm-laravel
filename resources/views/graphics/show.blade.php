@@ -147,6 +147,7 @@
                                                         <!--<label for="data" class="control-label">Data Pg</label>-->
                                                         <div class="controls controls-row">
                                                             <select name="pagamento[]" id="pagamento" class='select2-me input-block-level' required>
+                                                                <option value="..." {{$value->pagamento == '...' ? 'selected':''}}>...</option>
                                                                 <option value="dinheiro" {{$value->pagamento == 'dinheiro' ? 'selected':''}}>Dinheiro</option>
                                                                 <option value="cartao"   {{$value->pagamento == 'cartao'   ? 'selected':''}}>Cartão</option>
                                                                 <option value="cheque"   {{$value->pagamento == 'cheque'   ? 'selected':''}}>Cheque</option>
@@ -467,6 +468,7 @@
                 inputs += '                    <!--<label for="data" class="control-label">Data Pg</label>-->';
                 inputs += '                   <div class="controls controls-row">';
                 inputs += '                         <select name="pagamento[]" id="pagamento" class=\'select2-me input-block-level\' required>';
+                inputs += '                             <option value="...">...</option>';
                 inputs += '                             <option value="dinheiro">Dinheiro</option>';
                 inputs += '                             <option value="cartao">Cartão</option>';
                 inputs += '                             <option value="cheque">Cheque</option>';
