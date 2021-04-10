@@ -260,6 +260,151 @@ class GraphicController extends Controller
         $dompdf->stream();
     }
 
+    public function csv()
+    {
+        $ids = [];
+        $unidade = NULL;
+        $ctr = NULL;
+        $students = NULL;
+        $pesuisar = NULL;
+        $negociado = '';
+        $boleto = '';
+
+        if(array_key_exists('filtro',$_GET))
+        {
+
+            if(strlen($_GET['pesquisar']))
+            {
+                $pesuisar = $_GET['pesquisar'];
+                $students = Student::where('name', 'like', '%' . $pesuisar . '%')
+                ->where('active', true)
+                ->orWhere('cpf_cnpj', 'like', '%' . $pesuisar . '%')
+                ->orderBy('name', 'asc')
+                ->get();
+
+                $ids = [];
+                foreach($students as $value):
+                    array_push($ids, $value->id);
+                endforeach;
+            }else{
+                $students  = Student::where('active', true)->get();
+                $ids = [];
+                foreach($students as $value):
+                    array_push($ids, $value->id);
+                endforeach;
+            }
+
+            if(strlen($_GET['unidade']))
+            {
+                $unidade = $_GET['unidade'];
+                $students = Student::whereIn('id', $ids)
+                ->where('cod_unidade', 'like', '%' . $unidade . '%')
+                ->where('active', true)
+                ->orderBy('name', 'asc')
+                ->get();
+
+                $ids = [];
+                foreach($students as $value):
+                    array_push($ids, $value->id);
+                endforeach;
+            }
+            if(strlen($_GET['ctr']))
+            {
+                $ctr = $_GET['ctr'];
+                $students = Student::whereIn('id', $ids)
+                ->where('ctr', 'like', '%' . $ctr . '%')
+                ->where('active', true)
+                ->orderBy('name', 'asc')
+                ->get();
+
+                $ids = [];
+                foreach($students as $value):
+                    array_push($ids, $value->id);
+                endforeach;
+            }
+
+           if(strlen($_GET['negociado']))
+            {
+                $negociado = $_GET['negociado'] == 'sim' ? true : false;
+                $students  = Graphic::whereIn('student_id', $ids)
+                ->where('negociado', $negociado)
+                ->where('active', true)
+                ->get();
+
+                $ids = [];
+                foreach($students as $value):
+                    array_push($ids, $value->student_id);
+                endforeach;
+
+                $negociado = $_GET['negociado'];
+            }
+
+
+
+            if(strlen($_GET['boleto']))
+            {
+                $boleto = $_GET['boleto'] == 'sim' ? true : false;
+                $students = Graphic::whereIn('student_id', $ids)
+                ->where('boleto', $boleto)
+                ->where('active', true)
+                ->get();
+
+                $ids = [];
+                foreach($students as $value):
+                    array_push($ids, $value->student_id);
+                endforeach;
+
+                $boleto = $_GET['boleto'];
+            }
+
+
+            $graphics = Graphic::whereIn('student_id', $ids)
+                                    ->where('active', true)
+                                    ->orderBy('student_name', 'asc')
+                                    ->paginate(30000);
+
+        }else{
+            $graphics = Graphic::where('active', true)->orderBy('student_name', 'asc')->paginate(30000);
+        }
+
+        $fileName = 'grafica_'.time().'.csv';
+        $headers = array(
+            "Content-type"        => "text/csv",
+            "Content-Disposition" => "attachment; filename=$fileName",
+            "Pragma"              => "no-cache",
+            "Cache-Control"       => "must-revalidate, post-check=0, pre-check=0",
+            "Expires"             => "0"
+        );
+
+        $columns = array('Uni','Cod','Ctr','Cpf','Nome','Telefone','Celular','Comercial','Negociado','Boleto','Valor');
+        $callback = function() use($graphics, $columns) {
+            $file = fopen('php://output', 'w');
+            fputcsv($file, $columns);
+
+            foreach ($graphics as $value)
+            {
+                $negociado = ($value->negociado) ? 'SIM' : 'NAO';
+                $boleto    = ($value->boleto)    ? 'SIM' : 'NAO';
+                fputcsv($file, array(
+                    $value->student->cod_unidade,
+                    $value->student->cod_curso,
+                    $value->student->ctr,
+                    $value->student->cpf_cnpj,
+                    $value->student->name,
+                    $value->student->telefone,
+                    $value->student->celular,
+                    $value->student->comercial,
+                    $negociado,
+                    $boleto,
+                    $value->valor
+                ));
+            }
+
+            fclose($file);
+        };
+        return response()->stream($callback, 200, $headers);
+    }
+
     /**
      * Show the form for creating a new resource.
      *
