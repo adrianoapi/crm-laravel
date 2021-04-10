@@ -390,7 +390,7 @@ class GraphicController extends Controller
                     $value->student->cod_curso,
                     $value->student->ctr,
                     $value->student->cpf_cnpj,
-                    $value->student->name,
+                    utf8_decode($value->student->name),
                     $value->student->telefone,
                     $value->student->celular,
                     $value->student->comercial,

@@ -20,13 +20,14 @@
                             </h3>
                             <span class="tabs">
 
-                                <form action="{{route('graphics.pdf')}}" method="GET" class="span12" style="margin: 0;padding:0;">
-                                    <input type="hidden" name="filtro" id="filtro" value="pesquisa">
+                                <form action="{{route('caixa.csv')}}" method="GET" class="span12" style="margin: 0;padding:0;">
+                                    <input type="hidden" name="dt_inicio" value="{{$dt_inicio}}">
+                                    <input type="hidden" name="dt_fim" value="{{$dt_fim}}">
+                                    <input type="hidden" name="pagamento" value="{{$pagamento}}">
 
-
-                                    @if(count($caixa) > 0 && array_key_exists('filtro', $_GET))
+                                    @if(count($caixa) > 0 && array_key_exists('pagamento', $_GET))
                                         <button type="submit" class="btn btn-success" style="margin-top:-10px;">
-                                            <i class="icon-reorder"></i> PDF
+                                            <i class="icon-reorder"></i> Exportar CSV
                                         </button>
                                     @endif
                                 </form>
