@@ -59,7 +59,7 @@ Route::prefix('segunda-fase-historico')->group(function(){
 Route::prefix('cheque')->group(function(){
     Route::get('/', 'BankChequeController@index')->name('bankCheques.index');
     Route::get('novo',        'BankChequeController@create')->name('bankCheques.create');
-    Route::get('pdf',      'BankChequeController@pdf' )->name('bankCheques.pdf');
+    Route::get('csv',      'BankChequeController@csv' )->name('bankCheques.csv');
     #Route::get('lixeira',      'BankChequeController@trash' )->name('bankCheques.trash');
     Route::post('store',      'BankChequeController@store' )->name('bankCheques.store');
     Route::get('show/{bankCheque}', 'BankChequeController@show'  )->name('bankCheques.show');

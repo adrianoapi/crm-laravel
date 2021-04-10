@@ -366,13 +366,13 @@ class DefaultingController extends Controller
             $defaultings = Defaulting::whereIn('student_id', $ids)
                                         ->where('active', true)
                                         ->orderBy('student_name', 'asc')
-                                        ->paginate(300);
+                                        ->paginate(30000);
 
         }else{
             $defaultings = Defaulting::where('active', true)->orderBy('student_name', 'asc')->paginate(30000);
         }
 
-        $fileName = 'tasks.csv';
+        $fileName = 'contrato_'.time().'.csv';
         $headers = array(
             "Content-type"        => "text/csv",
             "Content-Disposition" => "attachment; filename=$fileName",
@@ -390,7 +390,7 @@ class DefaultingController extends Controller
             foreach ($defaultings as $value)
             {
                 $negociado = ($value->negociado) ? 'SIM' : 'NAO';
-                $boleto    = ($value->boleto) ? 'SIM' : 'NAO';
+                $boleto    = ($value->boleto)    ? 'SIM' : 'NAO';
                 fputcsv($file, array(
                     $value->fase,
                     $value->student->cod_unidade,
