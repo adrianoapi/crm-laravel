@@ -201,7 +201,15 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="span3">
+                                        <div class="span1">
+                                            <div class="control-group">
+                                                <label for="ctr" class="control-label">CTR</label>
+                                                <div class="controls controls-row">
+                                                    <input type="text" name="ctr" id="ctr"  value="{{$student[0]->ctr}}" placeholder="000000" max="20" class="input-block-level">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="span5">
                                             <div class="control-group">
                                                 <label for="name" class="control-label">Nome completo*</label>
                                                 <div class="controls controls-row">
@@ -222,14 +230,6 @@
                                                 <label for="cpf_cnpj" class="control-label">CPF/CNPJ*</label>
                                                 <div class="controls controls-row">
                                                     <input type="text" name="cpf_cnpj" id="cpf_cnpj"  value="{{$student[0]->cpf_cnpj}}" placeholder="000.000.000-00/0000" max="30" class="input-block-level">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="span2">
-                                            <div class="control-group">
-                                                <label for="ctr" class="control-label">CTR</label>
-                                                <div class="controls controls-row">
-                                                    <input type="text" name="ctr" id="ctr"  value="{{$student[0]->ctr}}" placeholder="000000" max="20" class="input-block-level">
                                                 </div>
                                             </div>
                                         </div>
