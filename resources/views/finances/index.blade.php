@@ -23,7 +23,7 @@
                                 <form action="{{route('caixa.csv')}}" method="GET" class="span12" style="margin: 0;padding:0;">
                                     <input type="hidden" name="dt_inicio" value="{{$dt_inicio}}">
                                     <input type="hidden" name="dt_fim" value="{{$dt_fim}}">
-                                    <input type="hidden" name="pagamento" value="{{$pagamento}}">
+                                    <input type="hidden" name="pagamento" value="{{($pagamento) ? 'sim' : ''}}">
 
                                     @if(count($caixa) > 0 && array_key_exists('pagamento', $_GET))
                                         <button type="submit" class="btn btn-success" style="margin-top:-10px;">
