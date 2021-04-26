@@ -400,7 +400,7 @@ class DefaultingController extends Controller
                     utf8_decode($value->student->name),
                     $value->student->telefone,
                     $value->student->celular,
-                    $value->student->comercial,
+                    $value->student->telefone_com,
                     $negociado,
                     $boleto
                 ));

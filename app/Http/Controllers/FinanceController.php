@@ -64,7 +64,7 @@ class FinanceController extends Controller
         if(bc.id > 0, bct.{$dataLimit}, if(de.id > 0, det.{$dataLimit}, grt.{$dataLimit})) <= '{$this->dtFinal}'   AND
         if(bc.id > 0, bct.dt_pagamento, if(de.id > 0, det.dt_pagamento, grt.dt_pagamento)) {$pgtEfetuado}
         order by st.name ASC
-        limit 1000"
+        limit 30000"
         );
 
         return view('finances.index', [
