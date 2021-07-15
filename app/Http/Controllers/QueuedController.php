@@ -74,7 +74,7 @@ class QueuedController extends Controller
                     $bankCheque->user_id       = Auth::id();
                     $bankCheque->student_id    = $student->id;
                     $bankCheque->student_name  = $student->name;
-                    $bankCheque->valor         = $value->bank_cheques->valor;
+                    $bankCheque->valor         = str_replace('.', ',',$value->bank_cheques->valor);
 
                     if($bankCheque->save())
                     {
@@ -89,7 +89,7 @@ class QueuedController extends Controller
                             $model->conta      = $plot->conta;
                             $model->cheque     = $plot->cheque;
                             $model->vencimento = $plot->vencimento;
-                            $model->valor      = $plot->valor;
+                            $model->valor      = str_replace('.', ',',$plot->valor);
                             $model->save();
                             $i++;
 
