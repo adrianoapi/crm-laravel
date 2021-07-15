@@ -129,3 +129,8 @@ Route::prefix('caixa')->group(function(){
     Route::get('/',   'FinanceController@index')->name('caixa.index');
     Route::get('csv', 'FinanceController@csv'  )->name('caixa.csv');
 });
+
+Route::prefix('importacao')->group(function(){
+    Route::get('/',  'QueuedController@index' )->name('importacao.index');
+    Route::post('/', 'QueuedController@upload')->name('importacao.upload');
+});
