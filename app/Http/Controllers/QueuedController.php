@@ -31,7 +31,7 @@ class QueuedController extends Controller
 
         $queued = Queued::where('module', $modeulo)->get();
 
-        return view('queueds.index', ['title' => $tile, 'queued' => $queued]);
+        return view('queueds.index', ['title' => $tile, 'queueds' => $queued]);
     }
 
     public function upload(Request $request)
@@ -93,7 +93,17 @@ class QueuedController extends Controller
         $model = new Queued();
         $model->module = 'cheque';
         $model->body   = json_encode($arrayBody);
-        var_dump($model->save());
+
+        if($model->save())
+        {
+            return redirect()->route('importacao.index', ['modulo' => 'cheque']);
+        }else{
+            die('Ocorreu um erro em seu arquivo: <ul>
+                <li>Ou grande de mais</li>
+                <li>Ou formatado errado</li>
+                <li>Ou caracteres especianis que não alphanumericos</li>
+            </ul>');
+        }
 
     }
 
@@ -197,6 +207,7 @@ class QueuedController extends Controller
      */
     public function destroy(Queued $queued)
     {
-        //
+        $queued->delete();
+        return redirect()->route('importacao.index');
     }
 }
