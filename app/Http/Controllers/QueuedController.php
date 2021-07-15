@@ -111,6 +111,16 @@ class QueuedController extends Controller
 
     }
 
+    public function autoComplete($string, int $number = 5)
+    {
+        $newString = $string;
+        for($i = strlen($string); $i < $number; $i++)
+        {
+            $newString = '0'.$newString;
+        }
+        return $newString;
+    }
+
     public function upload(Request $request)
     {
         $handle  = fopen($_FILES['filename']['tmp_name'], "r");
@@ -145,9 +155,9 @@ class QueuedController extends Controller
 
                 $arrayBody[] = [
                     'students' => [
-                                    'cod_unidade' => $row[0],
-                                    'cod_curso' => $row[1],
-                                    'ctr' => $row[2],
+                                    'cod_unidade' => $this->autoComplete($row[0]),
+                                    'cod_curso' => $this->autoComplete($row[1]),
+                                    'ctr' => $this->autoComplete($row[2]),
                                     'cpf_cnpj' => $row[3],
                                     'telefone' => $row[4],
                                     'telefone_com' => $row[5],
