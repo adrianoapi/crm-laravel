@@ -133,6 +133,7 @@ Route::prefix('caixa')->group(function(){
 Route::prefix('importacao')->group(function(){
     Route::get('/',  'QueuedController@index' )->name('importacao.index');
     Route::post('/', 'QueuedController@upload')->name('importacao.upload');
+    Route::get('processar/{queued}',  'QueuedController@processar' )->name('importacao.process');
 
     Route::delete('destroy/{queued}', 'QueuedController@destroy')->name('importacao.destroy');
 });

@@ -8,6 +8,17 @@
 
     @include('layouts.navigation')
 
+    <style>
+        tbody tr:nth-child(even)
+        {
+            background: #cce6ff;
+        }
+        tbody tr:nth-child(odd)
+        {
+            background: #e6f3ff;
+        }
+    </style>
+
     <div id="main">
         <div class="container-fluid">
 
@@ -31,10 +42,10 @@
 
                                 </form>
                             @else
-                            <form action="{{route('importacao.destroy', ['queued' => $queueds[0]->id])}}" method="POST" onSubmit="return confirm('Deseja excluir?');" style="padding: 0px;margin:0px;">
+                                <form action="{{route('importacao.destroy', ['queued' => $queueds[0]->id])}}" method="POST" onSubmit="return confirm('Deseja excluir?');" style="padding: 0px;margin:0px;">
                                     @csrf
                                     @method('delete')
-                                    <a href="{{route('importacao.index',    ['queued'   => $queueds[0]->id])}}" class="btn-success btn" rel="tooltip" title="" data-original-title="Salver registros">Registrar fila <i class="icon-save"></i></a>
+                                    <a href="{{route('importacao.process', ['queued'   => $queueds[0]->id])}}" class="btn-success btn" rel="tooltip" title="" data-original-title="Salver registros">Registrar fila <i class="icon-save"></i></a>
                                     <button type="submit" class="btn-danger btn" rel="tooltip" title="" data-original-title="Excluir registros">Excluir fila <i class="icon-trash"></i></button>
                                 </form>
                             @endif
@@ -46,7 +57,7 @@
                         </div>
 
                         <div class="box-content nopadding">
-                            <table class="table table-hover table-nomargin table-bordered table-colored-header">
+                            <table class="table table-nomargin table-bordered">
                                 <thead>
                                     <th>Linha</th>
                                     <th>Pessoa</th>

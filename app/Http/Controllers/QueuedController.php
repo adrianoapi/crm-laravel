@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Queued;
+use App\Student;
+use App\BankCheque;
+use App\BankChequePlot;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -29,9 +32,83 @@ class QueuedController extends Controller
 
         }
 
-        $queued = Queued::where('module', $modeulo)->get();
+        $queued = Queued::where('module', $modeulo)->where('process', false)->get();
 
         return view('queueds.index', ['title' => $tile, 'queueds' => $queued]);
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \App\Queued  $queued
+     * @return \Illuminate\Http\Response
+     */
+    public function processar(Queued $queued)
+    {
+
+        if($queued->id && !$queued->proccess)
+        {
+            $status = false;
+            $body = json_decode($queued->body);
+
+            foreach($body as $value):
+
+                # Save students
+                $student = new Student();
+                $student->user_id      = Auth::id();
+                $student->cod_unidade  = $value->students->cod_unidade;
+                $student->cod_curso    = $value->students->cod_curso;
+                $student->ctr          = $value->students->ctr;
+                $student->cpf_cnpj     = $value->students->cpf_cnpj;
+                $student->ctr          = $value->students->ctr;
+                $student->telefone     = $value->students->telefone;
+                $student->telefone_com = $value->students->telefone_com;
+                $student->celular      = $value->students->celular;
+                $student->name         = $value->students->name;
+
+                if($student->save())
+                {
+                    $status = true;
+
+                    $bankCheque = new BankCheque();
+                    $bankCheque->user_id       = Auth::id();
+                    $bankCheque->student_id    = $student->id;
+                    $bankCheque->student_name  = $student->name;
+                    $bankCheque->valor         = $value->bank_cheques->valor;
+
+                    if($bankCheque->save())
+                    {
+                        $i = 0;
+                        foreach($value->bank_cheque_plots as $plot):
+
+                            $model = new BankChequePlot();
+                            $model->user_id     = Auth::id();
+                            $model->bank_cheque_id = $bankCheque->id;
+                            $model->banco      = $plot->banco;
+                            $model->agencia    = $plot->agencia;
+                            $model->conta      = $plot->conta;
+                            $model->cheque     = $plot->cheque;
+                            $model->vencimento = $plot->vencimento;
+                            $model->valor      = $plot->valor;
+                            $model->save();
+                            $i++;
+
+                        endforeach;
+                    }
+                }
+
+            endforeach;
+
+        }
+
+        if($status){
+            $queued->process = true;
+            $queued->save();
+            return redirect()->route('importacao.index');
+        }else{
+            die('Um erro aconteceu!');
+        }
+
     }
 
     public function upload(Request $request)
@@ -91,8 +168,9 @@ class QueuedController extends Controller
         fclose($handle);
 
         $model = new Queued();
-        $model->module = 'cheque';
-        $model->body   = json_encode($arrayBody);
+        $model->user_id = Auth::id();
+        $model->module  = 'cheque';
+        $model->body    = json_encode($arrayBody);
 
         if($model->save())
         {
