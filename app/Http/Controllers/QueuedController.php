@@ -184,7 +184,9 @@ class QueuedController extends Controller
 
         if($model->save())
         {
+
             return redirect()->route('importacao.index', ['modulo' => 'cheque']);
+
         }else{
             die('Ocorreu um erro em seu arquivo: <ul>
                 <li>Ou grande de mais</li>
