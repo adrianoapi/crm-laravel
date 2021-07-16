@@ -158,7 +158,7 @@ class QueuedController extends Controller
                                     'cod_unidade' => $this->autoComplete($row[0]),
                                     'cod_curso' => $this->autoComplete($row[1]),
                                     'ctr' => $this->autoComplete($row[2]),
-                                    'cpf_cnpj' => $row[3],
+                                    'cpf_cnpj' => preg_replace("/[^0-9]/", "",$row[3]),
                                     'telefone' => $row[4],
                                     'telefone_com' => $row[5],
                                     'celular' => $row[6],
