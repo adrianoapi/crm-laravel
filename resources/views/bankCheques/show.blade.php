@@ -77,17 +77,39 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
+                                            <?php
+                                            $valores = [];
+                                            $i = 0;
+                                            ?>
                                             @foreach ($bankCheque->BankChequePlots as $value)
+                                            <?php
+                                            $valores[$i] = $value->valor;
+                                            ?>
                                                 <tr>
                                                     <td>{{$value->vencimento}}</td>
                                                     <td>{{$value->banco}}</td>
                                                     <td>{{$value->agencia}}</td>
                                                     <td>{{$value->conta}}</td>
                                                     <td>{{$value->cheque}}</td>
-                                                    <td>{{$value->valor}}</td>
+                                                    <td>{{$valores[$i]}}</td>
                                                 </tr>
+                                            <?php
+                                            $i++;
+                                            ?>
                                             @endforeach
                                             </tbody>
+                                            <tfoot>
+                                                <td colspan="5"></td>
+                                                <td>
+                                                    <?php
+                                                    $total = 0.00;
+                                                    foreach($valores as $valor):
+                                                        $total += floatval(str_replace(",", ".", $valor));
+                                                    endforeach;
+                                                    ?>
+                                                    <strong>{{number_format($total, 2, ",", ".")}}</strong>
+                                            </td>
+                                            </tfoot>
                                         </table>
 
                                         <br>
