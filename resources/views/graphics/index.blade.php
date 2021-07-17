@@ -34,6 +34,9 @@
                                             <i class="icon-reorder"></i> Exportar CSV
                                         </button>
                                     @else
+                                        <a href="{{route('importacao.index', ['modulo' => 'grafica'])}}" class="btn btn-success">
+                                            <i class="icon-reorder"></i> Imortar CSV
+                                        </a>
                                         <a href="{{route('alunos.create', ['modulo' => 'grafica'])}}" class="btn btn-primary">
                                             <i class="icon-reorder"></i> Novo
                                         </a>

@@ -25,16 +25,22 @@ class QueuedController extends Controller
     public function index()
     {
         $tile = "Importação";
-        $modeulo = 'cheque';
+
         if(array_key_exists('modulo',$_GET))
         {
-            $modeulo = $_GET['modulo'];
+            $modulo = $_GET['modulo'];
 
+        }else{
+            die('Móudlo não encontrado!!!');
         }
 
-        $queued = Queued::where('module', $modeulo)->where('process', false)->get();
+        $queued = Queued::where('module', $modulo)->where('process', false)->get();
 
-        return view('queueds.index', ['title' => $tile, 'queueds' => $queued]);
+        return view('queueds.index', [
+            'title' => $tile,
+            'queueds' => $queued,
+            'modulo' => $modulo,
+        ]);
     }
 
     /**
@@ -49,62 +55,64 @@ class QueuedController extends Controller
         if($queued->id && !$queued->proccess)
         {
             $status = false;
-            $body = json_decode($queued->body);
+            $body   = json_decode($queued->body);
 
-            foreach($body as $value):
+            if($queued->module == 'cheque')
+            {
+                foreach($body as $value):
 
-                # Save students
-                $student = new Student();
-                $student->user_id      = Auth::id();
-                $student->cod_unidade  = $value->students->cod_unidade;
-                $student->cod_curso    = $value->students->cod_curso;
-                $student->ctr          = $value->students->ctr;
-                $student->cpf_cnpj     = $value->students->cpf_cnpj;
-                $student->ctr          = $value->students->ctr;
-                $student->telefone     = $value->students->telefone;
-                $student->telefone_com = $value->students->telefone_com;
-                $student->celular      = $value->students->celular;
-                $student->name         = $value->students->name;
+                    # Save students
+                    $student = new Student();
+                    $student->user_id      = Auth::id();
+                    $student->cod_unidade  = $value->students->cod_unidade;
+                    $student->cod_curso    = $value->students->cod_curso;
+                    $student->ctr          = $value->students->ctr;
+                    $student->cpf_cnpj     = $value->students->cpf_cnpj;
+                    $student->ctr          = $value->students->ctr;
+                    $student->telefone     = $value->students->telefone;
+                    $student->telefone_com = $value->students->telefone_com;
+                    $student->celular      = $value->students->celular;
+                    $student->name         = $value->students->name;
 
-                if($student->save())
-                {
-                    $status = true;
-
-                    $bankCheque = new BankCheque();
-                    $bankCheque->user_id       = Auth::id();
-                    $bankCheque->student_id    = $student->id;
-                    $bankCheque->student_name  = $student->name;
-                    $bankCheque->valor         = str_replace('.', ',',$value->bank_cheques->valor);
-
-                    if($bankCheque->save())
+                    if($student->save())
                     {
-                        $i = 0;
-                        foreach($value->bank_cheque_plots as $plot):
+                        $status = true;
 
-                            $model = new BankChequePlot();
-                            $model->user_id     = Auth::id();
-                            $model->bank_cheque_id = $bankCheque->id;
-                            $model->banco      = $plot->banco;
-                            $model->agencia    = $plot->agencia;
-                            $model->conta      = $plot->conta;
-                            $model->cheque     = $plot->cheque;
-                            $model->vencimento = $plot->vencimento;
-                            $model->valor      = str_replace('.', ',',$plot->valor);
-                            $model->save();
-                            $i++;
+                        $bankCheque = new BankCheque();
+                        $bankCheque->user_id       = Auth::id();
+                        $bankCheque->student_id    = $student->id;
+                        $bankCheque->student_name  = $student->name;
+                        $bankCheque->valor         = str_replace('.', ',',$value->bank_cheques->valor);
 
-                        endforeach;
+                        if($bankCheque->save())
+                        {
+                            $i = 0;
+                            foreach($value->bank_cheque_plots as $plot):
+
+                                $model = new BankChequePlot();
+                                $model->user_id     = Auth::id();
+                                $model->bank_cheque_id = $bankCheque->id;
+                                $model->banco      = $plot->banco;
+                                $model->agencia    = $plot->agencia;
+                                $model->conta      = $plot->conta;
+                                $model->cheque     = $plot->cheque;
+                                $model->vencimento = $plot->vencimento;
+                                $model->valor      = str_replace('.', ',',$plot->valor);
+                                $model->save();
+                                $i++;
+
+                            endforeach;
+                        }
                     }
-                }
-
-            endforeach;
+                endforeach;
+            }
 
         }
 
         if($status){
             $queued->process = true;
             $queued->save();
-            return redirect()->route('importacao.index');
+            return redirect()->route('importacao.index', ['modulo' => $queued->module]);
         }else{
             die('Um erro aconteceu!');
         }
@@ -123,6 +131,14 @@ class QueuedController extends Controller
 
     public function upload(Request $request)
     {
+        if(array_key_exists('modulo',$_POST))
+        {
+            $modulo = $_POST['modulo'];
+
+        }else{
+            die('Móudulo não encontrado!!!');
+        }
+
         $handle  = fopen($_FILES['filename']['tmp_name'], "r");
         $headers = fgetcsv($handle, 1000, ",");
         while (($data = fgetcsv($handle, 1000, ",")) !== FALSE)
@@ -179,13 +195,13 @@ class QueuedController extends Controller
 
         $model = new Queued();
         $model->user_id = Auth::id();
-        $model->module  = 'cheque';
+        $model->module  = $modulo;
         $model->body    = json_encode($arrayBody);
 
         if($model->save())
         {
 
-            return redirect()->route('importacao.index', ['modulo' => 'cheque']);
+            return redirect()->route('importacao.index', ['modulo' => $model->module]);
 
         }else{
             die('Ocorreu um erro em seu arquivo: <ul>
@@ -298,6 +314,6 @@ class QueuedController extends Controller
     public function destroy(Queued $queued)
     {
         $queued->delete();
-        return redirect()->route('importacao.index');
+        return redirect()->route('importacao.index', ['modulo' => $queued->module]);
     }
 }

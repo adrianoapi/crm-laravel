@@ -38,6 +38,7 @@
 
                                     <label>Upload Arquivo CSV</label>
                                     <input size='50' type='file' name='filename'>
+                                    <input type="hidden" name="modulo" value="{{$modulo}}">
                                     <input type='submit' name='submit' value='Enviar CSV'>
 
                                 </form>
