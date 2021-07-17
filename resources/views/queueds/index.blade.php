@@ -63,7 +63,9 @@
                                     <th>Linha</th>
                                     <th>Pessoa</th>
                                     <th>Valor</th>
+                                    @if($modulo == 'cheque')
                                     <th>Cheque</th>
+                                    @endif
                                 </thead>
                                 <tbody>
                                 <?php
@@ -72,38 +74,67 @@
 
                                     $body = json_decode($queued->body);
                                     $i=0;
-                                    foreach($body as $value):
 
+                                    if($queued->module == "grafica")
+                                    {
+                                        foreach($body as $value):
                                 ?>
-                                    <tr>
-                                        <td style="vertical-align: top">{{++$i}}</td>
-                                        <td style="vertical-align: top">
-                                            <strong>unidade:</strong> {{$value->students->cod_unidade}}<br>
-                                            <strong>nome:</strong> {{$value->students->name}}<br>
-                                            <strong>cod:</strong> {{$value->students->cod_curso}}<br>
-                                            <strong>ctr:</strong> {{$value->students->ctr}}<br>
-                                            <strong>cpf/cnpj:</strong> {{$value->students->cpf_cnpj}}<br>
-                                            <strong>telefones:</strong> [{{$value->students->telefone}}] [{{$value->students->telefone_com}}] [{{$value->students->celular}}]<br>
-                                        </td>
-                                        <td style="vertical-align: top">
-                                            <strong>valor:</strong> {{$value->bank_cheques->valor}}
-                                        </td>
-                                        <td>
-                                            @foreach($value->bank_cheque_plots as $plot)
-                                            <ul>
-                                                <li><strong>banco:</strong> {{$plot->banco}}</li>
-                                                <li><strong>agencia:</strong> {{$plot->agencia}}</li>
-                                                <li><strong>conta:</strong> {{$plot->conta}}</li>
-                                                <li><strong>cheque:</strong> {{$plot->cheque}}</li>
-                                                <li><strong>vencimento:</strong> {{$plot->vencimento}}</li>
-                                                <li><strong>valor:</strong> {{$plot->valor}}</li>
-                                            </ul>
-                                            @endforeach()
-                                        </td>
-                                    </tr>
-
+                                        <tr>
+                                            <td style="vertical-align: top">{{++$i}}</td>
+                                            <td style="vertical-align: top">
+                                                <strong>unidade:</strong> {{$value->students->cod_unidade}}<br>
+                                                <strong>nome:</strong> {{$value->students->name}}<br>
+                                                <strong>cod:</strong> {{$value->students->cod_curso}}<br>
+                                                <strong>ctr:</strong> {{$value->students->ctr}}<br>
+                                                <strong>cpf/cnpj:</strong> {{$value->students->cpf_cnpj}}<br>
+                                                <strong>telefones:</strong> [{{$value->students->telefone}}] [{{$value->students->telefone_com}}] [{{$value->students->celular}}]<br>
+                                            </td>
+                                            <td style="vertical-align: top">
+                                                <strong>valor:</strong> {{$value->graphics->valor}}<br>
+                                                <strong>dt_vencimento:</strong> {{$value->graphics->dt_vencimento}}<br>
+                                                <strong>parcela:</strong> {{$value->graphics->parcela}}<br>
+                                                <strong>total:</strong> {{$value->graphics->total}}<br>
+                                            </td>
+                                        </tr>
                                 <?php
-                                    endforeach;
+                                        endforeach;
+                                    }
+
+                                    if($queued->module == "cheque")
+                                    {
+                                        foreach($body as $value):
+                                    ?>
+                                        <tr>
+                                            <td style="vertical-align: top">{{++$i}}</td>
+                                            <td style="vertical-align: top">
+                                                <strong>unidade:</strong> {{$value->students->cod_unidade}}<br>
+                                                <strong>nome:</strong> {{$value->students->name}}<br>
+                                                <strong>cod:</strong> {{$value->students->cod_curso}}<br>
+                                                <strong>ctr:</strong> {{$value->students->ctr}}<br>
+                                                <strong>cpf/cnpj:</strong> {{$value->students->cpf_cnpj}}<br>
+                                                <strong>telefones:</strong> [{{$value->students->telefone}}] [{{$value->students->telefone_com}}] [{{$value->students->celular}}]<br>
+                                            </td>
+                                            <td style="vertical-align: top">
+                                                <strong>valor:</strong> {{$value->bank_cheques->valor}}
+                                            </td>
+                                            <td>
+                                                @foreach($value->bank_cheque_plots as $plot)
+                                                <ul>
+                                                    <li><strong>banco:</strong> {{$plot->banco}}</li>
+                                                    <li><strong>agencia:</strong> {{$plot->agencia}}</li>
+                                                    <li><strong>conta:</strong> {{$plot->conta}}</li>
+                                                    <li><strong>cheque:</strong> {{$plot->cheque}}</li>
+                                                    <li><strong>vencimento:</strong> {{$plot->vencimento}}</li>
+                                                    <li><strong>valor:</strong> {{$plot->valor}}</li>
+                                                </ul>
+                                                @endforeach
+                                            </td>
+                                        </tr>
+
+                                    <?php
+                                        endforeach;
+                                    }
+
                                 endforeach;
                                 ?>
                                 </tbody>

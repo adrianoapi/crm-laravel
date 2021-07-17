@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Queued;
 use App\Student;
 use App\BankCheque;
+use App\Graphic;
 use App\BankChequePlot;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -56,6 +57,41 @@ class QueuedController extends Controller
         {
             $status = false;
             $body   = json_decode($queued->body);
+
+            if($queued->module == 'grafica')
+            {
+                foreach($body as $value):
+
+                    # Save students
+                    $student = new Student();
+                    $student->user_id      = Auth::id();
+                    $student->cod_unidade  = $value->students->cod_unidade;
+                    $student->cod_curso    = $value->students->cod_curso;
+                    $student->ctr          = $value->students->ctr;
+                    $student->cpf_cnpj     = $value->students->cpf_cnpj;
+                    $student->ctr          = $value->students->ctr;
+                    $student->telefone     = $value->students->telefone;
+                    $student->telefone_com = $value->students->telefone_com;
+                    $student->celular      = $value->students->celular;
+                    $student->name         = $value->students->name;
+
+                    if($student->save())
+                    {
+                        $status = true;
+
+                        $graphic = new Graphic();
+                        $graphic->user_id       = Auth::id();
+                        $graphic->student_id    = $student->id;
+                        $graphic->student_name  = $student->name;
+                        $graphic->dt_vencimento = $value->graphics->dt_vencimento;
+                        $graphic->valor         = str_replace('.', ',',$value->graphics->valor);
+                        $graphic->parcela       = $value->graphics->parcela;
+                        $graphic->total         = str_replace('.', ',',$value->graphics->total);
+                        $graphic->save();
+                    }
+
+                endforeach;
+            }
 
             if($queued->module == 'cheque')
             {
@@ -141,55 +177,90 @@ class QueuedController extends Controller
 
         $handle  = fopen($_FILES['filename']['tmp_name'], "r");
         $headers = fgetcsv($handle, 1000, ",");
-        while (($data = fgetcsv($handle, 1000, ",")) !== FALSE)
+
+        if($modulo == 'grafica')
         {
-            $row = explode(';', $data[0]);
-
-            if(!empty($row[7]))
+            while (($data = fgetcsv($handle, 1000, ",")) !== FALSE)
             {
-                # Vai construrir as parcelas
-                $plots = [];
-                $i = 0; # 0 => 8 // separa as parcelas do cheque
-                $j = 0; # 0 => 5 // faz a contagem dentro das parcelas
-                $k = 0; # indice que nao zera nunca dentro do while
-                foreach($row as $value):
+                $row = explode(';', $data[0]);
 
-                    if( $i > 8)
-                    {
-                        if(!empty($row[$i])){
-                            $plots[$k][$this->setLabel($j)] = ($j == 4) ? $this->setDate($row[$i]) : $row[$i];
-                            $j++;
-                            if($j > 5){
-                                $k++;
-                                $j=0;
-                            }
-                        }
-                    }
-                    $i++;
+                if(!empty($row[7]))
+                {
+                    $arrayBody[] = [
+                        'students' => [
+                            'cod_unidade' => $this->autoComplete($row[0]),
+                            'cod_curso' => $this->autoComplete($row[1]),
+                            'ctr' => $this->autoComplete($row[2]),
+                            'cpf_cnpj' => preg_replace("/[^0-9]/", "",$row[3]),
+                            'telefone' => $row[4],
+                            'telefone_com' => $row[5],
+                            'celular' => $row[6],
+                            'name' => $row[7],
+                        ],
+                        'graphics' => [
+                            'dt_vencimento' => $this->setDate($row[8]),
+                            'valor' => $row[9],
+                            'parcela' => $row[10],
+                            'total' => $row[11],
+                        ],
 
-                endforeach;
-
-                $arrayBody[] = [
-                    'students' => [
-                                    'cod_unidade' => $this->autoComplete($row[0]),
-                                    'cod_curso' => $this->autoComplete($row[1]),
-                                    'ctr' => $this->autoComplete($row[2]),
-                                    'cpf_cnpj' => preg_replace("/[^0-9]/", "",$row[3]),
-                                    'telefone' => $row[4],
-                                    'telefone_com' => $row[5],
-                                    'celular' => $row[6],
-                                    'name' => $row[7],
-                    ],
-                    'bank_cheques' => [
-                                    'user_id' => 1,
-                                    'student_id' => NULL,
-                                    'valor' => $row[8],
-                    ],
-                    'bank_cheque_plots' => $plots,
-
-                ];
+                    ];
+                }
             }
 
+        }
+
+        if($modulo == 'cheque')
+        {
+            while (($data = fgetcsv($handle, 1000, ",")) !== FALSE)
+            {
+                $row = explode(';', $data[0]);
+
+                if(!empty($row[7]))
+                {
+                    # Vai construrir as parcelas
+                    $plots = [];
+                    $i = 0; # 0 => 8 // separa as parcelas do cheque
+                    $j = 0; # 0 => 5 // faz a contagem dentro das parcelas
+                    $k = 0; # indice que nao zera nunca dentro do while
+                    foreach($row as $value):
+
+                        if( $i > 8)
+                        {
+                            if(!empty($row[$i])){
+                                $plots[$k][$this->setLabel($j)] = ($j == 4) ? $this->setDate($row[$i]) : $row[$i];
+                                $j++;
+                                if($j > 5){
+                                    $k++;
+                                    $j=0;
+                                }
+                            }
+                        }
+                        $i++;
+
+                    endforeach;
+
+                    $arrayBody[] = [
+                        'students' => [
+                                        'cod_unidade' => $this->autoComplete($row[0]),
+                                        'cod_curso' => $this->autoComplete($row[1]),
+                                        'ctr' => $this->autoComplete($row[2]),
+                                        'cpf_cnpj' => preg_replace("/[^0-9]/", "",$row[3]),
+                                        'telefone' => $row[4],
+                                        'telefone_com' => $row[5],
+                                        'celular' => $row[6],
+                                        'name' => $row[7],
+                        ],
+                        'bank_cheques' => [
+                                        'user_id' => 1,
+                                        'student_id' => NULL,
+                                        'valor' => $row[8],
+                        ],
+                        'bank_cheque_plots' => $plots,
+                    ];
+                }
+
+            }
         }
         fclose($handle);
 
