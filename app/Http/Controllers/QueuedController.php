@@ -188,9 +188,9 @@ class QueuedController extends Controller
                 {
                     $arrayBody[] = [
                         'students' => [
-                            'cod_unidade' => $this->autoComplete($row[0]),
-                            'cod_curso' => $this->autoComplete($row[1]),
-                            'ctr' => $this->autoComplete($row[2]),
+                            'cod_unidade' => $this->autoComplete($row[0],3),
+                            'cod_curso' => $this->autoComplete($row[1], 3),
+                            'ctr' => $this->autoComplete($row[2], 5),
                             'cpf_cnpj' => preg_replace("/[^0-9]/", "",$row[3]),
                             'telefone' => $row[4],
                             'telefone_com' => $row[5],
@@ -242,9 +242,9 @@ class QueuedController extends Controller
 
                     $arrayBody[] = [
                         'students' => [
-                                        'cod_unidade' => $this->autoComplete($row[0]),
-                                        'cod_curso' => $this->autoComplete($row[1]),
-                                        'ctr' => $this->autoComplete($row[2]),
+                                        'cod_unidade' => $this->autoComplete($row[0], 3),
+                                        'cod_curso' => $this->autoComplete($row[1], 3),
+                                        'ctr' => $this->autoComplete($row[2], 5),
                                         'cpf_cnpj' => preg_replace("/[^0-9]/", "",$row[3]),
                                         'telefone' => $row[4],
                                         'telefone_com' => $row[5],
