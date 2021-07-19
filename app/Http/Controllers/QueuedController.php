@@ -283,6 +283,11 @@ class QueuedController extends Controller
         $model->module  = $modulo;
         $model->body    = json_encode($arrayBody);
 
+        if(empty($model->body))
+        {
+            die('Erro: Não foi possível construir o corpo do arquivo ou está vazio!');
+        }
+
         if($model->save())
         {
 
@@ -364,7 +369,10 @@ class QueuedController extends Controller
      */
     public function show(Queued $queued)
     {
-        //
+        return view('queueds.show', [
+            'title' => $this->title,
+            'queued' => $queued,
+        ]);
     }
 
     /**
@@ -401,4 +409,28 @@ class QueuedController extends Controller
         $queued->delete();
         return redirect()->route('importacao.index', ['modulo' => $queued->module]);
     }
+
+    public function history()
+    {
+        $tile = "Histórico";
+
+        if(array_key_exists('modulo',$_GET))
+        {
+            $modulo = $_GET['modulo'];
+
+        }else{
+            die('Móudlo não encontrado!!!');
+        }
+
+        $queued = Queued::where('module', $modulo)->where('process', true)->orderBy('id', 'desc')->get();
+
+        return view('queueds.history', [
+            'title' => $tile,
+            'queueds' => $queued,
+            'modulo' => $modulo,
+        ]);
+
+
+    }
+
 }
