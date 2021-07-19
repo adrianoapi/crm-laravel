@@ -40,7 +40,7 @@
                                 <thead>
                                     <th>ID</th>
                                     <th>Upload</th>
-                                    <th>Execução</th>
+                                    <th>Usuário</th>
                                     <th>Ação</th>
                                 </thead>
                                 <tbody>
@@ -52,7 +52,7 @@
                                     <tr>
                                         <td>{{$queued->id}}</td>
                                         <td>{{$queued->created_at}}</td>
-                                        <td>{{$queued->updated_at}}</td>
+                                        <td>{{$queued->user->name}}</td>
                                         <td>
                                             <a href="{{route('importacao.history.show', ['queued' => $queued->id])}}" target="_blank" class="btn" rel="tooltip" title="" data-original-title="Visualizar">
                                                 <i class="icon-search"></i>
