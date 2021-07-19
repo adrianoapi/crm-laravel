@@ -175,6 +175,13 @@ class QueuedController extends Controller
             die('Móudulo não encontrado!!!');
         }
 
+        $mimes = array('application/vnd.ms-excel','text/plain','text/csv','text/tsv');
+        if(in_array($_FILES['filename']['type'],$mimes)){
+        // do something
+        } else {
+         die("Erro: Arquivo inválido!");
+        }
+
         $handle  = fopen($_FILES['filename']['tmp_name'], "r");
         $headers = fgetcsv($handle, 1000, ",");
 
