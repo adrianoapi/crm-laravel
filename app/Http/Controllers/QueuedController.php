@@ -177,7 +177,7 @@ class QueuedController extends Controller
 
         $mimes = array('application/vnd.ms-excel','text/plain','text/csv','text/tsv');
         if(in_array($_FILES['filename']['type'],$mimes)){
-        // do something
+            $arrayBody = [];
         } else {
          die("Erro: Arquivo inválido!");
         }
@@ -187,9 +187,13 @@ class QueuedController extends Controller
 
         if($modulo == 'grafica')
         {
+
             while (($data = fgetcsv($handle, 1000, ",")) !== FALSE)
             {
+
                 $row = explode(';', $data[0]);
+
+
 
                 if(!empty($row[7]))
                 {
@@ -202,7 +206,7 @@ class QueuedController extends Controller
                             'telefone' => $row[4],
                             'telefone_com' => $row[5],
                             'celular' => $row[6],
-                            'name' => $row[7],
+                            'name' => utf8_encode($row[7]),
                         ],
                         'graphics' => [
                             'dt_vencimento' => $this->setDate($row[8]),
@@ -213,7 +217,10 @@ class QueuedController extends Controller
 
                     ];
                 }
+
             }
+
+
 
         }
 
@@ -256,7 +263,7 @@ class QueuedController extends Controller
                                         'telefone' => $row[4],
                                         'telefone_com' => $row[5],
                                         'celular' => $row[6],
-                                        'name' => $row[7],
+                                        'name' => utf8_encode($row[7]),
                         ],
                         'bank_cheques' => [
                                         'user_id' => 1,
