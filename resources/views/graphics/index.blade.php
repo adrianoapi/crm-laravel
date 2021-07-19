@@ -35,7 +35,7 @@
                                         </button>
                                     @else
                                         <a href="{{route('importacao.index', ['modulo' => 'grafica'])}}" class="btn btn-success">
-                                            <i class="icon-reorder"></i> Imortar CSV
+                                            <i class="icon-reorder"></i> Importar CSV
                                         </a>
                                         <a href="{{route('alunos.create', ['modulo' => 'grafica'])}}" class="btn btn-primary">
                                             <i class="icon-reorder"></i> Novo
