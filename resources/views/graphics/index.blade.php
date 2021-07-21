@@ -21,7 +21,7 @@
                             <span class="tabs">
 
                                 <form action="{{route('graphics.csv')}}" method="GET" class="span12" style="margin: 0;padding:0;">
-                                    <input placeholder="Nome ou cpf" type="hidden" name="pesquisar" value="{{$pesuisar}}" class="input-block-level">
+                                    <input placeholder="Nome, cpf ou telefone" type="hidden" name="pesquisar" value="{{$pesuisar}}" class="input-block-level">
                                     <input placeholder="unidade" type="hidden" name="unidade" value="{{$unidade}}" class="input-block-level">
                                     <input placeholder="ctr" type="hidden" name="ctr" value="{{$ctr}}" class="input-block-level">
                                     <input placeholder="negociado" type="hidden" name="negociado" value="{{$negociado}}" class="input-block-level">
