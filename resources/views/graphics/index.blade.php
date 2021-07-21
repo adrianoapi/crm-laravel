@@ -34,9 +34,11 @@
                                             <i class="icon-reorder"></i> Exportar CSV
                                         </button>
                                     @else
+                                        @if(Auth::user()->level > 1)
                                         <a href="{{route('importacao.index', ['modulo' => 'grafica'])}}" class="btn btn-success">
                                             <i class="icon-reorder"></i> Importar CSV
                                         </a>
+                                        @endif
                                         <a href="{{route('alunos.create', ['modulo' => 'grafica'])}}" class="btn btn-primary">
                                             <i class="icon-reorder"></i> Novo
                                         </a>
