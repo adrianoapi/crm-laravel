@@ -41,6 +41,9 @@ class DefaultingController extends Controller
                 $students = Student::where('name', 'like', '%' . $pesuisar . '%')
                 ->where('active', true)
                 ->orWhere('cpf_cnpj', 'like', '%' . $pesuisar . '%')
+                ->orWhere('telefone', 'like', '%' . $pesuisar . '%')
+                ->orWhere('telefone_com', 'like', '%' . $pesuisar . '%')
+                ->orWhere('celular', 'like', '%' . $pesuisar . '%')
                 ->orderBy('name', 'asc')
                 ->get();
 
