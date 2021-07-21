@@ -60,7 +60,7 @@
                                                 <div class="control-group">
                                                     <div class="controls controls-row">
                                                         <input type="hidden" name="filtro" id="filtro" value="pesquisa">
-                                                        <input id="pesquisar" placeholder="Nome ou cpf" type="text" name="pesquisar" value="{{$pesuisar}}" class="input-block-level">
+                                                        <input id="pesquisar" placeholder="Nome, cpf ou telefone" type="text" name="pesquisar" value="{{$pesuisar}}" class="input-block-level">
                                                     </div>
                                                 </div>
 										    </div>
