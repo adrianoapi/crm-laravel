@@ -1,17 +1,18 @@
 @if ($paginator->hasPages())
-<div class="btn-toolbar">
+<div class="table-pagination">
         {{-- Previous Page Link --}}
         @if ($paginator->onFirstPage())
-        <li class="footable-page-arrow"><a href="#" class="disabled"><</a></li>
+        <a href="javascript:void(0)" class="disabled">Anterior</a>
         @else
-        <li class="btn"><a href="{{ $paginator->previousPageUrl().'&'.str_replace('page=', '', $_SERVER['QUERY_STRING']) }}"><</a></li>
+        <a href="{{ $paginator->previousPageUrl().'&'.str_replace('page=', '', $_SERVER['QUERY_STRING']) }}">Anterior</a>
         @endif
 
+        <span>
         {{-- Pagination Elements --}}
         @foreach ($elements as $element)
             {{-- "Three Dots" Separator --}}
             @if (is_string($element))
-                <li class="footable-page"><span>{{ $element }}</span></li>
+                {{ $element }}
             @endif
 
             {{-- Array Of Links --}}
@@ -19,20 +20,21 @@
                 @foreach ($element as $page => $url)
 
                     @if ($page == $paginator->currentPage())
-                    <li class="btn btn-lime"><a href="#" class="active"><span>{{ $page }}</span></a></li>
+                    <a href="#" class="active">{{ $page }}</a>
                     @else
-                    <li class="btn"><a href="{{ $url.'&'.str_replace('page=', '', $_SERVER['QUERY_STRING']) }}">{{ $page }}</a></li>
+                    <a href="{{ $url.'&'.str_replace('page=', '', $_SERVER['QUERY_STRING']) }}">{{ $page }}</a>
                     @endif
 
                 @endforeach
             @endif
         @endforeach
+</span>
 
         {{-- Next Page Link --}}
         @if ($paginator->hasMorePages())
-        <li class="btn"><a href="{{ $paginator->nextPageUrl().'&'.str_replace('page=', '', $_SERVER['QUERY_STRING']) }}" rel="next">></a></li>
+        <a href="{{ $paginator->nextPageUrl().'&'.str_replace('page=', '', $_SERVER['QUERY_STRING']) }}" rel="next">Próximo</a>
         @else
-        <li class="btn"><a href="#" class="disabled">></a></li>
+        <a href="javascript:void(0)" class="disabled">Próximo</a>
         @endif
 </div>
 @endif
