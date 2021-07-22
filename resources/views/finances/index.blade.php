@@ -99,9 +99,15 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                <?php $total = 0; ?>
+                                <?php
+                                $total = 0;
+                                $qtd   = 0;
+                                ?>
                                 @foreach ($caixa as $value)
-                                <?php $total = ($pagamento) ? $total + $value->valor_pago : $total + $value->valor;?>
+                                <?php
+                                $total = ($pagamento) ? $total + $value->valor_pago : $total + $value->valor;
+                                $qtd++;
+                                ?>
                                     <tr>
                                         <td>
                                         @if($value->modulo == 'cheque')
@@ -134,9 +140,9 @@
                                 </tbody>
                                 <tfoot>
                                     <tr>
-                                        <td colspan="7"></td>
-                                        <td><strong>Total</strong></td>
-                                        <td colspan="2"><strong>{{number_format($total, 2, ',', '.')}}</strong></td>
+                                        <td colspan="6"></td>
+                                        <td colspan="2"><strong>Lançamentos</strong>: <strong>{{$qtd}}</strong></td>
+                                        <td colspan="2"><strong>Total</strong>: <strong>R$ {{number_format($total, 2, ',', '.')}}</strong></td>
                                     </tr>
                                 </tfoot>
                             </table>
