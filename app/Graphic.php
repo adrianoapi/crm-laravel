@@ -56,4 +56,10 @@ class Graphic extends Model
     {
         return $this->attributes['total'] = number_format($value, 2, ",", ".");
     }
+
+    public function getCreatedAtAttribute($value)
+    {
+        $value = date('Y-m-d H:i:s', strtotime("$value -180 minutes"));
+        return $this->attributes['created_at'] = date("d/m/Y H:i:s", strtotime($value));
+    }
 }
