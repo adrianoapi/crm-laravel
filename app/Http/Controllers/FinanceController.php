@@ -43,7 +43,8 @@ class FinanceController extends Controller
         if(bc.id > 0, bct.parcela, if(de.id > 0, det.parcela, grt.parcela)) AS parcela,
         if(bc.id > 0, bct.valor, if(de.id > 0, det.valor, grt.valor)) AS valor,
         if(bc.id > 0, bct.vencimento, if(de.id > 0, det.vencimento, grt.vencimento)) AS vencimento,
-        if(bc.id > 0, bct.dt_pagamento, if(de.id > 0, det.dt_pagamento, grt.dt_pagamento)) AS dt_pagamento,
+        #Mysql function
+        DATE_FORMAT(if(bc.id > 0, bct.dt_pagamento, if(de.id > 0, det.dt_pagamento, grt.dt_pagamento)), '%d/%m/%Y') AS dt_pagamento,
         if(bc.id > 0, bct.valor_pago, if(de.id > 0, det.valor_pago, grt.valor_pago)) AS valor_pago,
         if(bc.id > 0, bct.pagamento, if(de.id > 0, det.pagamento, grt.pagamento)) AS pagamento
         FROM students AS st
