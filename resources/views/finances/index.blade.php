@@ -141,8 +141,8 @@
                                 <tfoot>
                                     <tr>
                                         <td colspan="6"></td>
-                                        <td colspan="2"><strong>Lançamentos</strong>: <strong>{{$qtd}}</strong></td>
-                                        <td colspan="2"><strong>Total</strong>: <strong>R$ {{number_format($total, 2, ',', '.')}}</strong></td>
+                                        <td colspan="2"><strong>Lançamentos</strong>: <span class="label label-info">{{$qtd}}</span></td>
+                                        <td colspan="2"><strong>Total</strong>: <span class="label label-success">R$ {{number_format($total, 2, ',', '.')}}</span></td>
                                     </tr>
                                 </tfoot>
                             </table>
