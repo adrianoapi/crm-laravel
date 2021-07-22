@@ -16,6 +16,7 @@ class GraphicHistory extends Model
         return $this->belongsTo(Graphic::class, 'graphic_id', 'id');
     }
 
+    //check
     public function getCreatedAtAttribute($value)
     {
         $value = date('Y-m-d H:i:s', strtotime("$value -180 minutes"));
