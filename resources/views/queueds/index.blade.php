@@ -67,7 +67,6 @@
                                     @else
                                     <th>Valor</th>
                                     @endif
-
                                     @if($modulo == 'cheque')
                                     <th>Cheque</th>
                                     @endif

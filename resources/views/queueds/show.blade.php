@@ -43,9 +43,17 @@
                                 <thead>
                                     <th>Linha</th>
                                     <th>Pessoa</th>
+                                    @if($queued->module == 'contrato')
+                                    <th>FASE</th>
+                                    @else
                                     <th>Valor</th>
+                                    @endif
                                     @if($queued->module == 'cheque')
                                     <th>Cheque</th>
+                                    @endif
+                                    @if($queued->module == 'contrato')
+                                    <th>MATERIAL</th>
+                                    <th>SERVIÇO</th>
                                     @endif
                                 </thead>
                                 <tbody>
@@ -53,10 +61,45 @@
 
                                     $body = json_decode($queued->body);
                                     $i=0;
-
-                                    if($queued->module == "grafica")
+                                    if($queued->module == "contrato")
                                     {
                                         foreach($body as $value):
+                                       ?>
+                                        <tr>
+                                            <td style="vertical-align: top">{{++$i}}</td>
+                                            <td style="vertical-align: top">
+                                                <strong>unidade:</strong> {{$value->students->cod_unidade}}<br>
+                                                <strong>nome:</strong> {{$value->students->name}}<br>
+                                                <strong>cod:</strong> {{$value->students->cod_curso}}<br>
+                                                <strong>ctr:</strong> {{$value->students->ctr}}<br>
+                                                <strong>cpf/cnpj:</strong> {{$value->students->cpf_cnpj}}<br>
+                                                <strong>telefones:</strong> [{{$value->students->telefone}}] [{{$value->students->telefone_com}}] [{{$value->students->celular}}]<br>
+                                            </td>
+                                            <td style="vertical-align: top">
+                                                <strong>fase:</strong> {{$value->defaultings->fase}}<br>
+                                            </td>
+                                            <td style="vertical-align: top">
+                                                <strong>Vencimento:</strong> {{$value->defaultings->dt_inadimplencia}}<br>
+                                                <strong>Parcela Paga:</strong> {{$value->defaultings->m_parcela_pg}}<br>
+                                                <strong>Total Parcela:</strong> {{$value->defaultings->m_parcelas}}<br>
+                                                <strong>Valor Material:</strong> {{$value->defaultings->m_parcela_valor}}<br><br>
+                                            </td>
+                                            <td style="vertical-align: top">
+                                                <strong>Parcela Paga:</strong> {{$value->defaultings->s_parcela_pg}}<br>
+                                                <strong>Total Parcela:</strong> {{$value->defaultings->s_parcelas}}<br>
+                                                <strong>Valor Serviço:</strong> {{$value->defaultings->s_parcela_valor}}<br>
+                                                <strong>Multa:</strong> {{$value->defaultings->multa}}<br>
+                                            </td>
+                                        </tr>
+                                    <?php
+                                        endforeach;
+                                    }
+
+
+                                        if($queued->module == "grafica")
+                                        {
+                                            foreach($body as $value):
+                                    ?>
                                 ?>
                                         <tr>
                                             <td style="vertical-align: top">{{++$i}}</td>
