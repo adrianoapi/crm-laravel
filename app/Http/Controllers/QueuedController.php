@@ -249,7 +249,7 @@ class QueuedController extends Controller
                         ],
                         'defaultings' => [
                             'fase' => $row[8],
-                            'dt_inadimplencia' => $row[9],
+                            'dt_inadimplencia' => $this->setDate($row[9]),
                             'm_parcela_pg' => $row[10],
                             'm_parcelas' => $row[11],
                             'm_parcela_valor' => $row[12],
