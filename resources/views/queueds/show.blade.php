@@ -100,7 +100,6 @@
                                         {
                                             foreach($body as $value):
                                     ?>
-                                ?>
                                         <tr>
                                             <td style="vertical-align: top">{{++$i}}</td>
                                             <td style="vertical-align: top">

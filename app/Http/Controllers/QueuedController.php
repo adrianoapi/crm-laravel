@@ -87,11 +87,11 @@ class QueuedController extends Controller
 
                         $defaulting->m_parcelas      = $value->defaultings->m_parcelas;
                         $defaulting->m_parcela_pg    = $value->defaultings->m_parcela_pg;
-                        $defaulting->m_parcela_valor = $value->defaultings->m_parcela_valor;
+                        $defaulting->m_parcela_valor = str_replace('.', ',',$value->defaultings->m_parcela_valor);
 
                         $defaulting->s_parcelas      = $value->defaultings->s_parcelas;
                         $defaulting->s_parcela_pg    = $value->defaultings->s_parcela_pg;
-                        $defaulting->s_parcela_valor = $value->defaultings->s_parcela_valor;
+                        $defaulting->s_parcela_valor = str_replace('.', ',',$value->defaultings->s_parcela_valor);
 
                         $defaulting->multa = $value->defaultings->multa;
                         $defaulting->save();
