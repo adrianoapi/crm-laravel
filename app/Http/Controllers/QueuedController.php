@@ -6,6 +6,7 @@ use App\Queued;
 use App\Student;
 use App\BankCheque;
 use App\Graphic;
+use App\Defaulting;
 use App\BankChequePlot;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -57,6 +58,47 @@ class QueuedController extends Controller
         {
             $status = false;
             $body   = json_decode($queued->body);
+
+            if($queued->module == 'contrato')
+            {
+                foreach($body as $value):
+
+                    # Save students
+                    $student = new Student();
+                    $student->user_id      = Auth::id();
+                    $student->cod_unidade  = $value->students->cod_unidade;
+                    $student->cod_curso    = $value->students->cod_curso;
+                    $student->ctr          = $value->students->ctr;
+                    $student->cpf_cnpj     = $value->students->cpf_cnpj;
+                    $student->ctr          = $value->students->ctr;
+                    $student->telefone     = $value->students->telefone;
+                    $student->telefone_com = $value->students->telefone_com;
+                    $student->celular      = $value->students->celular;
+                    $student->name         = $value->students->name;
+
+                    if($student->save())
+                    {
+                        $status = true;
+
+                        $defaulting = new Defaulting();
+                        $defaulting->user_id          = Auth::id();
+                        $defaulting->student_id       = $student->id;
+                        $defaulting->dt_inadimplencia = $value->defaultings->dt_inadimplencia;
+
+                        $defaulting->m_parcelas      = $value->defaultings->m_parcelas;
+                        $defaulting->m_parcela_pg    = $value->defaultings->m_parcela_pg;
+                        $defaulting->m_parcela_valor = $value->defaultings->m_parcela_valor;
+
+                        $defaulting->s_parcelas      = $value->defaultings->s_parcelas;
+                        $defaulting->s_parcela_pg    = $value->defaultings->s_parcela_pg;
+                        $defaulting->s_parcela_valor = $value->defaultings->s_parcela_valor;
+
+                        $defaulting->multa = $value->defaultings->multa;
+                        $defaulting->save();
+                    }
+
+                endforeach;
+            }
 
             if($queued->module == 'grafica')
             {
@@ -185,6 +227,44 @@ class QueuedController extends Controller
         $handle  = fopen($_FILES['filename']['tmp_name'], "r");
         $headers = fgetcsv($handle, 1000, ",");
 
+        if($modulo == 'contrato')
+        {
+            while (($data = fgetcsv($handle, 1000, ",")) !== FALSE)
+            {
+
+                $row = explode(';', $data[0]);
+
+                if(!empty($row[7]))
+                {
+                    $arrayBody[] = [
+                        'students' => [
+                            'cod_unidade' => $this->autoComplete($row[0],3),
+                            'cod_curso' => $this->autoComplete($row[1], 3),
+                            'ctr' => $this->autoComplete($row[2], 5),
+                            'cpf_cnpj' => preg_replace("/[^0-9]/", "",$row[3]),
+                            'telefone' => $row[4],
+                            'telefone_com' => $row[5],
+                            'celular' => $row[6],
+                            'name' => utf8_encode($row[7]),
+                        ],
+                        'defaultings' => [
+                            'fase' => $row[8],
+                            'dt_inadimplencia' => $row[9],
+                            'm_parcela_pg' => $row[10],
+                            'm_parcelas' => $row[11],
+                            'm_parcela_valor' => $row[12],
+                            's_parcela_pg' => $row[13],
+                            's_parcelas' => $row[14],
+                            's_parcela_valor' => $row[15],
+                            'multa' => $row[16],
+                        ]
+
+                    ];
+                }
+
+            }
+        }
+
         if($modulo == 'grafica')
         {
 
@@ -192,8 +272,6 @@ class QueuedController extends Controller
             {
 
                 $row = explode(';', $data[0]);
-
-
 
                 if(!empty($row[7]))
                 {
@@ -219,9 +297,6 @@ class QueuedController extends Controller
                 }
 
             }
-
-
-
         }
 
         if($modulo == 'cheque')
@@ -273,9 +348,9 @@ class QueuedController extends Controller
                         'bank_cheque_plots' => $plots,
                     ];
                 }
-
             }
         }
+
         fclose($handle);
 
         $model = new Queued();
