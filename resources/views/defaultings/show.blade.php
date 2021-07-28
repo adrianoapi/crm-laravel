@@ -469,11 +469,21 @@
                         <div class="box-title">
                             <h3><i class="icon-th-list"></i> Histórico</h3>
                         </div>
-                        <div class="box-content nopadding">
+                        <div class="box-content ">
 
-                        <textarea name="history" id="history" rows="5" class="input-block-level" placeholder="Descreva a negociação..."></textarea>
-                        <button type="button" class="btn btn-primary" onclick="saveHistory()">Registrar</button>
-                        <p></div>
+                            <textarea name="history" id="history" rows="5" class="input-block-level" placeholder="Descreva a negociação..."></textarea>
+
+                            <div class="controls">
+                                <label class='checkbox'>
+                                    <i class="icon-calendar"></i> <input type="checkbox" name="schedule">Agendar
+                                </label>
+                            </div>
+
+                            <div class="control-group">
+                                <button type="button" class="btn btn-primary" onclick="saveHistory()">Registrar</button>
+                            </div>
+
+                        </div>
 
                         <div class="box-content nopadding">
 
