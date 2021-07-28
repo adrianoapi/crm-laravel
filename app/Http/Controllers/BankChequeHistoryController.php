@@ -40,6 +40,7 @@ class BankChequeHistoryController extends Controller
         $model->user_id = Auth::id();
         $model->bank_cheque_id = $request->bank_cheque_id;
         $model->observacao = $request->observacao;
+        $model->schedule = $request->schedule == 'true' ? 'open' : 'none';
         if($model->save())
         {
             $hora = date('Y-m-d H:i:s', strtotime("$model->created_at -180 minutes"));

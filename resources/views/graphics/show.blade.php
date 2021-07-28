@@ -397,7 +397,7 @@
 
                             <div class="controls">
                                 <label class='checkbox'>
-                                <i class="icon-calendar"></i> <input type="checkbox" name="schedule">Agendar
+                                <i class="icon-calendar"></i> <input type="checkbox" name="schedule" id="schedule">Agendar
                                 </label>
                             </div>
 
@@ -415,6 +415,9 @@
                                 @foreach ($graphic->graphicHistories as $value)
                                 <tr>
                                     <td>
+                                        @if($value->schedule == 'open')
+                                        <i class="icon-calendar"></i>&nbsp;-&nbsp;
+                                        @endif
                                     Data: <strong>{{$value->created_at}}</strong>&nbsp;-&nbsp;Usuário: <strong>{{$value->user->name}}</strong>
                                     <p>{{$value->observacao}}</p>
                                     </td>
@@ -528,13 +531,16 @@
             // Registrar historico
             function saveHistory()
             {
-                var value = $("#history").val();
+                var value    = $("#history" ).val();
+                var schedule = $("#schedule").is(":checked");
+
                 $.ajax({
                     url: "{{route('graphicHistories.store')}}",
                     type: "POST",
                     data: {
                         "_token": "{{csrf_token()}}",
                         "observacao": value,
+                        "schedule": schedule,
                         "graphic_id": {{$graphic->id}},
                     },
                     dataType: 'json',
@@ -548,7 +554,11 @@
 
             function inserirLinha(data)
             {
-                var html = "";
+                var schedule = '';
+                if(data['schedule'] == 'open'){
+                    schedule = '<i class="icon-calendar"></i>&nbsp;-&nbsp;';
+                }
+                var html = schedule;
                 html +=  'Data: <strong>'+data['created_at']+'</strong>&nbsp;-&nbsp;';
                 html +=  'Usuário: <strong>{{Auth::user()->name}}</strong>';
                 html +=  '<p>'+data['observacao']+'</p>';
