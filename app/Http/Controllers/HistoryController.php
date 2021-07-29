@@ -69,6 +69,7 @@ class HistoryController extends Controller
     public function getAll()
     {
         return DB::select("SELECT de.fase, st.cod_unidade, st.cod_curso, st.ctr, st.name, st.cpf_cnpj,
+        if(bc.id > 0,bc.id, if(de.id > 0, de.id, gr.id)) AS modulo_id,
         if(bc.id > 0,bct.id, if(de.id > 0, det.id, grt.id)) AS id,
         if(bc.id > 0,'cheque', if(de.id > 0, 'contrato', 'grafica')) AS modulo,
         if(bc.id > 0, bct.observacao, if(de.id > 0, det.observacao, grt.observacao)) AS observacao,
