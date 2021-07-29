@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 
 class HistoryController extends Controller
 {
-    private $title  = 'Retorno';
+    private $title  = 'RETORNO';
 
 
     public function __construct()
