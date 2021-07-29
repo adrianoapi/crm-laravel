@@ -62,10 +62,10 @@
                                         </th>
                                     </tr>
                                         <tr>
-                                            <th>Dt Contato</th>
+                                            <th>Contato</th>
                                             <th>Módulo</th>
                                             <th>Nome</th>
-                                            <th>Dt Retorno</th>
+                                            <th>Retorno</th>
                                             <th>Observação</th>
                                             <th>Ação</th>
                                         </tr>

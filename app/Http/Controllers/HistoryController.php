@@ -25,22 +25,26 @@ class HistoryController extends Controller
 
         if(array_key_exists('modulo',$_GET))
         {
-            if($_GET['modulo'] == 'cheque')
+            if(!empty($_GET['modulo']))
             {
-                $modulo = 'cheque';
-                $query = "AND bc.id > 0";
+                if($_GET['modulo'] == 'cheque')
+                {
+                    $modulo = 'cheque';
+                    $query = "AND bc.id > 0";
 
-            }elseif($_GET['modulo'] == 'grafica'){
-                $modulo = 'grafica';
-                $query = "AND grt.id > 0";
-            }else{
-                $modulo = $_GET['modulo'];
-                if($modulo == 'contrato_segunda'){
-                    $query = "AND det.id > 0 AND de.fase = 'segunda'";
+                }elseif($_GET['modulo'] == 'grafica'){
+                    $modulo = 'grafica';
+                    $query = "AND grt.id > 0";
                 }else{
-                    $query = "AND det.id > 0 AND de.fase = 'terceira'";
+                    $modulo = $_GET['modulo'];
+                    if($modulo == 'contrato_segunda'){
+                        $query = "AND det.id > 0 AND de.fase = 'segunda'";
+                    }else{
+                        $query = "AND det.id > 0 AND de.fase = 'terceira'";
+                    }
                 }
             }
+
         }
 
         $result = DB::select("SELECT de.fase, st.cod_unidade, st.cod_curso, st.ctr, st.name, st.cpf_cnpj,
