@@ -416,7 +416,11 @@
                                 <tr>
                                     <td>
                                         @if($value->schedule == 'open')
-                                        <i class="icon-calendar"></i>&nbsp;-&nbsp;
+                                            <i class="icon-calendar"></i>&nbsp;-&nbsp;
+                                            <i class="icon-unlock"></i>&nbsp;-&nbsp;
+                                        @elseif($value->schedule == 'close')
+                                            <i class="icon-calendar"></i>&nbsp;-&nbsp;
+                                            <i class="icon-lock"></i>&nbsp;-&nbsp;
                                         @endif
                                     Data: <strong>{{$value->created_at}}</strong>&nbsp;-&nbsp;Usuário: <strong>{{$value->user->name}}</strong>
                                     <p>{{$value->observacao}}</p>
