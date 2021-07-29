@@ -399,6 +399,58 @@
                                 <label class='checkbox'>
                                 <i class="icon-calendar"></i> <input type="checkbox" name="schedule" id="schedule">Agendar
                                 </label>
+
+                                <div id="calendario">
+
+                                    <div class="row-fluid">
+
+                                        <div class="span2">
+                                            <div class="control-group">
+                                                <label for="password" class="control-label">Data*</label>
+                                                <div class="controls">
+                                                    <input type="text" name="agendamento-data" value="" id="agendamento-data" placeholder="00/00/0000" class="input-block-level datepick" maxlength="10">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="span1">
+                                            <div class="control-group">
+                                                <label for="agendamento-hora" class="control-label">Hora*</label>
+                                                <div class="controls controls-row">
+                                                    <select name="agendamento-hora" id="agendamento-hora" class='select2-me input-block-level'>
+                                                        <?php for($i = 0;$i < 24;$i++){
+                                                            $esquerdo = NULL;
+                                                            if($i <= 9){
+                                                                $esquerdo = $esquerdo.'0';
+                                                            } ?>
+                                                        <option value="{{$esquerdo}}{{$i}}">{{$esquerdo}}{{$i}}</option>
+                                                        <?php } ?>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="span1">
+                                            <div class="control-group">
+                                                <label for="agendamento-minuto" class="control-label">Minuto*</label>
+                                                <div class="controls controls-row">
+                                                    <select name="agendamento-minuto" id="agendamento-minuto" class='select2-me input-block-level'>
+                                                        <?php for($i = 0;$i < 60;$i++){
+                                                            $esquerdo = NULL;
+                                                            if($i <= 9){
+                                                                $esquerdo = $esquerdo.'0';
+                                                            } ?>
+                                                        <option value="{{$esquerdo}}{{$i}}">{{$esquerdo}}{{$i}}</option>
+                                                        <?php } ?>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
                             </div>
 
                             <div class="control-group">
@@ -442,6 +494,16 @@
             <script>
 
             $(document).ready(function() {
+                $('#calendario').hide();
+                $('#schedule').click(function() {
+                    if ($(this).is(':checked')) {
+                        $('#calendario').show();
+                    }else{
+                        $('#agendamento-data').val('');
+                        $('#calendario').hide();
+                    }
+                });
+
                 var x = 1;
                 var max_fields = 20;
                 var wrapper = $(".container1");
@@ -535,8 +597,13 @@
             // Registrar historico
             function saveHistory()
             {
-                var value    = $("#history" ).val();
-                var schedule = $("#schedule").is(":checked");
+                var value       = $("#history" ).val();
+                var agenData    = $("#agendamento-data").val();
+                var agendHora   = $("#agendamento-hora").val();
+                var agendMinuto = $("#agendamento-minuto").val();
+                var schedule    = $("#schedule").is(":checked");
+
+                console.log(agendHora);
 
                 $.ajax({
                     url: "{{route('graphicHistories.store')}}",
@@ -545,6 +612,9 @@
                         "_token": "{{csrf_token()}}",
                         "observacao": value,
                         "schedule": schedule,
+                        "data": agenData,
+                        "hora": agendHora,
+                        "minuto": agendMinuto,
                         "graphic_id": {{$graphic->id}},
                     },
                     dataType: 'json',

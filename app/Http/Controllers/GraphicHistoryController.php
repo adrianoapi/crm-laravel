@@ -41,6 +41,15 @@ class GraphicHistoryController extends Controller
         $model->graphic_id = $request->graphic_id;
         $model->observacao = $request->observacao;
         $model->schedule = $request->schedule == 'true' ? 'open' : 'none';
+
+        if(!empty($request->data))
+        {
+            $date = str_replace('/', '-', $request->data);
+            $model->dt_retorno = date("Y-m-d", strtotime($date))." {$request->hora}:{$request->minuto}:00";
+        }else{
+            $model->dt_retorno = date('Y-m-d h:i:s');
+        }
+
         if($model->save())
         {
             $hora = date('Y-m-d H:i:s', strtotime("$model->created_at -180 minutes"));
