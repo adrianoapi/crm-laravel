@@ -32,6 +32,9 @@
 					<li>
 						<a href="{{route('graphics.index')}}">GRAFICA - ENNT</a>
 					</li>
+					<li>
+						<a href="{{route('history.index')}}">Contato</a>
+					</li>
 				</ul>
 			</div>
 
