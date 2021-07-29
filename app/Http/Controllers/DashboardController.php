@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Auth;
 
 class DashboardController extends Controller
 {
-    private $title  = 'DashBoard';
+    private $title  = 'Contato';
 
     public function __construct()
     {
@@ -16,6 +16,8 @@ class DashboardController extends Controller
 
     public function index()
     {
-        return view('dashboard.index');
+        return view('historical.index', [
+            'title' => $title,
+        ]);
     }
 }

@@ -12,7 +12,7 @@
 */
 
 Route::get('/', function () {
-    return redirect()->route('dashboard.index');
+    return redirect()->route('history.index');
 });
 
 Route::get('envio-email', function(){
@@ -33,6 +33,11 @@ Auth::routes();
 
 Route::prefix('dashboard')->group(function(){
     Route::get('/', 'DashboardController@index')->name('dashboard.index');
+});
+
+Route::prefix('contato')->group(function(){
+    Route::get ('/', 'HistoryController@index')->name('history.index');
+    Route::post('edit', 'HistoryController@update')->name('history.update');
 });
 
 Route::prefix('segunda-fase')->group(function(){
