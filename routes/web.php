@@ -35,7 +35,7 @@ Route::prefix('dashboard')->group(function(){
     Route::get('/', 'DashboardController@index')->name('dashboard.index');
 });
 
-Route::prefix('contato')->group(function(){
+Route::prefix('retorno')->group(function(){
     Route::get ('/', 'HistoryController@index')->name('history.index');
     Route::post('edit', 'HistoryController@update')->name('history.update');
 });
