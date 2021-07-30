@@ -77,6 +77,102 @@ class FinanceController extends Controller
         ]);
     }
 
+    public function byDay()
+    {
+        $title = $this->title. " DIÁRIO Dashboard";
+        $pagamento = true;
+
+        if(array_key_exists('pagamento', $_GET))
+        {
+            $this->dtInicial = strlen($_GET['dt_inicio']) > 2 ? $this->dataSql($_GET['dt_inicio']) : $this->dtInicial;
+            $this->dtFinal   = strlen($_GET['dt_fim'   ]) > 2 ? $this->dataSql($_GET['dt_fim'   ]) : $this->dtFinal;
+        }
+
+        $pgtEfetuado = ($pagamento) ? 'IS NOT NULL'  : 'IS NULL';
+        $dataLimit   = ($pagamento) ? 'dt_pagamento' : 'vencimento';
+
+        $modulo = NULL;
+        $query  = NULL;
+
+        if(array_key_exists('modulo',$_GET))
+        {
+            if(!empty($_GET['modulo']))
+            {
+                if($_GET['modulo'] == 'cheque')
+                {
+                    $modulo = 'cheque';
+                    $query = "AND bc.id > 0";
+
+                }elseif($_GET['modulo'] == 'grafica'){
+                    $modulo = 'grafica';
+                    $query = "AND grt.id > 0";
+                }else{
+                    $modulo = $_GET['modulo'];
+                    if($modulo == 'contrato_segunda'){
+                        $query = "AND det.id > 0 AND de.fase = 'segunda'";
+                    }else{
+                        $query = "AND det.id > 0 AND de.fase = 'terceira'";
+                    }
+                }
+            }
+
+        }
+
+        $expensive = DB::select("SELECT de.fase, st.cod_unidade, st.cod_curso, st.ctr, st.name, st.cpf_cnpj,
+        if(bc.id > 0,bc.id, if(de.id > 0, de.id, gr.id)) AS id,
+        if(bc.id > 0,'cheque', if(de.id > 0, 'contrato', 'grafica')) AS modulo,
+        if(bc.id > 0, bct.parcela, if(de.id > 0, det.parcela, grt.parcela)) AS parcela,
+        if(bc.id > 0, bct.valor, if(de.id > 0, det.valor, grt.valor)) AS valor,
+        if(bc.id > 0, bct.vencimento, if(de.id > 0, det.vencimento, grt.vencimento)) AS vencimento,
+        #Mysql function
+        DATE_FORMAT(if(bc.id > 0, bct.dt_pagamento, if(de.id > 0, det.dt_pagamento, grt.dt_pagamento)), '%d/%m/%Y') AS dt_pagamento,
+        if(bc.id > 0, bct.valor_pago, if(de.id > 0, det.valor_pago, grt.valor_pago)) AS valor_pago,
+        if(bc.id > 0, bct.pagamento, if(de.id > 0, det.pagamento, grt.pagamento)) AS pagamento
+        FROM students AS st
+        LEFT JOIN bank_cheques AS bc
+               ON (st.id = bc.student_id)
+        LEFT JOIN bank_cheque_tradings AS bct
+               ON (bc.id = bct.bank_cheque_id)
+        LEFT JOIN defaultings  AS de
+               ON (st.id = de.student_id)
+        LEFT JOIN defaulting_tradings AS det
+               ON (de.id = det.defaulting_id)
+        LEFT JOIN graphics     AS gr
+               ON (st.id = gr.student_id)
+        LEFT JOIN graphic_tradings AS grt
+               ON (gr.id = grt.graphic_id)
+        where
+        if(bc.id > 0, bct.{$dataLimit}, if(de.id > 0, det.{$dataLimit}, grt.{$dataLimit})) >= '{$this->dtInicial}' AND
+        if(bc.id > 0, bct.{$dataLimit}, if(de.id > 0, det.{$dataLimit}, grt.{$dataLimit})) <= '{$this->dtFinal}'   AND
+        if(bc.id > 0, bct.dt_pagamento, if(de.id > 0, det.dt_pagamento, grt.dt_pagamento)) {$pgtEfetuado} {$query}
+        order by st.name ASC
+        limit 30000"
+        );
+
+        $newArr = [];
+
+        foreach($expensive as $value):
+            if(array_key_exists($value->dt_pagamento, $newArr))
+            {
+                $valor = $newArr[$value->dt_pagamento]['valor_pago'];
+                $newArr[$value->dt_pagamento]['valor_pago'] =  $value->valor_pago + $valor;
+            }else{
+                $newArr[$value->dt_pagamento]['valor_pago'] = $value->valor_pago;
+            }
+        endforeach;
+
+        return view('finances.byDay', [
+            'caixa'     => $newArr,
+            'title'     => $title,
+            'dt_inicio' => $this->dataBr($this->dtInicial),
+            'dt_fim'    => $this->dataBr($this->dtFinal),
+            'calendario_inicio' => $this->dtInicial,
+            'calendario_fim'    => $this->dtFinal,
+            'pagamento' => $pagamento,
+            'modulo' => $modulo,
+        ]);
+    }
+
     public function csv()
     {
         $title = $this->title. " Dashboard";

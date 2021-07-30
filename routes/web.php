@@ -132,6 +132,7 @@ Route::prefix('usuarios')->group(function(){
 
 Route::prefix('caixa')->group(function(){
     Route::get('/',   'FinanceController@index')->name('caixa.index');
+    Route::get('/diario',   'FinanceController@byDay')->name('caixa.byDay');
     Route::get('csv', 'FinanceController@csv'  )->name('caixa.csv');
 });
 
