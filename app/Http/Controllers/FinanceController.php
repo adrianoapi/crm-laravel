@@ -161,10 +161,21 @@ class FinanceController extends Controller
                         $valor = $newArr[$value->dt_pagamento][$value->modulo]['valor_pago'];
                         $newArr[$value->dt_pagamento][$value->modulo]['valor_pago'] = $value->valor_pago + $valor;
                     }else{
-                        $newArr[$value->dt_pagamento][$value->modulo][$value->fase]['valor_pago'] = $value->valor_pago;
+                        if(array_key_exists($value->fase, $newArr[$value->dt_pagamento][$value->modulo]))
+                        {
+                            $valor = $newArr[$value->dt_pagamento][$value->modulo][$value->fase]['valor_pago'];
+                            $newArr[$value->dt_pagamento][$value->modulo][$value->fase]['valor_pago'] = $value->valor_pago + $valor;
+                        }else{
+                            $newArr[$value->dt_pagamento][$value->modulo][$value->fase]['valor_pago'] = $value->valor_pago;
+                        }
                     }
                 }else{
-                    $newArr[$value->dt_pagamento][$value->modulo]['valor_pago'] = $value->valor_pago;
+                    if($value->modulo != 'contrato')
+                    {
+                        $newArr[$value->dt_pagamento][$value->modulo]['valor_pago'] = $value->valor_pago;
+                    }else{
+                        $newArr[$value->dt_pagamento][$value->modulo][$value->fase]['valor_pago'] = $value->valor_pago;
+                    }
                 }
             }else{
                 if($value->modulo != 'contrato')
@@ -272,10 +283,21 @@ class FinanceController extends Controller
                         $valor = $newArr[$value->cod_unidade][$value->modulo]['valor_pago'];
                         $newArr[$value->cod_unidade][$value->modulo]['valor_pago'] = $value->valor_pago + $valor;
                     }else{
-                        $newArr[$value->cod_unidade][$value->modulo][$value->fase]['valor_pago'] = $value->valor_pago;
+                        if(array_key_exists($value->fase, $newArr[$value->cod_unidade][$value->modulo]))
+                        {
+                            $valor = $newArr[$value->cod_unidade][$value->modulo][$value->fase]['valor_pago'];
+                            $newArr[$value->cod_unidade][$value->modulo][$value->fase]['valor_pago'] = $value->valor_pago + $valor;
+                        }else{
+                            $newArr[$value->cod_unidade][$value->modulo][$value->fase]['valor_pago'] = $value->valor_pago;
+                        }
                     }
                 }else{
-                    $newArr[$value->cod_unidade][$value->modulo]['valor_pago'] = $value->valor_pago;
+                    if($value->modulo != 'contrato')
+                    {
+                        $newArr[$value->cod_unidade][$value->modulo]['valor_pago'] = $value->valor_pago;
+                    }else{
+                        $newArr[$value->cod_unidade][$value->modulo][$value->fase]['valor_pago'] = $value->valor_pago;
+                    }
                 }
             }else{
                 if($value->modulo != 'contrato')
