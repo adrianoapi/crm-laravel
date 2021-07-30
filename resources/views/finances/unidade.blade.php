@@ -139,7 +139,7 @@
                                                 }
                                                 ?>
                                             </td>
-                                            <td>{{number_format($total, 2, ',', '.')}}</td>
+                                            <td><strong>{{number_format($total, 2, ',', '.')}}</strong></td>
                                         </tr>
                                         <?php $subTotal += $total; ?>
                                     @endforeach
@@ -147,11 +147,11 @@
                                 <tfoot>
                                     <tr>
                                         <td>Total</td>
-                                        <td>{{number_format($totalGrafica, 2, ',', '.')}}</td>
-                                        <td>{{number_format($totalSegunda, 2, ',', '.')}}</td>
-                                        <td>{{number_format($totalTerceira, 2, ',', '.')}}</td>
-                                        <td>{{number_format($totalCheque, 2, ',', '.')}}</td>
-                                        <td>{{number_format($subTotal, 2, ',', '.')}}</td>
+                                        <td><strong>{{number_format($totalGrafica, 2, ',', '.')}}</strong></td>
+                                        <td><strong>{{number_format($totalSegunda, 2, ',', '.')}}</strong></td>
+                                        <td><strong>{{number_format($totalTerceira, 2, ',', '.')}}</strong></td>
+                                        <td><strong>{{number_format($totalCheque, 2, ',', '.')}}</strong></td>
+                                        <td><strong>{{number_format($subTotal, 2, ',', '.')}}</strong></td>
                                     </tr>
                                 </tfoot>
                             </table>
