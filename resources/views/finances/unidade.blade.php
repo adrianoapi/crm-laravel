@@ -70,6 +70,13 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    <?php
+                                    $totalGrafica  = 0;
+                                    $totalSegunda  = 0;
+                                    $totalTerceira = 0;
+                                    $totalCheque   = 0;
+                                    $subTotal      = 0;
+                                    ?>
                                     @foreach ($caixa as $key => $value)
                                         <tr>
                                             <td>{{$key}}</td>
@@ -80,6 +87,7 @@
                                                 {
                                                     echo '<strong>'.$value['grafica']['valor_pago'].'</strong>';
                                                     $total += $value['grafica']['valor_pago'];
+                                                    $totalGrafica += $value['grafica']['valor_pago'];
                                                 }else{
                                                     echo '0,00';
                                                 }
@@ -93,6 +101,7 @@
                                                     {
                                                         echo '<strong>'.$value['contrato']['segunda']['valor_pago'].'</strong>';
                                                         $total += $value['contrato']['segunda']['valor_pago'];
+                                                        $totalSegunda += $value['contrato']['segunda']['valor_pago'];
                                                     }else{
                                                         echo '0,00';
                                                     }
@@ -109,6 +118,7 @@
                                                     {
                                                         echo '<strong>'.$value['contrato']['terceira']['valor_pago'].'</strong>';
                                                         $total += $value['contrato']['terceira']['valor_pago'];
+                                                        $totalTerceira += $value['contrato']['terceira']['valor_pago'];
                                                     }else{
                                                         echo '0,00';
                                                     }
@@ -123,6 +133,7 @@
                                                 {
                                                     echo '<strong>'.$value['cheque']['valor_pago'].'</strong>';
                                                     $total += $value['cheque']['valor_pago'];
+                                                    $totalCheque += $value['cheque']['valor_pago'];
                                                 }else{
                                                     echo '0,00';
                                                 }
@@ -130,9 +141,19 @@
                                             </td>
                                             <td>{{number_format($total, 2, ',', '.')}}</td>
                                         </tr>
+                                        <?php $subTotal += $total; ?>
                                     @endforeach
                                 </tbody>
-
+                                <tfoot>
+                                    <tr>
+                                        <td>Total</td>
+                                        <td>{{number_format($totalGrafica, 2, ',', '.')}}</td>
+                                        <td>{{number_format($totalSegunda, 2, ',', '.')}}</td>
+                                        <td>{{number_format($totalTerceira, 2, ',', '.')}}</td>
+                                        <td>{{number_format($totalCheque, 2, ',', '.')}}</td>
+                                        <td>{{number_format($subTotal, 2, ',', '.')}}</td>
+                                    </tr>
+                                </tfoot>
                             </table>
                         </div>
 
