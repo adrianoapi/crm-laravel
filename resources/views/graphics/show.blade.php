@@ -476,6 +476,18 @@
                                         @endif
                                     Data: <strong>{{$value->created_at}}</strong>&nbsp;-&nbsp;Usuário: <strong>{{$value->user->name}}</strong>
                                     <p>{{$value->observacao}}</p>
+
+                                    @if($value->schedule == 'open')
+                                        <form action="{{route('history.update')}}" method="POST" onSubmit="return confirm('Deseja encerrar?');" style="padding: 0px;margin:0px;">
+                                            @csrf
+                                            @method('post')
+                                            <input type="hidden" name="id" value="{{$value->id}}">
+                                            <input type="hidden" name="modulo" value="grafica">
+                                            <input type="hidden" name="tela" value="formulario">
+                                            <button type="submit" class="btn btn-warning" rel="tooltip" title="" data-original-title="Encerrar"><i class="fa fa-trash"></i> Encerrar</button>
+                                        </form>
+                                    @endif
+
                                     </td>
                                 </tr>
                                 @endforeach

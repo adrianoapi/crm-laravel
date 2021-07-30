@@ -22,7 +22,7 @@
                         </div>
 
                         <div class="box-content nopadding">
-                            <table class="table table-hover table-nomargin table-bordered table-colored-header">
+                            <table class="table table-hover table-nomargin table-bordered table-colored-header table-striped">
                                 <thead>
                                     <tr>
                                         <th colspan="2">
@@ -106,7 +106,7 @@
                                             <?php
                                             if(array_key_exists($data->format("d/m/Y"), $caixa))
                                             {
-                                                echo number_format($caixa[$data->format("d/m/Y")]['valor_pago'], 2, ',', '.');
+                                                echo '<strong>'.number_format($caixa[$data->format("d/m/Y")]['valor_pago'], 2, ',', '.').'</strong>';
                                             }else{
                                                 echo '0,00';
                                             }
@@ -126,6 +126,8 @@
                                                 @endif
 
                                             </td>
+                                            <td></td>
+                                            <td></td>
                                         </tr>
                                         <?php
 

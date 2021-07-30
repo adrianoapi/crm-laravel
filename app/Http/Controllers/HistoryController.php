@@ -115,7 +115,23 @@ class HistoryController extends Controller
             $modulo->schedule = 'close';
             if($modulo->save())
             {
-                return redirect()->route('history.index');
+                if($request->tela == 'listagem'){
+                    return redirect()->route('history.index');
+                }else{
+
+                    if($request->modulo == 'cheque')
+                    {
+                        return redirect()->route('bankCheques.show', ['bankCheque' => $modulo->bank_cheque_id]);
+                    }
+                    elseif($request->modulo == 'contrato')
+                    {
+                        return redirect()->route('defaultings.show', ['defaulting' => $modulo->defaulting_id]);
+                    }
+                    else
+                    {
+                        return redirect()->route('graphics.show', ['graphic' => $modulo->graphic_id]);
+                    }
+                }
             }
         }else{
             die('Registro não encontrado!');

@@ -25,7 +25,7 @@
                         </div>
 
                         <div class="box-content nopadding">
-                            <table class="table table-nomargin table-bordered table-colored-header">
+                            <table class="table table-hover table-nomargin table-bordered table-colored-header table-striped">
                                 <tbody>
                                     <thead>
                                     <tr>
@@ -84,11 +84,11 @@
                                             </td>
                                             <td>
                                             @if($value->modulo == 'cheque')
-                                            <a href="{{route('bankCheques.show', ['graphic' => $value->modulo_id])}}" target="_blank">{{$value->name}}</a>
+                                            <a href="{{route('bankCheques.show', ['graphic' => $value->modulo_id])}}">{{$value->name}}</a>
                                             @elseif($value->modulo == 'contrato')
-                                            <a href="{{route('defaultings.show', ['defaulting' => $value->modulo_id])}}" target="_blank">{{$value->name}}</a>
+                                            <a href="{{route('defaultings.show', ['defaulting' => $value->modulo_id])}}">{{$value->name}}</a>
                                             @else
-                                            <a href="{{route('graphics.show', ['graphic' => $value->modulo_id])}}" target="_blank">{{$value->name}}</a>
+                                            <a href="{{route('graphics.show', ['graphic' => $value->modulo_id])}}">{{$value->name}}</a>
                                             @endif
                                             </td>
                                             <td>{{$value->dt_retorno}}</td>
@@ -99,7 +99,8 @@
                                                     @method('post')
                                                     <input type="hidden" name="id" value="{{$value->id}}">
                                                     <input type="hidden" name="modulo" value="{{$value->modulo}}">
-                                                    <button type="submit" class="btn btn-primary" rel="tooltip" title="" data-original-title="Encerrar"><i class="fa fa-trash"></i> Encerrar</button>
+                                                    <input type="hidden" name="tela" value="listagem">
+                                                    <button type="submit" class="btn btn-warning" rel="tooltip" title="" data-original-title="Encerrar"><i class="fa fa-trash"></i> Encerrar</button>
                                                 </form>
                                             </td>
                                         </tr>
