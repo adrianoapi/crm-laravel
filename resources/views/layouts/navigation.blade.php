@@ -45,6 +45,9 @@
                     <li>
                         <a href="{{route('caixa.byDay')}}">CAIXA DIÁRIO</a>
                     </li>
+                    <li>
+                        <a href="{{route('caixa.unidade')}}">CAIXA UNIDADE</a>
+                    </li>
                     @endif
 				</ul>
 			</div>
