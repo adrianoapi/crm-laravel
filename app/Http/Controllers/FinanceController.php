@@ -154,10 +154,25 @@ class FinanceController extends Controller
         foreach($expensive as $value):
             if(array_key_exists($value->dt_pagamento, $newArr))
             {
-                $valor = $newArr[$value->dt_pagamento]['valor_pago'];
-                $newArr[$value->dt_pagamento]['valor_pago'] =  $value->valor_pago + $valor;
+                if(array_key_exists($value->modulo, $newArr[$value->dt_pagamento]))
+                {
+                    if($value->modulo != 'contrato')
+                    {
+                        $valor = $newArr[$value->dt_pagamento][$value->modulo]['valor_pago'];
+                        $newArr[$value->dt_pagamento][$value->modulo]['valor_pago'] = $value->valor_pago + $valor;
+                    }else{
+                        $newArr[$value->dt_pagamento][$value->modulo][$value->fase]['valor_pago'] = $value->valor_pago;
+                    }
+                }else{
+                    $newArr[$value->dt_pagamento][$value->modulo]['valor_pago'] = $value->valor_pago;
+                }
             }else{
-                $newArr[$value->dt_pagamento]['valor_pago'] = $value->valor_pago;
+                if($value->modulo != 'contrato')
+                {
+                    $newArr[$value->dt_pagamento][$value->modulo]['valor_pago'] = $value->valor_pago;
+                }else{
+                    $newArr[$value->dt_pagamento][$value->modulo][$value->fase]['valor_pago'] = $value->valor_pago;
+                }
             }
         endforeach;
 

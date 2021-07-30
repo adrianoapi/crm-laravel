@@ -25,7 +25,7 @@
                             <table class="table table-hover table-nomargin table-bordered table-colored-header table-striped">
                                 <thead>
                                     <tr>
-                                        <th colspan="2">
+                                        <th colspan="3">
                                             <form action="{{route('caixa.byDay')}}" method="GET" class="span12" style="margin: 0;padding:0;">
                                             <input type="hidden" name="pagamento" value="sim">
                                             <div class="span12">
@@ -36,26 +36,11 @@
                                                 </div>
                                             </div>
                                         </th>
-                                        <th colspan="2">
+                                        <th colspan="3">
                                             <div class="span12">
                                                 <div class="control-group">
                                                     <div class="controls controls-row">
                                                         <input id="dt_fim" placeholder="{{date('t/m/Y')}}" type="text" name="dt_fim" value="{{$dt_fim}}" class="input-block-level datepick" require>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </th>
-                                        <th>
-                                            <div class="span12">
-                                                <div class="control-group">
-                                                    <div class="controls controls-row">
-                                                        <select name="modulo" id="modulo" class='input-block-level'>
-                                                            <option value="" {{$modulo == '' ? 'selected':''}}>Modulo?</option>
-                                                            <option value="contrato_segunda" {{$modulo == 'contrato_segunda' ? 'selected':''}}>2ª Fase</option>
-                                                            <option value="contrato_terceira" {{$modulo == 'contrato_terceira' ? 'selected':''}}>3ª Fase</option>
-                                                            <option value="cheque" {{$modulo == 'cheque' ? 'selected':''}}>CHEQUE</option>
-                                                            <option value="grafica" {{$modulo == 'grafica' ? 'selected':''}}>GRAFICA</option>
-                                                        </select>
                                                     </div>
                                                 </div>
                                             </div>
@@ -76,10 +61,11 @@
                                     <tr>
                                         <th>Semana</th>
                                         <th>Dia</th>
-                                        <th>Valor</th>
-                                        <th>Módulo</th>
-                                        <th>#</th>
-                                        <th>#</th>
+                                        <th>Grafica</th>
+                                        <th>Segunda</th>
+                                        <th>Terceira</th>
+                                        <th>Cheque</th>
+                                        <th>Total</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -97,6 +83,7 @@
                                     $periodo  = new DatePeriod($inicio, $interval ,$fim);
 
                                     foreach($periodo as $data){
+                                        $total = 0;
                                         ?>
 
                                         <tr>
@@ -106,28 +93,77 @@
                                             <?php
                                             if(array_key_exists($data->format("d/m/Y"), $caixa))
                                             {
-                                                echo '<strong>'.number_format($caixa[$data->format("d/m/Y")]['valor_pago'], 2, ',', '.').'</strong>';
+                                                if(array_key_exists('grafica', $caixa[$data->format("d/m/Y")]))
+                                                {
+                                                    echo '<strong>'.$caixa[$data->format("d/m/Y")]['grafica']['valor_pago'].'</strong>';
+                                                    $total += $caixa[$data->format("d/m/Y")]['grafica']['valor_pago'];
+                                                }else{
+                                                    echo '0,00';
+                                                }
                                             }else{
                                                 echo '0,00';
                                             }
                                             ?>
                                             </td>
                                             <td>
-                                                @if(!empty($modulo))
-                                                    @if($modulo == 'contrato_segunda')
-                                                        Segunda
-                                                    @elseif($modulo == 'contrato_terceira')
-                                                        Terceira
-                                                    @else
-                                                        {{$modulo}}
-                                                    @endif
-                                                @else
-                                                    Todos
-                                                @endif
-
+                                            <?php
+                                            if(array_key_exists($data->format("d/m/Y"), $caixa))
+                                            {
+                                                if(array_key_exists('contrato', $caixa[$data->format("d/m/Y")]))
+                                                {
+                                                    if(array_key_exists('segunda', $caixa[$data->format("d/m/Y")]['contrato']))
+                                                    {
+                                                        echo '<strong>'.$caixa[$data->format("d/m/Y")]['contrato']['segunda']['valor_pago'].'</strong>';
+                                                        $total += $caixa[$data->format("d/m/Y")]['contrato']['segunda']['valor_pago'];
+                                                    }else{
+                                                        echo '0,00';
+                                                    }
+                                                }else{
+                                                    echo '0,00';
+                                                }
+                                            }else{
+                                                echo '0,00';
+                                            }
+                                            ?>
                                             </td>
-                                            <td></td>
-                                            <td></td>
+                                            <td>
+                                            <?php
+                                            if(array_key_exists($data->format("d/m/Y"), $caixa))
+                                            {
+                                                if(array_key_exists('contrato', $caixa[$data->format("d/m/Y")]))
+                                                {
+                                                    if(array_key_exists('terceira', $caixa[$data->format("d/m/Y")]['contrato']))
+                                                    {
+                                                        echo '<strong>'.$caixa[$data->format("d/m/Y")]['contrato']['terceira']['valor_pago'].'</strong>';
+                                                        $total += $caixa[$data->format("d/m/Y")]['contrato']['terceira']['valor_pago'];
+                                                    }else{
+                                                        echo '0,00';
+                                                    }
+                                                }else{
+                                                    echo '0,00';
+                                                }
+                                            }else{
+                                                echo '0,00';
+                                            }
+                                            ?>
+                                            </td>
+                                            <td>
+                                            <?php
+                                            if(array_key_exists($data->format("d/m/Y"), $caixa))
+                                            {
+                                                if(array_key_exists('cheque', $caixa[$data->format("d/m/Y")]))
+                                                {
+                                                    echo '<strong>'.$caixa[$data->format("d/m/Y")]['cheque']['valor_pago'].'</strong>';
+                                                    $total += $caixa[$data->format("d/m/Y")]['cheque']['valor_pago'];
+                                                }else{
+                                                    echo '0,00';
+                                                }
+                                            }else{
+                                                echo '0,00';
+                                            }
+                                            ?>
+                                            </td>
+                                            <td>{{number_format($total, 2, ',', '.')}}</td>
                                         </tr>
                                         <?php
 
