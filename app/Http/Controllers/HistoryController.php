@@ -53,7 +53,7 @@ class HistoryController extends Controller
         if(bc.id > 0,'cheque', if(de.id > 0, 'contrato', 'grafica')) AS modulo,
         if(bc.id > 0, bct.observacao, if(de.id > 0, det.observacao, grt.observacao)) AS observacao,
         DATE_FORMAT(if(bc.id > 0, bct.created_at, if(de.id > 0, det.created_at, grt.created_at)), '%d/%m/%Y') AS created_at,
-        DATE_FORMAT(if(bc.id > 0, bct.dt_retorno, if(de.id > 0, det.dt_retorno, grt.dt_retorno)), '%d/%m/%Y %h:%i:%s') AS dt_retorno,
+        DATE_FORMAT(if(bc.id > 0, bct.dt_retorno, if(de.id > 0, det.dt_retorno, grt.dt_retorno)), '%d/%m/%Y %H:%i:%s') AS dt_retorno,
         if(bc.id > 0, bct.schedule, if(de.id > 0, det.schedule, grt.schedule)) as schedule
         FROM students AS st
         LEFT JOIN bank_cheques AS bc

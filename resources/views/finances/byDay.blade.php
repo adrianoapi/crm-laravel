@@ -99,7 +99,7 @@
                                             {
                                                 if(array_key_exists('grafica', $caixa[$data->format("d/m/Y")]))
                                                 {
-                                                    echo '<strong>'.$caixa[$data->format("d/m/Y")]['grafica']['valor_pago'].'</strong>';
+                                                    echo number_format($caixa[$data->format("d/m/Y")]['grafica']['valor_pago'], 2, ',', '.');
                                                     $total += $caixa[$data->format("d/m/Y")]['grafica']['valor_pago'];
                                                     $totalGrafica += $caixa[$data->format("d/m/Y")]['grafica']['valor_pago'];
                                                 }else{
@@ -118,7 +118,7 @@
                                                 {
                                                     if(array_key_exists('segunda', $caixa[$data->format("d/m/Y")]['contrato']))
                                                     {
-                                                        echo '<strong>'.$caixa[$data->format("d/m/Y")]['contrato']['segunda']['valor_pago'].'</strong>';
+                                                        echo number_format($caixa[$data->format("d/m/Y")]['contrato']['segunda']['valor_pago'], 2, ',', '.');
                                                         $total += $caixa[$data->format("d/m/Y")]['contrato']['segunda']['valor_pago'];
                                                         $totalSegunda += $caixa[$data->format("d/m/Y")]['contrato']['segunda']['valor_pago'];
                                                     }else{
@@ -140,7 +140,7 @@
                                                 {
                                                     if(array_key_exists('terceira', $caixa[$data->format("d/m/Y")]['contrato']))
                                                     {
-                                                        echo '<strong>'.$caixa[$data->format("d/m/Y")]['contrato']['terceira']['valor_pago'].'</strong>';
+                                                        echo number_format($caixa[$data->format("d/m/Y")]['contrato']['terceira']['valor_pago'], 2, ',', '.');
                                                         $total += $caixa[$data->format("d/m/Y")]['contrato']['terceira']['valor_pago'];
                                                         $totalTerceira += $caixa[$data->format("d/m/Y")]['contrato']['terceira']['valor_pago'];
                                                     }else{
@@ -160,7 +160,7 @@
                                             {
                                                 if(array_key_exists('cheque', $caixa[$data->format("d/m/Y")]))
                                                 {
-                                                    echo '<strong>'.$caixa[$data->format("d/m/Y")]['cheque']['valor_pago'].'</strong>';
+                                                    echo number_format($caixa[$data->format("d/m/Y")]['cheque']['valor_pago'], 2, ',', '.');
                                                     $total += $caixa[$data->format("d/m/Y")]['cheque']['valor_pago'];
                                                     $totalCheque += $caixa[$data->format("d/m/Y")]['cheque']['valor_pago'];
                                                 }else{

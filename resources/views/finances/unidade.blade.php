@@ -85,7 +85,7 @@
                                                 $total = 0;
                                                 if(array_key_exists('grafica', $value))
                                                 {
-                                                    echo '<strong>'.$value['grafica']['valor_pago'].'</strong>';
+                                                    echo number_format($value['grafica']['valor_pago'], 2, ',', '.');
                                                     $total += $value['grafica']['valor_pago'];
                                                     $totalGrafica += $value['grafica']['valor_pago'];
                                                 }else{
@@ -99,7 +99,7 @@
                                                 {
                                                     if(array_key_exists('segunda', $value['contrato']))
                                                     {
-                                                        echo '<strong>'.$value['contrato']['segunda']['valor_pago'].'</strong>';
+                                                        echo number_format($value['contrato']['segunda']['valor_pago'], 2, ',', '.');
                                                         $total += $value['contrato']['segunda']['valor_pago'];
                                                         $totalSegunda += $value['contrato']['segunda']['valor_pago'];
                                                     }else{
@@ -116,7 +116,7 @@
                                                 {
                                                     if(array_key_exists('terceira', $value['contrato']))
                                                     {
-                                                        echo '<strong>'.$value['contrato']['terceira']['valor_pago'].'</strong>';
+                                                        echo number_format($value['contrato']['terceira']['valor_pago'], 2, ',', '.');
                                                         $total += $value['contrato']['terceira']['valor_pago'];
                                                         $totalTerceira += $value['contrato']['terceira']['valor_pago'];
                                                     }else{
@@ -131,7 +131,7 @@
                                                 <?php
                                                 if(array_key_exists('cheque', $value))
                                                 {
-                                                    echo '<strong>'.$value['cheque']['valor_pago'].'</strong>';
+                                                    echo number_format($value['cheque']['valor_pago'], 2, ',', '.');
                                                     $total += $value['cheque']['valor_pago'];
                                                     $totalCheque += $value['cheque']['valor_pago'];
                                                 }else{
