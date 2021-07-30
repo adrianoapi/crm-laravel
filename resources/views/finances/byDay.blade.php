@@ -36,7 +36,7 @@
                                                 </div>
                                             </div>
                                         </th>
-                                        <th colspan="3">
+                                        <th colspan="2">
                                             <div class="span12">
                                                 <div class="control-group">
                                                     <div class="controls controls-row">
@@ -59,7 +59,6 @@
                                         </th>
                                     </tr>
                                     <tr>
-                                        <th>Semana</th>
                                         <th>Dia</th>
                                         <th>Grafica</th>
                                         <th>Segunda</th>
@@ -71,6 +70,12 @@
                                 <tbody>
 
                                 <?php
+                                $totalGrafica  = 0;
+                                $totalSegunda  = 0;
+                                $totalTerceira = 0;
+                                $totalCheque   = 0;
+                                $subTotal      = 0;
+
                                 if(!empty($calendario_inicio) && !empty($calendario_fim)){
 
 
@@ -87,7 +92,6 @@
                                         ?>
 
                                         <tr>
-                                            <td>{{$data->format("l")}}</td>
                                             <td>{{$data->format("d/m")}}</td>
                                             <td>
                                             <?php
@@ -97,6 +101,7 @@
                                                 {
                                                     echo '<strong>'.$caixa[$data->format("d/m/Y")]['grafica']['valor_pago'].'</strong>';
                                                     $total += $caixa[$data->format("d/m/Y")]['grafica']['valor_pago'];
+                                                    $totalGrafica += $caixa[$data->format("d/m/Y")]['grafica']['valor_pago'];
                                                 }else{
                                                     echo '0,00';
                                                 }
@@ -115,6 +120,7 @@
                                                     {
                                                         echo '<strong>'.$caixa[$data->format("d/m/Y")]['contrato']['segunda']['valor_pago'].'</strong>';
                                                         $total += $caixa[$data->format("d/m/Y")]['contrato']['segunda']['valor_pago'];
+                                                        $totalSegunda += $caixa[$data->format("d/m/Y")]['contrato']['segunda']['valor_pago'];
                                                     }else{
                                                         echo '0,00';
                                                     }
@@ -136,6 +142,7 @@
                                                     {
                                                         echo '<strong>'.$caixa[$data->format("d/m/Y")]['contrato']['terceira']['valor_pago'].'</strong>';
                                                         $total += $caixa[$data->format("d/m/Y")]['contrato']['terceira']['valor_pago'];
+                                                        $totalTerceira += $caixa[$data->format("d/m/Y")]['contrato']['terceira']['valor_pago'];
                                                     }else{
                                                         echo '0,00';
                                                     }
@@ -155,6 +162,7 @@
                                                 {
                                                     echo '<strong>'.$caixa[$data->format("d/m/Y")]['cheque']['valor_pago'].'</strong>';
                                                     $total += $caixa[$data->format("d/m/Y")]['cheque']['valor_pago'];
+                                                    $totalCheque += $caixa[$data->format("d/m/Y")]['cheque']['valor_pago'];
                                                 }else{
                                                     echo '0,00';
                                                 }
@@ -167,6 +175,7 @@
                                         </tr>
                                         <?php
 
+                                            $subTotal += $total;
                                     }
 
                                 }
@@ -175,7 +184,16 @@
 
                                 ?>
                                 </tbody>
-
+                                <tfoot>
+                                    <tr>
+                                        <td>Total</td>
+                                        <td>{{number_format($totalGrafica, 2, ',', '.')}}</td>
+                                        <td>{{number_format($totalSegunda, 2, ',', '.')}}</td>
+                                        <td>{{number_format($totalTerceira, 2, ',', '.')}}</td>
+                                        <td>{{number_format($totalCheque, 2, ',', '.')}}</td>
+                                        <td>{{number_format($subTotal, 2, ',', '.')}}</td>
+                                    </tr>
+                                </tfoot>
                             </table>
                         </div>
 
