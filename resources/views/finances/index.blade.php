@@ -24,6 +24,7 @@
                                     <input type="hidden" name="dt_inicio" value="{{$dt_inicio}}">
                                     <input type="hidden" name="dt_fim" value="{{$dt_fim}}">
                                     <input type="hidden" name="pagamento" value="{{($pagamento) ? 'sim' : ''}}">
+                                    <input type="hidden" name="modulo" value="{{$modulo}}">
 
                                     @if(count($caixa) > 0 && array_key_exists('pagamento', $_GET))
                                         <button type="submit" class="btn btn-success" style="margin-top:-10px;">
@@ -41,8 +42,23 @@
                             <table class="table table-hover table-nomargin table-bordered table-colored-header">
                                 <thead>
                                     <tr>
-                                        <th colspan="3">
+                                        <th colspan="4">
                                             <form action="{{route('caixa.index')}}" method="GET" class="span12" style="margin: 0;padding:0;">
+                                            <div class="span12">
+                                                <div class="control-group">
+                                                    <div class="controls controls-row">
+                                                    <select name="modulo" id="modulo" class='input-block-level'>
+                                                        <option value="" {{$modulo == '' ? 'selected':''}}>Modulo?</option>
+                                                        <option value="contrato_segunda" {{$modulo == 'contrato_segunda' ? 'selected':''}}>2ª Fase</option>
+                                                        <option value="contrato_terceira" {{$modulo == 'contrato_terceira' ? 'selected':''}}>3ª Fase</option>
+                                                        <option value="cheque" {{$modulo == 'cheque' ? 'selected':''}}>CHEQUE</option>
+                                                        <option value="grafica" {{$modulo == 'grafica' ? 'selected':''}}>GRAFICA</option>
+                                                    </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </th>
+                                        <th colspan="1">
                                             <div class="span12">
                                                 <div class="control-group">
                                                     <div class="controls controls-row">
@@ -60,7 +76,7 @@
                                                 </div>
                                             </div>
                                         </th>
-                                        <th colspan="4">
+                                        <th colspan="2">
                                             <div class="span12">
                                                 <div class="control-group">
                                                     <div class="controls controls-row">

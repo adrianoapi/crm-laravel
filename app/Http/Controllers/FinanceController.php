@@ -34,6 +34,33 @@ class FinanceController extends Controller
             $pagamento = ($_GET['pagamento'] == 'sim') ? true : false;
         }
 
+        $modulo = NULL;
+        $query  = NULL;
+
+        if(array_key_exists('modulo',$_GET))
+        {
+            if(!empty($_GET['modulo']))
+            {
+                if($_GET['modulo'] == 'cheque')
+                {
+                    $modulo = 'cheque';
+                    $query = "AND bc.id > 0";
+
+                }elseif($_GET['modulo'] == 'grafica'){
+                    $modulo = 'grafica';
+                    $query = "AND grt.id > 0";
+                }else{
+                    $modulo = $_GET['modulo'];
+                    if($modulo == 'contrato_segunda'){
+                        $query = "AND det.id > 0 AND de.fase = 'segunda'";
+                    }else{
+                        $query = "AND det.id > 0 AND de.fase = 'terceira'";
+                    }
+                }
+            }
+
+        }
+
         $pgtEfetuado = ($pagamento) ? 'IS NOT NULL'  : 'IS NULL';
         $dataLimit   = ($pagamento) ? 'dt_pagamento' : 'vencimento';
 
@@ -63,7 +90,7 @@ class FinanceController extends Controller
         where
         if(bc.id > 0, bct.{$dataLimit}, if(de.id > 0, det.{$dataLimit}, grt.{$dataLimit})) >= '{$this->dtInicial}' AND
         if(bc.id > 0, bct.{$dataLimit}, if(de.id > 0, det.{$dataLimit}, grt.{$dataLimit})) <= '{$this->dtFinal}'   AND
-        if(bc.id > 0, bct.dt_pagamento, if(de.id > 0, det.dt_pagamento, grt.dt_pagamento)) {$pgtEfetuado}
+        if(bc.id > 0, bct.dt_pagamento, if(de.id > 0, det.dt_pagamento, grt.dt_pagamento)) {$pgtEfetuado} {$query}
         order by st.name ASC
         limit 30000"
         );
@@ -73,7 +100,8 @@ class FinanceController extends Controller
             'title'     => $title,
             'dt_inicio' => $this->dataBr($this->dtInicial),
             'dt_fim'    => $this->dataBr($this->dtFinal),
-            'pagamento' => $pagamento
+            'pagamento' => $pagamento,
+            'modulo' => $modulo,
         ]);
     }
 
@@ -337,6 +365,33 @@ class FinanceController extends Controller
         $pgtEfetuado = ($pagamento) ? 'IS NOT NULL'  : 'IS NULL';
         $dataLimit   = ($pagamento) ? 'dt_pagamento' : 'vencimento';
 
+        $modulo = NULL;
+        $query  = NULL;
+
+        if(array_key_exists('modulo',$_GET))
+        {
+            if(!empty($_GET['modulo']))
+            {
+                if($_GET['modulo'] == 'cheque')
+                {
+                    $modulo = 'cheque';
+                    $query = "AND bc.id > 0";
+
+                }elseif($_GET['modulo'] == 'grafica'){
+                    $modulo = 'grafica';
+                    $query = "AND grt.id > 0";
+                }else{
+                    $modulo = $_GET['modulo'];
+                    if($modulo == 'contrato_segunda'){
+                        $query = "AND det.id > 0 AND de.fase = 'segunda'";
+                    }else{
+                        $query = "AND det.id > 0 AND de.fase = 'terceira'";
+                    }
+                }
+            }
+
+        }
+
         $expensive = DB::select("SELECT de.fase, st.cod_unidade, st.cod_curso, st.ctr, st.name, st.cpf_cnpj,
         if(bc.id > 0,bc.id, if(de.id > 0, de.id, gr.id)) AS id,
         if(bc.id > 0,'cheque', if(de.id > 0, 'contrato', 'grafica')) AS modulo,
@@ -362,7 +417,7 @@ class FinanceController extends Controller
         where
         if(bc.id > 0, bct.{$dataLimit}, if(de.id > 0, det.{$dataLimit}, grt.{$dataLimit})) >= '{$this->dtInicial}' AND
         if(bc.id > 0, bct.{$dataLimit}, if(de.id > 0, det.{$dataLimit}, grt.{$dataLimit})) <= '{$this->dtFinal}'   AND
-        if(bc.id > 0, bct.dt_pagamento, if(de.id > 0, det.dt_pagamento, grt.dt_pagamento)) {$pgtEfetuado}
+        if(bc.id > 0, bct.dt_pagamento, if(de.id > 0, det.dt_pagamento, grt.dt_pagamento)) {$pgtEfetuado} {$query}
         order by st.name ASC
         limit 30000"
         );
