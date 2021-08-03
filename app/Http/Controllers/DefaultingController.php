@@ -123,13 +123,87 @@ class DefaultingController extends Controller
                 $boleto = $_GET['boleto'];
             }
 
-            $defaultings = Defaulting::whereIn('student_id', $ids)
-                                        ->where('active', true)
-                                        ->orderBy('student_name', 'asc')
-                                        ->paginate(100);
+            $modulo = NULL;
+            $query  = NULL;
+
+            if(array_key_exists('modulo',$_GET))
+            {
+                if(!empty($_GET['modulo']))
+                {
+                    if($_GET['modulo'] == 'cheque')
+                    {
+                        $modulo = 'cheque';
+                        $query = "AND bc.id > 0";
+
+                    }elseif($_GET['modulo'] == 'grafica'){
+                        $modulo = 'grafica';
+                        $query = "AND grt.id > 0";
+                    }else{
+                        $modulo = $_GET['modulo'];
+                        if($modulo == 'contrato_segunda'){
+                            $query = 'segunda';
+                        }else{
+                            $query = 'terceira';
+                        }
+                    }
+                }
+
+            }
+
+            if(!empty($query))
+            {
+                $defaultings = Defaulting::whereIn('student_id', $ids)
+                ->where('active', true)
+                ->where('fase', $query)
+                ->orderBy('student_name', 'asc')
+                ->paginate(100);
+            }else{
+                $defaultings = Defaulting::whereIn('student_id', $ids)
+                ->where('active', true)
+                ->orderBy('student_name', 'asc')
+                ->paginate(100);
+            }
+
 
         }else{
-            $defaultings = Defaulting::where('active', true)->orderBy('student_name', 'asc')->paginate(100);
+            $modulo = NULL;
+            $query  = NULL;
+
+            if(array_key_exists('modulo',$_GET))
+            {
+                if(!empty($_GET['modulo']))
+                {
+                    if($_GET['modulo'] == 'cheque')
+                    {
+                        $modulo = 'cheque';
+                        $query = "AND bc.id > 0";
+
+                    }elseif($_GET['modulo'] == 'grafica'){
+                        $modulo = 'grafica';
+                        $query = "AND grt.id > 0";
+                    }else{
+                        $modulo = $_GET['modulo'];
+                        if($modulo == 'contrato_segunda'){
+                            $query = 'segunda';
+                        }else{
+                            $query = 'terceira';
+                        }
+                    }
+                }
+
+            }
+
+            if(!empty($query))
+            {
+                $defaultings = Defaulting::where('active', true)
+            ->where('fase', $query)
+            ->orderBy('student_name', 'asc')->paginate(100);
+            }else{
+                $defaultings = Defaulting::where('active', true)
+            ->orderBy('student_name', 'asc')->paginate(100);
+
+            }
+
         }
 
         $title = $this->title. " listagem";
@@ -143,6 +217,7 @@ class DefaultingController extends Controller
             'boleto' => $boleto,
             'unidade' => $unidade,
             'ctr' => $ctr,
+            'modulo' => $modulo,
         ]);
     }
 
@@ -366,13 +441,88 @@ class DefaultingController extends Controller
                 $boleto = $_GET['boleto'];
             }
 
-            $defaultings = Defaulting::whereIn('student_id', $ids)
+            $modulo = NULL;
+            $query  = NULL;
+
+            if(array_key_exists('modulo',$_GET))
+            {
+                if(!empty($_GET['modulo']))
+                {
+                    if($_GET['modulo'] == 'cheque')
+                    {
+                        $modulo = 'cheque';
+                        $query = "AND bc.id > 0";
+
+                    }elseif($_GET['modulo'] == 'grafica'){
+                        $modulo = 'grafica';
+                        $query = "AND grt.id > 0";
+                    }else{
+                        $modulo = $_GET['modulo'];
+                        if($modulo == 'contrato_segunda'){
+                            $query = 'segunda';
+                        }else{
+                            $query = 'terceira';
+                        }
+                    }
+                }
+
+            }
+
+            if(!empty($query))
+            {
+                $defaultings = Defaulting::whereIn('student_id', $ids)
+                                        ->where('active', true)
+                                        ->where('fase', $query)
+                                        ->orderBy('student_name', 'asc')
+                                        ->paginate(30000);
+            }else{
+                $defaultings = Defaulting::whereIn('student_id', $ids)
                                         ->where('active', true)
                                         ->orderBy('student_name', 'asc')
                                         ->paginate(30000);
 
+            }
+
+
+
         }else{
-            $defaultings = Defaulting::where('active', true)->orderBy('student_name', 'asc')->paginate(30000);
+            $modulo = NULL;
+            $query  = NULL;
+
+            if(array_key_exists('modulo',$_GET))
+            {
+                if(!empty($_GET['modulo']))
+                {
+                    if($_GET['modulo'] == 'cheque')
+                    {
+                        $modulo = 'cheque';
+                        $query = "AND bc.id > 0";
+
+                    }elseif($_GET['modulo'] == 'grafica'){
+                        $modulo = 'grafica';
+                        $query = "AND grt.id > 0";
+                    }else{
+                        $modulo = $_GET['modulo'];
+                        if($modulo == 'contrato_segunda'){
+                            $query = 'segunda';
+                        }else{
+                            $query = 'terceira';
+                        }
+                    }
+                }
+
+            }
+
+            if(!empty($query))
+            {
+                $defaultings = Defaulting::where('active', true)
+                ->where('fase', $query)
+                ->orderBy('student_name', 'asc')->paginate(30000);
+            }else{
+                $defaultings = Defaulting::where('active', true)
+                ->orderBy('student_name', 'asc')->paginate(30000);
+            }
+
         }
 
         $fileName = 'contrato_'.time().'.csv';

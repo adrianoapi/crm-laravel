@@ -25,6 +25,7 @@
                                     <input placeholder="ctr" type="hidden" name="ctr" value="{{$ctr}}" class="input-block-level">
                                     <input placeholder="negociado" type="hidden" name="negociado" value="{{$negociado}}" class="input-block-level">
                                     <input placeholder="boleto" type="hidden" name="boleto" value="{{$boleto}}" class="input-block-level">
+                                    <input type="hidden" name="modulo" id="modulo" value="{{$modulo}}">
                                     <input type="hidden" name="filtro" id="filtro" value="pesquisa">
 
 
@@ -54,8 +55,21 @@
                             <table class="table table-hover table-nomargin table-bordered table-colored-header">
                                 <thead>
                                     <tr>
-                                        <th colspan="2">
+                                        <th>
                                             <form action="{{route('defaultings.index')}}" method="GET" class="span12" style="margin: 0;padding:0;">
+                                            <div class="span12">
+                                                <div class="control-group">
+                                                    <div class="controls controls-row">
+                                                        <select name="modulo" id="modulo" class='input-block-level'>
+                                                            <option value="" {{$modulo == '' ? 'selected':''}}>Modulo?</option>
+                                                            <option value="contrato_segunda" {{$modulo == 'contrato_segunda' ? 'selected':''}}>2ª Fase</option>
+                                                            <option value="contrato_terceira" {{$modulo == 'contrato_terceira' ? 'selected':''}}>3ª Fase</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+										    </div>
+                                        </th>
+                                        <th>
                                             <div class="span12">
                                                 <div class="control-group">
                                                     <div class="controls controls-row">
