@@ -108,6 +108,9 @@
                                         <th>CTR</th>
                                         <th>Nome</th>
                                         <th>CPF/CNPJ</th>
+                                        @if(!$pagamento)
+                                        <th>Contato</th>
+                                        @endif
                                         <th>Parcela</th>
                                         <th>Dt Pagamento</th>
                                         <th>{{($pagamento)  ? 'Pago' : 'À Receber'}}</th>
@@ -147,6 +150,9 @@
                                         @endif
                                         </td>
                                         <td>{{$value->cpf_cnpj}}</td>
+                                        @if(!$pagamento)
+                                        <td>{{$value->telefone}} {{$value->telefone_com}} {{$value->celular}}</td>
+                                        @endif
                                         <td>{{$value->parcela}}</td>
                                         <td>{{($pagamento) ? $value->dt_pagamento : $value->vencimento}}</td>
                                         <td>{{($pagamento) ? $value->valor_pago : $value->valor}}</td>
