@@ -64,7 +64,7 @@ class FinanceController extends Controller
         $pgtEfetuado = ($pagamento) ? 'IS NOT NULL'  : 'IS NULL';
         $dataLimit   = ($pagamento) ? 'dt_pagamento' : 'vencimento';
 
-        $expensive = DB::select("SELECT de.fase, st.cod_unidade, st.cod_curso, st.ctr, st.name, st.cpf_cnpj,
+        $expensive = DB::select("SELECT de.fase, st.cod_unidade, st.cod_curso, st.ctr, st.name, st.cpf_cnpj, st.telefone, st.telefone_com, st.celular,
         if(bc.id > 0,bc.id, if(de.id > 0, de.id, gr.id)) AS id,
         if(bc.id > 0,'cheque', if(de.id > 0, 'contrato', 'grafica')) AS modulo,
         if(bc.id > 0, bct.parcela, if(de.id > 0, det.parcela, grt.parcela)) AS parcela,
@@ -146,7 +146,7 @@ class FinanceController extends Controller
 
         }
 
-        $expensive = DB::select("SELECT de.fase, st.cod_unidade, st.cod_curso, st.ctr, st.name, st.cpf_cnpj,
+        $expensive = DB::select("SELECT de.fase, st.cod_unidade, st.cod_curso, st.ctr, st.name, st.cpf_cnpj, st.telefone, st.telefone_com, st.celular,
         if(bc.id > 0,bc.id, if(de.id > 0, de.id, gr.id)) AS id,
         if(bc.id > 0,'cheque', if(de.id > 0, 'contrato', 'grafica')) AS modulo,
         if(bc.id > 0, bct.parcela, if(de.id > 0, det.parcela, grt.parcela)) AS parcela,
@@ -268,7 +268,7 @@ class FinanceController extends Controller
 
         }
 
-        $expensive = DB::select("SELECT de.fase, st.cod_unidade, st.cod_curso, st.ctr, st.name, st.cpf_cnpj,
+        $expensive = DB::select("SELECT de.fase, st.cod_unidade, st.cod_curso, st.ctr, st.name, st.cpf_cnpj, st.telefone, st.telefone_com, st.celular,
         if(bc.id > 0,bc.id, if(de.id > 0, de.id, gr.id)) AS id,
         if(bc.id > 0,'cheque', if(de.id > 0, 'contrato', 'grafica')) AS modulo,
         if(bc.id > 0, bct.parcela, if(de.id > 0, det.parcela, grt.parcela)) AS parcela,
@@ -392,7 +392,7 @@ class FinanceController extends Controller
 
         }
 
-        $expensive = DB::select("SELECT de.fase, st.cod_unidade, st.cod_curso, st.ctr, st.name, st.cpf_cnpj,
+        $expensive = DB::select("SELECT de.fase, st.cod_unidade, st.cod_curso, st.ctr, st.name, st.cpf_cnpj, st.telefone, st.telefone_com, st.celular,
         if(bc.id > 0,bc.id, if(de.id > 0, de.id, gr.id)) AS id,
         if(bc.id > 0,'cheque', if(de.id > 0, 'contrato', 'grafica')) AS modulo,
         if(bc.id > 0, bct.parcela, if(de.id > 0, det.parcela, grt.parcela)) AS parcela,
@@ -440,6 +440,7 @@ class FinanceController extends Controller
         'CTR',
         'Nome',
         'CPF/CNPJ',
+        'Contato'
         'Parcela',
         'Dt Pagamento',
         $pagamentoLabel,
@@ -461,8 +462,9 @@ class FinanceController extends Controller
                     $modulo = 'Grafica';
                 }
 
-                $dt    = ($pagamento) ? $value->dt_pagamento : $value->vencimento;
-                $valor = ($pagamento) ? $value->valor_pago : $value->valor;
+                $dt      = ($pagamento) ? $value->dt_pagamento : $value->vencimento;
+                $valor   = ($pagamento) ? $value->valor_pago : $value->valor;
+                $contato =  $value->telefone."/".$value->telefone_com."/".$value->celular;
 
                 fputcsv($file, array(
                     $modulo,
@@ -471,6 +473,7 @@ class FinanceController extends Controller
                     $value->ctr,
                     utf8_decode($value->name),
                     $value->cpf_cnpj,
+                    $contato,
                     $value->parcela,
                     $dt,
                     $valor,
