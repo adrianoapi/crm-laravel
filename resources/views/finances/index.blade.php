@@ -76,7 +76,7 @@
                                                 </div>
                                             </div>
                                         </th>
-                                        <th colspan="2">
+                                        <th colspan="{{($pagamento) ? 2 : 3}}">
                                             <div class="span12">
                                                 <div class="control-group">
                                                     <div class="controls controls-row">
@@ -151,7 +151,7 @@
                                         </td>
                                         <td>{{$value->cpf_cnpj}}</td>
                                         @if(!$pagamento)
-                                        <td>{{$value->telefone}} {{$value->telefone_com}} {{$value->celular}}</td>
+                                        <td>{{$value->telefone}} / {{$value->telefone_com}} / {{$value->celular}}</td>
                                         @endif
                                         <td>{{$value->parcela}}</td>
                                         <td>{{($pagamento) ? $value->dt_pagamento : $value->vencimento}}</td>
