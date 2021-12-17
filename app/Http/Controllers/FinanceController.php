@@ -440,7 +440,7 @@ class FinanceController extends Controller
         'CTR',
         'Nome',
         'CPF/CNPJ',
-        'Contato'
+        'Contato',
         'Parcela',
         'Dt Pagamento',
         $pagamentoLabel,
