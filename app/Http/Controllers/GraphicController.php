@@ -399,7 +399,7 @@ class GraphicController extends Controller
                     $value->student->telefone_com,
                     $negociado,
                     $boleto,
-                    $value->valor
+                    $value->total
                 ));
             }
 
