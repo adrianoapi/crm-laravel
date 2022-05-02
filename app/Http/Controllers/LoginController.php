@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\TestMail;
+use App\User;
 
 class LoginController extends Controller
 {
@@ -56,16 +57,53 @@ class LoginController extends Controller
             return \redirect()->back()->withInput()->withErrors(['Email informado não é válido!']);
         }
 
-        die('Manutenção!');
         $user = \App\User::where('email', $request->email)
                         ->where('active', true)
                         ->limit(1)
                         ->get();
-        $details = [
-            'title' => 'Mail recover password',
-            'body' => 'Your new passord: xpto'
-        ];
 
-        var_dump(Mail::to($request->email)->send(new TestMail($details)));
+        if(count($user))
+        {
+            $newPassowrd = $this->passowrdGenerate();
+            $model = User::where('id', $user[0]->getAttributes()['id'])->first();
+            $model->password  = \Illuminate\Support\Facades\Hash::make($newPassowrd);
+
+            if($model->save())
+            {
+                $details = [
+                    'title' => 'Mail recover password',
+                    'body' => 'Your new passord: '.$newPassowrd
+                ];
+                
+                Mail::to($request->email)->send(new TestMail($details));
+
+                if (Mail::failures()) {
+                    die('Erro no envio de e-mail');
+                }
+
+                return \redirect()->route('login')
+                ->with(
+                    'password_recover',
+                    'Senha enviada com sucesso para o e-mail:<br><strong>'.$request->email.'</strong>'
+                );
+            }
+        }else{
+            return \redirect()->route('login.recover')->with(
+                'password_recover',
+                'E-mail não encontrado.<br>Certifique-se de que digitou o e-mail certo ou se o usuário esta ativo.'
+            );
+        }
+    }
+
+    public function passowrdGenerate()
+    {
+        $alphabet = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890';
+        $pass    = array();
+        $alphaLength = strlen($alphabet) - 1;
+        for ($i = 0; $i < 8; $i++) {
+            $n = rand(0, $alphaLength);
+            $pass[] = $alphabet[$n];
+        }
+        return implode($pass);
     }
 }

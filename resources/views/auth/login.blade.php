@@ -4,6 +4,12 @@
 
     <h2>Autenticação</h2>
     <form action="{{route('login.auth')}}" method='POST' class='form-validate' id="test">
+        @if(session('password_recover'))
+            <div class="alert alert-success">
+                <button type="button" class="close" data-dismiss="alert">×</button>
+                {!!session('password_recover')!!}
+            </div>
+        @endif
         @csrf
         <div class="control-group">
             <div class="email controls">
