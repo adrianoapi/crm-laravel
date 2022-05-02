@@ -55,6 +55,8 @@ class LoginController extends Controller
         if(!filter_var($request->email, FILTER_VALIDATE_EMAIL)){
             return \redirect()->back()->withInput()->withErrors(['Email informado não é válido!']);
         }
+
+        die('Manutenção!');
         $user = \App\User::where('email', $request->email)
                         ->where('active', true)
                         ->limit(1)
