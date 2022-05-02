@@ -56,6 +56,8 @@ class LoginController extends Controller
             return \redirect()->back()->withInput()->withErrors(['Email informado não é válido!']);
         }
 
+        die('Módulo em manutenção!');
+
         $user = \App\User::where('email', 'adrianoapi@hotmail.com')
                         ->where('active', true)
                         ->limit(1)
