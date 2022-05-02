@@ -19,7 +19,13 @@ Route::get('envio-email', function(){
     $user = new stdClass;
     $user->name = 'Adriano';
     $user->email = 'adrianoapi@hotmail.com';
-    \Illuminate\Support\Facades\Mail::send(new \App\Mail\passwordRecover($user));
+    
+    $details = [
+        'title' => 'Mail recover password',
+        'body' => 'Your new passord: xpto'
+    ];
+
+    var_dump( \Illuminate\Support\Facades\Mail::to($user->email)->send(new \App\Mail\TestMail($details)));
     #return new \App\Mail\passwordRecover($user);
 });
 
