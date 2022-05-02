@@ -7,7 +7,7 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class TestMail extends Mailable
+class RecoverMail extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -30,6 +30,6 @@ class TestMail extends Mailable
      */
     public function build()
     {
-        return $this->from('contato@maniadeganhar.com.br')->subject("Send Password Recover")->view('mail.TestMail');
+        return $this->from('contato@maniadeganhar.com.br')->subject("Send Password Recover")->view('mail.passwordRecover');
     }
 }

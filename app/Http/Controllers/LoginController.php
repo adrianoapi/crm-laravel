@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
-use App\Mail\TestMail;
+use App\Mail\RecoverMail;
 use App\User;
 
 class LoginController extends Controller
@@ -72,10 +72,10 @@ class LoginController extends Controller
             {
                 $details = [
                     'title' => 'Mail recover password',
-                    'body' => 'Your new passord: '.$newPassowrd
+                    'password' => $newPassowrd
                 ];
                 
-                Mail::to($request->email)->send(new TestMail($details));
+                Mail::to($request->email)->send(new RecoverMail($details));
 
                 if (Mail::failures()) {
                     die('Erro no envio de e-mail');

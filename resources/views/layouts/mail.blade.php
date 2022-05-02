@@ -120,8 +120,8 @@
 				<center>
 					<table border="0" width="600" cellpadding="0" cellspacing="0">
 						<tr>
-							<td style="color:#ffffff !important; font-size:24px; font-family: Arial, Verdana, sans-serif; padding-left:10px;" height="40"><img src="../img/email-logo.jpg" alt="" style="display:block;" /></td>
-							<td align="right" width="50" height="45"><a href="http://www.eakroko.de/flat/more-login.html"><img src="../img/email-login.jpg" alt="" style="display:block;" /></a></td>
+							<td style="color:#ffffff !important; font-size:24px; font-family: Arial, Verdana, sans-serif; padding-left:10px;" height="40"><img src="{{env('APP_URL')}}flat-admin/img/email-logo.jpg" alt="" style="display:block;" /></td>
+							<td align="right" width="50" height="45"><a href="{{env('APP_URL')}}"><img src="{{env('APP_URL')}}flat-admin/img/email-login.jpg" alt="" style="display:block;" /></a></td>
 						</tr>
 					</table>
 				</center>
@@ -140,9 +140,9 @@
 							<td style="color:#ffffff !important; font-size:20px; font-family: Arial, Verdana, sans-serif; padding-left:10px;" height="40">
 								<center>
 									<p style="font-size:12px; line-height:18px;">
-									If you don't want to get system emails from FLAT please change your email settings.
+									Se tiver alguma dificuldade, entre em contado com o administrador!
 									<br />
-									<a href="#" style="color:#ffffff !important;">Click here to change email settings</a>
+									<a href="{{env('APP_URL')}}" style="color:#ffffff !important;">Login</a>
 								</p>
 								</center>
 							</td>
