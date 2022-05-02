@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Mail as MailF;
-use App\Mail\PasswordRecover;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\TestMail;
 
 class LoginController extends Controller
 {
@@ -55,16 +55,16 @@ class LoginController extends Controller
         if(!filter_var($request->email, FILTER_VALIDATE_EMAIL)){
             return \redirect()->back()->withInput()->withErrors(['Email informado não é válido!']);
         }
-
-        die('Módulo em manutenção!');
-
-        $user = \App\User::where('email', 'adrianoapi@hotmail.com')
+        die();
+        $user = \App\User::where('email', $request->email)
                         ->where('active', true)
                         ->limit(1)
                         ->get();
+        $details = [
+            'title' => 'Mail recover password',
+            'body' => 'Your new passord: xpto'
+        ];
 
-        MailF::send(new PasswordRecover($user));
-       #MailF::to($user)->send(new PasswordRecover($user));
-        #return new \App\Mail\passwordRecover($user);
+        var_dump(Mail::to($request->email)->send(new TestMail($details)));
     }
 }
