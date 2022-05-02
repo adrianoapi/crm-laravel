@@ -30,6 +30,6 @@ class TestMail extends Mailable
      */
     public function build()
     {
-        return $this->subject("Send Password Recover")->view('email.TestMail');
+        return $this->from('contato@maniadeganhar.com.br')->subject("Send Password Recover")->view('mail.TestMail');
     }
 }

@@ -1,4 +1,4 @@
 Teste
 <p>{{$details['title']}}</p>
 
-<p>{{$details['bory']}}</p>
+<p>{{$details['body']}}</p>
