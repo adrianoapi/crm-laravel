@@ -124,6 +124,7 @@ class QueuedController extends Controller
                         $graphic = new Graphic();
                         $graphic->user_id       = Auth::id();
                         $graphic->student_id    = $student->id;
+                        $graphic->tipo          = $value->graphics->tipo;
                         $graphic->student_name  = $student->name;
                         $graphic->dt_vencimento = $value->graphics->dt_vencimento;
                         $graphic->valor         = str_replace('.', ',',$value->graphics->valor);
@@ -271,29 +272,29 @@ class QueuedController extends Controller
             while (($data = fgetcsv($handle, 1000, ",")) !== FALSE)
             {
 
-                $row = explode(';', $data[0]);
-
-                if(!empty($row[7]))
+                if(!empty($data[7]))
                 {
                     $arrayBody[] = [
                         'students' => [
-                            'cod_unidade' => $this->autoComplete($row[0],3),
-                            'cod_curso' => $this->autoComplete($row[1], 3),
-                            'ctr' => $this->autoComplete($row[2], 5),
-                            'cpf_cnpj' => preg_replace("/[^0-9]/", "",$row[3]),
-                            'telefone' => $row[4],
-                            'telefone_com' => $row[5],
-                            'celular' => $row[6],
-                            'name' => utf8_encode($row[7]),
+                            'cod_unidade' => $this->autoComplete($data[0],3),
+                            'cod_curso' => $this->autoComplete($data[1], 3),
+                            'ctr' => $this->autoComplete($data[2], 5),
+                            'cpf_cnpj' => preg_replace("/[^0-9]/", "",$data[3]),
+                            'telefone' => $data[4],
+                            'telefone_com' => $data[5],
+                            'celular' => $data[6],
+                            'name' => utf8_encode($data[7]),
                         ],
                         'graphics' => [
-                            'dt_vencimento' => $this->setDate($row[8]),
-                            'valor' => $row[9],
-                            'parcela' => $row[10],
-                            'total' => $row[11],
+                            'tipo' => $data[12],
+                            'dt_vencimento' => $this->setDate($data[8]),
+                            'valor' => $data[9],
+                            'parcela' => $data[10],
+                            'total' => $data[11],
                         ],
 
                     ];
+                 
                 }
 
             }

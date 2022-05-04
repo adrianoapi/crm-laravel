@@ -133,6 +133,7 @@
                                                 <strong>telefones:</strong> [{{$value->students->telefone}}] [{{$value->students->telefone_com}}] [{{$value->students->celular}}]<br>
                                             </td>
                                             <td style="vertical-align: top">
+                                                <strong>tipo:</strong> {{$value->graphics->tipo}}<br>
                                                 <strong>valor:</strong> {{$value->graphics->valor}}<br>
                                                 <strong>dt_vencimento:</strong> {{$value->graphics->dt_vencimento}}<br>
                                                 <strong>parcela:</strong> {{$value->graphics->parcela}}<br>
