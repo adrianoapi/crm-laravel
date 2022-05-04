@@ -138,7 +138,8 @@
                                         </th>
                                     </tr>
                                     <tr>
-                                        <th colspan="2">Nome</th>
+                                        <th>Tipo</th>
+                                        <th>Nome</th>
                                         <th>Negociado</th>
                                         <th>Boleto</th>
                                         <th>Fones</th>
@@ -149,6 +150,7 @@
                                 <tbody>
                                 @foreach ($graphics as $value)
                                     <tr>
+                                        <td>{{$tipos[$value->tipo]}}</td>
                                         <td>
                                             <a href="{{route('graphics.show', ['graphic' => $value->id])}}" target="_parent">{{$value->student->name}}</a>
                                             <br><small>Unid: {{$value->student->cod_unidade}} / Curso: {{$value->student->cod_curso}} / CTR: {{$value->student->ctr}} / CPF: {{$value->student->cpf_cnpj}}</small>
