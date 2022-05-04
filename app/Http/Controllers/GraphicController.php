@@ -129,7 +129,7 @@ class GraphicController extends UtilController
 
             if(strlen($_GET['tipo']))
             {
-                $tipo     = $_GET['tipo'] == "grafica" ? "grafica" : "holding";
+                $tipo     = $_GET['tipo'] == "grafica_1" ? "grafica_1" : "grafica_2";
                 $students = Graphic::whereIn('student_id', $ids)
                 ->where('tipo', $tipo)
                 ->where('active', true)
@@ -384,7 +384,7 @@ class GraphicController extends UtilController
 
             if(strlen($_GET['tipo']))
             {
-                $tipo     = $_GET['tipo'] == "grafica" ? "grafica" : "holding";
+                $tipo     = $_GET['tipo'] == "grafica_1" ? "grafica_1" : "grafica_2";
                 $students = Graphic::whereIn('student_id', $ids)
                 ->where('tipo', $tipo)
                 ->where('active', true)

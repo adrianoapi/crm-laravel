@@ -9,8 +9,8 @@ class UtilController extends Controller
     public function graphicTipos()
     {
         return [
-            'grafica' => 'Gráfica',
-            'holding' => 'Gráfica Holding'
+            'grafica_1' => 'Gráfica 1',
+            'grafica_2' => 'Gráfica 2'
         ];
     }
 }

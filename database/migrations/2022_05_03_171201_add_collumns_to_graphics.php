@@ -14,7 +14,7 @@ class AddCollumnsToGraphics extends Migration
     public function up()
     {
         Schema::table('graphics', function (Blueprint $table) {
-            $table->enum('tipo', ['grafica', 'holding'])->default('grafica');
+            $table->enum('tipo', ['grafica_1', 'grafica_2'])->default('grafica_2');
         });
     }
 
