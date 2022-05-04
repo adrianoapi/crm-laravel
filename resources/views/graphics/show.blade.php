@@ -35,6 +35,7 @@
                                             <thead>
                                                 <tr>
                                                     <th>Negociado</th>
+                                                    <th>Tipo</th>
                                                     <th>Parcela</th>
                                                     <th>Valor</th>
                                                     <th>Total</th>
@@ -50,6 +51,7 @@
                                                             echo '<button class="btn btn-small  btn-danger">NÃO</button>';
                                                         }
                                                     ?></td>
+                                                    <td>{{$graphic->tipo}}</td>
                                                     <td>{{$graphic->parcela}}</td>
                                                     <td>{{$graphic->valor}}</td>
                                                     <td>{{$graphic->total}}</td>

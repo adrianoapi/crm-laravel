@@ -26,6 +26,7 @@
                                     <input placeholder="ctr" type="hidden" name="ctr" value="{{$ctr}}" class="input-block-level">
                                     <input placeholder="negociado" type="hidden" name="negociado" value="{{$negociado}}" class="input-block-level">
                                     <input placeholder="boleto" type="hidden" name="boleto" value="{{$boleto}}" class="input-block-level">
+                                    <input type="hidden" name="tipo" value="{{$tipo}}" class="input-block-level">
                                     <input type="hidden" name="filtro" id="filtro" value="pesquisa">
 
 
@@ -56,6 +57,20 @@
                                     <tr>
                                         <th colspan="1">
                                             <form action="{{route('graphics.index')}}" method="GET" class="span12" style="margin: 0;padding:0;">
+                                            <div class="span12">
+                                                <div class="control-group">
+                                                    <div class="controls controls-row">
+                                                        <select name="tipo" id="tipo" class='input-block-level'>
+                                                            <option value="">Tipo</option>
+                                                            @foreach($tipos as $key => $value)
+                                                                <option value="{{$key}}" {{$tipo == $key ? 'selected':''}} ? 'selected':''}}>{{$value}}</option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </th>
+                                        <th colspan="1">
                                             <div class="span12">
                                                 <div class="control-group">
                                                     <div class="controls controls-row">
@@ -123,12 +138,12 @@
                                         </th>
                                     </tr>
                                     <tr>
-                                        <th>Nome</th>
+                                        <th colspan="2">Nome</th>
                                         <th>Negociado</th>
                                         <th>Boleto</th>
                                         <th>Fones</th>
                                         <th>Total</th>
-                                        <th class='hidden-350'>Ações</th>
+                                        <th>Ações</th>
                                     </tr>
                                 </thead>
                                 <tbody>

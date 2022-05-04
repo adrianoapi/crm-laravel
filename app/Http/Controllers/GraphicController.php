@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Dompdf\Dompdf;
 
-class GraphicController extends Controller
+class GraphicController extends UtilController
 {
     private $title  = 'GRAFICA - ENNT';
 
@@ -31,10 +31,14 @@ class GraphicController extends Controller
         $pesuisar = NULL;
         $negociado = '';
         $boleto = '';
+        $tipo = '';
 
         if(array_key_exists('filtro',$_GET))
         {
 
+            # Pega todos os id de estudantes onde
+            # algum dos campos atenda ao menos
+            # uma coluna abaixo.
             if(strlen($_GET['pesquisar']))
             {
                 $pesuisar = $_GET['pesquisar'];
@@ -73,6 +77,7 @@ class GraphicController extends Controller
                     array_push($ids, $value->id);
                 endforeach;
             }
+
             if(strlen($_GET['ctr']))
             {
                 $ctr = $_GET['ctr'];
@@ -122,6 +127,20 @@ class GraphicController extends Controller
                 $boleto = $_GET['boleto'];
             }
 
+            if(strlen($_GET['tipo']))
+            {
+                $tipo     = $_GET['tipo'] == "grafica" ? "grafica" : "holding";
+                $students = Graphic::whereIn('student_id', $ids)
+                ->where('tipo', $tipo)
+                ->where('active', true)
+                ->get();
+
+                $ids = [];
+                foreach($students as $value):
+                    array_push($ids, $value->student_id);
+                endforeach;
+            }
+
             $graphics = Graphic::whereIn('student_id', $ids)
                                     ->where('active', true)
                                     ->orderBy('student_name', 'asc')
@@ -141,6 +160,8 @@ class GraphicController extends Controller
             'boleto' => $boleto,
             'unidade' => $unidade,
             'ctr' => $ctr,
+            'tipos' => $this->graphicTipos(),
+            'tipo' => $tipo
         ]);
     }
 
@@ -272,6 +293,7 @@ class GraphicController extends Controller
         $pesuisar = NULL;
         $negociado = '';
         $boleto = '';
+        $tipo   = '';
 
         if(array_key_exists('filtro',$_GET))
         {
@@ -358,6 +380,20 @@ class GraphicController extends Controller
                 endforeach;
 
                 $boleto = $_GET['boleto'];
+            }
+
+            if(strlen($_GET['tipo']))
+            {
+                $tipo     = $_GET['tipo'] == "grafica" ? "grafica" : "holding";
+                $students = Graphic::whereIn('student_id', $ids)
+                ->where('tipo', $tipo)
+                ->where('active', true)
+                ->get();
+
+                $ids = [];
+                foreach($students as $value):
+                    array_push($ids, $value->student_id);
+                endforeach;
             }
 
 
