@@ -22,7 +22,7 @@
                                 @method('PUT')
 
 								<div class="row-fluid">
-									<div class="span10">
+									<div class="span8">
 										<div class="control-group">
 											<label for="student_id" class="control-label">Aluno</label>
 											<div class="controls controls-row">
@@ -31,9 +31,22 @@
 											</div>
 										</div>
 									</div>
+									<div class="span2">
+										<div class="control-group">
+											<label for="student_id" class="control-label">Tipo</label>
+											<div class="controls controls-row">
+                                                <select name="tipo" id="tipo" class='input-block-level'>
+													<option value="">Tipo</option>
+													@foreach($tipos as $key => $value)
+														<option value="{{$key}}" {{$graphic->tipo == $key ? 'selected':''}} ? 'selected':''}}>{{$value}}</option>
+													@endforeach
+												</select>
+											</div>
+										</div>
+									</div>
                                     <div class="span2">
 										<div class="control-group">
-											<label for="dt_vencimento" class="control-label">Data dvencimento</label>
+											<label for="dt_vencimento" class="control-label">Data de vencimento</label>
 											<div class="controls controls-row">
 												<input type="text" name="dt_vencimento" id="dt_vencimento" value="{{$graphic->dt_vencimento}}" placeholder="00/00/0000" max="10" class="input-block-level" required>
 											</div>

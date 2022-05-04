@@ -51,7 +51,7 @@
                                                             echo '<button class="btn btn-small  btn-danger">NÃO</button>';
                                                         }
                                                     ?></td>
-                                                    <td>{{$graphic->tipo}}</td>
+                                                    <td>{{$tipos[$graphic->tipo]}}</td>
                                                     <td>{{$graphic->parcela}}</td>
                                                     <td>{{$graphic->valor}}</td>
                                                     <td>{{$graphic->total}}</td>

@@ -511,7 +511,8 @@ class GraphicController extends UtilController
             'title' => $title,
             'graphic' => $graphic,
             'student' => $student,
-            'estados' => $this->getEstados()
+            'estados' => $this->getEstados(),
+            'tipos' => $this->graphicTipos()
         ]);
     }
 
@@ -529,8 +530,9 @@ class GraphicController extends UtilController
         return view('graphics.edit', [
             'title' => $title,
             'students' => $students,
-            'graphic' => $graphic
-            ]);
+            'graphic' => $graphic,
+            'tipos' => $this->graphicTipos()
+        ]);
     }
 
     /**
@@ -548,6 +550,7 @@ class GraphicController extends UtilController
         $graphic->valor = $request->valor;
         $graphic->parcela = $request->parcela;
         $graphic->total = $request->total;
+        $graphic->tipo = $request->tipo;
 
         $graphic->save();
 
