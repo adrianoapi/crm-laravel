@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
-class HistoryController extends Controller
+class HistoryController extends UtilController
 {
     private $title  = 'RETORNO';
 
@@ -32,9 +32,12 @@ class HistoryController extends Controller
                     $modulo = 'cheque';
                     $query = "AND bc.id > 0";
 
-                }elseif($_GET['modulo'] == 'grafica'){
-                    $modulo = 'grafica';
-                    $query = "AND grt.id > 0";
+                }elseif($_GET['modulo'] == 'grafica_1'){
+                    $modulo = 'grafica_1';
+                    $query = "AND grt.id > 0 AND tipo = 'grafica_1'";
+                }elseif($_GET['modulo'] == 'grafica_2'){
+                    $modulo = 'grafica_2';
+                    $query = "AND grt.id > 0 AND tipo = 'grafica_2'";
                 }else{
                     $modulo = $_GET['modulo'];
                     if($modulo == 'contrato_segunda'){
@@ -47,7 +50,7 @@ class HistoryController extends Controller
 
         }
 
-        $result = DB::select("SELECT de.fase, st.cod_unidade, st.cod_curso, st.ctr, st.name, st.cpf_cnpj,
+        $result = DB::select("SELECT gr.tipo, de.fase, st.cod_unidade, st.cod_curso, st.ctr, st.name, st.cpf_cnpj,
         if(bc.id > 0,bc.id, if(de.id > 0, de.id, gr.id)) AS modulo_id,
         if(bc.id > 0,bct.id, if(de.id > 0, det.id, grt.id)) AS id,
         if(bc.id > 0,'cheque', if(de.id > 0, 'contrato', 'grafica')) AS modulo,
@@ -80,6 +83,7 @@ class HistoryController extends Controller
             'title' => $title,
             'modulo' => $modulo,
             'historical' => $result,
+            'tipos' => $this->graphicTipos()
         ]);
     }
 

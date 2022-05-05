@@ -52,8 +52,9 @@
                                                         <option value="contrato_segunda" {{$modulo == 'contrato_segunda' ? 'selected':''}}>2ª Fase</option>
                                                         <option value="contrato_terceira" {{$modulo == 'contrato_terceira' ? 'selected':''}}>3ª Fase</option>
                                                         <option value="cheque" {{$modulo == 'cheque' ? 'selected':''}}>CHEQUE</option>
-                                                        <option value="grafica_1" {{$modulo == 'grafica_1' ? 'selected':''}}>GRAFICA 1</option>
-                                                        <option value="grafica_2" {{$modulo == 'grafica_2' ? 'selected':''}}>GRAFICA 2</option>
+                                                        @foreach($tipos as $key => $value)
+                                                            <option value="{{$key}}" {{$modulo == $key ? 'selected':''}} ? 'selected':''}}>{{$value}}</option>
+                                                        @endforeach
                                                     </select>
                                                     </div>
                                                 </div>
