@@ -36,7 +36,7 @@
                                                 </div>
                                             </div>
                                         </th>
-                                        <th colspan="2">
+                                        <th colspan="3">
                                             <div class="span12">
                                                 <div class="control-group">
                                                     <div class="controls controls-row">
@@ -62,7 +62,8 @@
                                     </tr>
                                     <tr>
                                         <th>Unidade</th>
-                                        <th>Grafica</th>
+                                        <th>Grafica 1</th>
+                                        <th>Grafica 2</th>
                                         <th>Segunda</th>
                                         <th>Terceira</th>
                                         <th>Cheque</th>
@@ -71,7 +72,8 @@
                                 </thead>
                                 <tbody>
                                     <?php
-                                    $totalGrafica  = 0;
+                                    $totalGrafica1 = 0;
+                                    $totalGrafica2 = 0;
                                     $totalSegunda  = 0;
                                     $totalTerceira = 0;
                                     $totalCheque   = 0;
@@ -85,9 +87,31 @@
                                                 $total = 0;
                                                 if(array_key_exists('grafica', $value))
                                                 {
-                                                    echo number_format($value['grafica']['valor_pago'], 2, ',', '.');
-                                                    $total += $value['grafica']['valor_pago'];
-                                                    $totalGrafica += $value['grafica']['valor_pago'];
+                                                    if(array_key_exists('grafica_1', $value['grafica']))
+                                                    {
+                                                        echo number_format($value['grafica']['grafica_1']['valor_pago'], 2, ',', '.');
+                                                        $total += $value['grafica']['grafica_1']['valor_pago'];
+                                                        $totalGrafica1 += $value['grafica']['grafica_1']['valor_pago'];
+                                                    }else{
+                                                        echo '0,00';
+                                                    }
+                                                }else{
+                                                    echo '0,00';
+                                                }
+                                                ?>
+                                            </td>
+                                            <td>
+                                                <?php
+                                                if(array_key_exists('grafica', $value))
+                                                {
+                                                    if(array_key_exists('grafica_2', $value['grafica']))
+                                                    {
+                                                        echo number_format($value['grafica']['grafica_2']['valor_pago'], 2, ',', '.');
+                                                        $total += $value['grafica']['grafica_2']['valor_pago'];
+                                                        $totalGrafica2 += $value['grafica']['grafica_2']['valor_pago'];
+                                                    }else{
+                                                        echo '0,00';
+                                                    }
                                                 }else{
                                                     echo '0,00';
                                                 }
@@ -147,7 +171,8 @@
                                 <tfoot>
                                     <tr>
                                         <td>Total</td>
-                                        <td><strong>{{number_format($totalGrafica, 2, ',', '.')}}</strong></td>
+                                        <td><strong>{{number_format($totalGrafica1, 2, ',', '.')}}</strong></td>
+                                        <td><strong>{{number_format($totalGrafica2, 2, ',', '.')}}</strong></td>
                                         <td><strong>{{number_format($totalSegunda, 2, ',', '.')}}</strong></td>
                                         <td><strong>{{number_format($totalTerceira, 2, ',', '.')}}</strong></td>
                                         <td><strong>{{number_format($totalCheque, 2, ',', '.')}}</strong></td>

@@ -36,7 +36,7 @@
                                                 </div>
                                             </div>
                                         </th>
-                                        <th colspan="2">
+                                        <th colspan="3">
                                             <div class="span12">
                                                 <div class="control-group">
                                                     <div class="controls controls-row">
@@ -60,7 +60,8 @@
                                     </tr>
                                     <tr>
                                         <th>Dia</th>
-                                        <th>Grafica</th>
+                                        <th>Grafica 1</th>
+                                        <th>Grafica 2</th>
                                         <th>Segunda</th>
                                         <th>Terceira</th>
                                         <th>Cheque</th>
@@ -70,7 +71,8 @@
                                 <tbody>
 
                                 <?php
-                                $totalGrafica  = 0;
+                                $totalGrafica1 = 0;
+                                $totalGrafica2 = 0;
                                 $totalSegunda  = 0;
                                 $totalTerceira = 0;
                                 $totalCheque   = 0;
@@ -99,9 +101,36 @@
                                             {
                                                 if(array_key_exists('grafica', $caixa[$data->format("d/m/Y")]))
                                                 {
-                                                    echo number_format($caixa[$data->format("d/m/Y")]['grafica']['valor_pago'], 2, ',', '.');
-                                                    $total += $caixa[$data->format("d/m/Y")]['grafica']['valor_pago'];
-                                                    $totalGrafica += $caixa[$data->format("d/m/Y")]['grafica']['valor_pago'];
+                                                    if(array_key_exists('grafica_1', $caixa[$data->format("d/m/Y")]['grafica']))
+                                                    {
+                                                        echo number_format($caixa[$data->format("d/m/Y")]['grafica']['grafica_1']['valor_pago'], 2, ',', '.');
+                                                        $total += $caixa[$data->format("d/m/Y")]['grafica']['grafica_1']['valor_pago'];
+                                                        $totalGrafica1 += $caixa[$data->format("d/m/Y")]['grafica']['grafica_1']['valor_pago'];
+                                                    }else{
+                                                        echo '0,00';
+                                                    }
+                                                }else{
+                                                    echo '0,00';
+                                                }
+                                            }else{
+                                                echo '0,00';
+                                            }
+                                            ?>
+                                            </td>
+                                            <td>
+                                            <?php
+                                            if(array_key_exists($data->format("d/m/Y"), $caixa))
+                                            {
+                                                if(array_key_exists('grafica', $caixa[$data->format("d/m/Y")]))
+                                                {
+                                                    if(array_key_exists('grafica_2', $caixa[$data->format("d/m/Y")]['grafica']))
+                                                    {
+                                                        echo number_format($caixa[$data->format("d/m/Y")]['grafica']['grafica_2']['valor_pago'], 2, ',', '.');
+                                                        $total += $caixa[$data->format("d/m/Y")]['grafica']['grafica_2']['valor_pago'];
+                                                        $totalGrafica2 += $caixa[$data->format("d/m/Y")]['grafica']['grafica_2']['valor_pago'];
+                                                    }else{
+                                                        echo '0,00';
+                                                    }
                                                 }else{
                                                     echo '0,00';
                                                 }
@@ -187,7 +216,8 @@
                                 <tfoot>
                                     <tr>
                                         <td>Total</td>
-                                        <td><strong>{{number_format($totalGrafica, 2, ',', '.')}}</strong></td>
+                                        <td><strong>{{number_format($totalGrafica1, 2, ',', '.')}}</strong></td>
+                                        <td><strong>{{number_format($totalGrafica2, 2, ',', '.')}}</strong></td>
                                         <td><strong>{{number_format($totalSegunda, 2, ',', '.')}}</strong></td>
                                         <td><strong>{{number_format($totalTerceira, 2, ',', '.')}}</strong></td>
                                         <td><strong>{{number_format($totalCheque, 2, ',', '.')}}</strong></td>

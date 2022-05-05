@@ -150,7 +150,7 @@ class FinanceController extends UtilController
 
         }
 
-        $expensive = DB::select("SELECT de.fase, st.cod_unidade, st.cod_curso, st.ctr, st.name, st.cpf_cnpj, st.telefone, st.telefone_com, st.celular,
+        $expensive = DB::select("SELECT gr.tipo, de.fase, st.cod_unidade, st.cod_curso, st.ctr, st.name, st.cpf_cnpj, st.telefone, st.telefone_com, st.celular,
         if(bc.id > 0,bc.id, if(de.id > 0, de.id, gr.id)) AS id,
         if(bc.id > 0,'cheque', if(de.id > 0, 'contrato', 'grafica')) AS modulo,
         if(bc.id > 0, bct.parcela, if(de.id > 0, det.parcela, grt.parcela)) AS parcela,
@@ -182,43 +182,79 @@ class FinanceController extends UtilController
         );
 
         $newArr = [];
-
+        
         foreach($expensive as $value):
+
+            # Verifica se a data de pagamento já existe no array
             if(array_key_exists($value->dt_pagamento, $newArr))
             {
+                # Verifica se existe o módulo dentro do array
                 if(array_key_exists($value->modulo, $newArr[$value->dt_pagamento]))
                 {
-                    if($value->modulo != 'contrato')
+                    # Checa se não é do tipo contatro/gráfica, pois possuem formas diferentes de caluculo
+                    if($value->modulo != 'contrato' && $value->modulo != 'grafica')
                     {
-                        $valor = $newArr[$value->dt_pagamento][$value->modulo]['valor_pago'];
-                        $newArr[$value->dt_pagamento][$value->modulo]['valor_pago'] = $value->valor_pago + $valor;
+                        $newArr[$value->dt_pagamento][$value->modulo]['valor_pago'] += $value->valor_pago;
                     }else{
-                        if(array_key_exists($value->fase, $newArr[$value->dt_pagamento][$value->modulo]))
+                        # Se for contrato
+                        if($value->modulo == 'contrato')
                         {
-                            $valor = $newArr[$value->dt_pagamento][$value->modulo][$value->fase]['valor_pago'];
-                            $newArr[$value->dt_pagamento][$value->modulo][$value->fase]['valor_pago'] = $value->valor_pago + $valor;
+                            # Verifica se a fase existe dentro do array>data>modulo:
+                            # Se existir, atualiza o valor
+                            # Se não existir, adiciona um valor
+                            if(array_key_exists($value->fase, $newArr[$value->dt_pagamento][$value->modulo]))
+                            {
+                                $newArr[$value->dt_pagamento][$value->modulo][$value->fase]['valor_pago'] += $value->valor_pago;
+                            }else{
+                                $newArr[$value->dt_pagamento][$value->modulo][$value->fase]['valor_pago'] = $value->valor_pago;
+                            }
                         }else{
-                            $newArr[$value->dt_pagamento][$value->modulo][$value->fase]['valor_pago'] = $value->valor_pago;
+                            # Então é gráfica
+                            # Verifica se a fase existe dentro do array>data>modulo:
+                            # Se existir, atualiza o valor
+                            # Se não existir, adiciona um valor
+                            if(array_key_exists($value->tipo, $newArr[$value->dt_pagamento][$value->modulo]))
+                            {
+                                $newArr[$value->dt_pagamento][$value->modulo][$value->tipo]['valor_pago'] += $value->valor_pago;
+                            }else{
+                                $newArr[$value->dt_pagamento][$value->modulo][$value->tipo]['valor_pago'] = $value->valor_pago;
+                            }
                         }
                     }
                 }else{
-                    if($value->modulo != 'contrato')
+                    # Checa se não é do tipo contatro/gráfica, pois possuem formas diferentes de caluculo
+                    if($value->modulo != 'contrato' && $value->modulo != 'grafica')
                     {
                         $newArr[$value->dt_pagamento][$value->modulo]['valor_pago'] = $value->valor_pago;
                     }else{
-                        $newArr[$value->dt_pagamento][$value->modulo][$value->fase]['valor_pago'] = $value->valor_pago;
+                        # Se for contrato
+                        if($value->modulo == 'contrato')
+                        {
+                            $newArr[$value->dt_pagamento][$value->modulo][$value->fase]['valor_pago'] = $value->valor_pago;
+                        }else{
+                            # Então é gráfica
+                            $newArr[$value->dt_pagamento][$value->modulo][$value->tipo]['valor_pago'] = $value->valor_pago;
+                        }
                     }
                 }
             }else{
-                if($value->modulo != 'contrato')
+                # Checa se não é do tipo contatro/gráfica, pois possuem formas diferentes de caluculo
+                if($value->modulo != 'contrato' && $value->modulo != 'grafica')
                 {
                     $newArr[$value->dt_pagamento][$value->modulo]['valor_pago'] = $value->valor_pago;
                 }else{
-                    $newArr[$value->dt_pagamento][$value->modulo][$value->fase]['valor_pago'] = $value->valor_pago;
+                    # Se for contrato
+                    if($value->modulo == 'contrato')
+                    {
+                        $newArr[$value->dt_pagamento][$value->modulo][$value->fase]['valor_pago'] = $value->valor_pago;
+                    }else{
+                        # Então é gráfica
+                        $newArr[$value->dt_pagamento][$value->modulo][$value->tipo]['valor_pago'] = $value->valor_pago;
+                    }
                 }
             }
         endforeach;
-
+        
         return view('finances.byDay', [
             'caixa'     => $newArr,
             'title'     => $title,
@@ -272,7 +308,7 @@ class FinanceController extends UtilController
 
         }
 
-        $expensive = DB::select("SELECT de.fase, st.cod_unidade, st.cod_curso, st.ctr, st.name, st.cpf_cnpj, st.telefone, st.telefone_com, st.celular,
+        $expensive = DB::select("SELECT gr.tipo, de.fase, st.cod_unidade, st.cod_curso, st.ctr, st.name, st.cpf_cnpj, st.telefone, st.telefone_com, st.celular,
         if(bc.id > 0,bc.id, if(de.id > 0, de.id, gr.id)) AS id,
         if(bc.id > 0,'cheque', if(de.id > 0, 'contrato', 'grafica')) AS modulo,
         if(bc.id > 0, bct.parcela, if(de.id > 0, det.parcela, grt.parcela)) AS parcela,
@@ -310,37 +346,61 @@ class FinanceController extends UtilController
             {
                 if(array_key_exists($value->modulo, $newArr[$value->cod_unidade]))
                 {
-                    if($value->modulo != 'contrato')
+                    if($value->modulo != 'contrato' && $value->modulo != 'grafica')
                     {
-                        $valor = $newArr[$value->cod_unidade][$value->modulo]['valor_pago'];
-                        $newArr[$value->cod_unidade][$value->modulo]['valor_pago'] = $value->valor_pago + $valor;
+                        $newArr[$value->cod_unidade][$value->modulo]['valor_pago'] += $value->valor_pago;
                     }else{
-                        if(array_key_exists($value->fase, $newArr[$value->cod_unidade][$value->modulo]))
-                        {
-                            $valor = $newArr[$value->cod_unidade][$value->modulo][$value->fase]['valor_pago'];
-                            $newArr[$value->cod_unidade][$value->modulo][$value->fase]['valor_pago'] = $value->valor_pago + $valor;
-                        }else{
-                            $newArr[$value->cod_unidade][$value->modulo][$value->fase]['valor_pago'] = $value->valor_pago;
-                        }
+                         # Se for contrato
+                         if($value->modulo == 'contrato')
+                         {
+                            if(array_key_exists($value->fase, $newArr[$value->cod_unidade][$value->modulo]))
+                            {
+                                $newArr[$value->cod_unidade][$value->modulo][$value->fase]['valor_pago'] += $value->valor_pago;
+                            }else{
+                                $newArr[$value->cod_unidade][$value->modulo][$value->fase]['valor_pago'] = $value->valor_pago;
+                            }
+                         }else{
+                            # Então é gráfica
+                            if(array_key_exists($value->tipo, $newArr[$value->cod_unidade][$value->modulo]))
+                            {
+                                $newArr[$value->cod_unidade][$value->modulo][$value->tipo]['valor_pago'] += $value->valor_pago;
+                            }else{
+                                $newArr[$value->cod_unidade][$value->modulo][$value->tipo]['valor_pago'] = $value->valor_pago;
+                            }
+                         }
                     }
                 }else{
-                    if($value->modulo != 'contrato')
+                    if($value->modulo != 'contrato' && $value->modulo != 'grafica')
                     {
                         $newArr[$value->cod_unidade][$value->modulo]['valor_pago'] = $value->valor_pago;
                     }else{
-                        $newArr[$value->cod_unidade][$value->modulo][$value->fase]['valor_pago'] = $value->valor_pago;
+                        # Se for contrato
+                        if($value->modulo == 'contrato')
+                        {
+                            $newArr[$value->cod_unidade][$value->modulo][$value->fase]['valor_pago'] = $value->valor_pago;
+                        }else{
+                            # Então é gráfica
+                            $newArr[$value->cod_unidade][$value->modulo][$value->tipo]['valor_pago'] = $value->valor_pago;
+                        }
                     }
                 }
             }else{
-                if($value->modulo != 'contrato')
+                if($value->modulo != 'contrato' && $value->modulo != 'grafica')
                 {
                     $newArr[$value->cod_unidade][$value->modulo]['valor_pago'] = $value->valor_pago;
                 }else{
-                    $newArr[$value->cod_unidade][$value->modulo][$value->fase]['valor_pago'] = $value->valor_pago;
+                    # Se for contrato
+                    if($value->modulo == 'contrato')
+                    {
+                        $newArr[$value->cod_unidade][$value->modulo][$value->fase]['valor_pago'] = $value->valor_pago;
+                    }else{
+                        # Então é gráfica
+                        $newArr[$value->cod_unidade][$value->modulo][$value->tipo]['valor_pago'] = $value->valor_pago;
+                    }
                 }
             }
         endforeach;
-
+        
         return view('finances.unidade', [
             'caixa'     => $newArr,
             'title'     => $title,
