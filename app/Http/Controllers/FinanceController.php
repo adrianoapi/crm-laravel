@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
-class FinanceController extends Controller
+class FinanceController extends UtilController
 {
     private $title  = 'CAIXA';
 
@@ -46,9 +46,12 @@ class FinanceController extends Controller
                     $modulo = 'cheque';
                     $query = "AND bc.id > 0";
 
-                }elseif($_GET['modulo'] == 'grafica'){
-                    $modulo = 'grafica';
-                    $query = "AND grt.id > 0";
+                }elseif($_GET['modulo'] == 'grafica_1'){
+                    $modulo = 'grafica_1';
+                    $query = "AND grt.id > 0 AND tipo = 'grafica_1'";
+                }elseif($_GET['modulo'] == 'grafica_2'){
+                    $modulo = 'grafica_2';
+                    $query = "AND grt.id > 0 AND tipo = 'grafica_2'";
                 }else{
                     $modulo = $_GET['modulo'];
                     if($modulo == 'contrato_segunda'){
@@ -64,7 +67,7 @@ class FinanceController extends Controller
         $pgtEfetuado = ($pagamento) ? 'IS NOT NULL'  : 'IS NULL';
         $dataLimit   = ($pagamento) ? 'dt_pagamento' : 'vencimento';
 
-        $expensive = DB::select("SELECT de.fase, st.cod_unidade, st.cod_curso, st.ctr, st.name, st.cpf_cnpj, st.telefone, st.telefone_com, st.celular,
+        $expensive = DB::select("SELECT gr.tipo, de.fase, st.cod_unidade, st.cod_curso, st.ctr, st.name, st.cpf_cnpj, st.telefone, st.telefone_com, st.celular,
         if(bc.id > 0,bc.id, if(de.id > 0, de.id, gr.id)) AS id,
         if(bc.id > 0,'cheque', if(de.id > 0, 'contrato', 'grafica')) AS modulo,
         if(bc.id > 0, bct.parcela, if(de.id > 0, det.parcela, grt.parcela)) AS parcela,
@@ -102,6 +105,7 @@ class FinanceController extends Controller
             'dt_fim'    => $this->dataBr($this->dtFinal),
             'pagamento' => $pagamento,
             'modulo' => $modulo,
+            'tipos' => $this->graphicTipos()
         ]);
     }
 
@@ -377,9 +381,12 @@ class FinanceController extends Controller
                     $modulo = 'cheque';
                     $query = "AND bc.id > 0";
 
-                }elseif($_GET['modulo'] == 'grafica'){
-                    $modulo = 'grafica';
-                    $query = "AND grt.id > 0";
+                }elseif($_GET['modulo'] == 'grafica_1'){
+                    $modulo = 'grafica_1';
+                    $query = "AND grt.id > 0 AND tipo = 'grafica_1'";
+                }elseif($_GET['modulo'] == 'grafica_2'){
+                    $modulo = 'grafica_2';
+                    $query = "AND grt.id > 0 AND tipo = 'grafica_2'";
                 }else{
                     $modulo = $_GET['modulo'];
                     if($modulo == 'contrato_segunda'){
@@ -392,7 +399,7 @@ class FinanceController extends Controller
 
         }
 
-        $expensive = DB::select("SELECT de.fase, st.cod_unidade, st.cod_curso, st.ctr, st.name, st.cpf_cnpj, st.telefone, st.telefone_com, st.celular,
+        $expensive = DB::select("SELECT gr.tipo, de.fase, st.cod_unidade, st.cod_curso, st.ctr, st.name, st.cpf_cnpj, st.telefone, st.telefone_com, st.celular,
         if(bc.id > 0,bc.id, if(de.id > 0, de.id, gr.id)) AS id,
         if(bc.id > 0,'cheque', if(de.id > 0, 'contrato', 'grafica')) AS modulo,
         if(bc.id > 0, bct.parcela, if(de.id > 0, det.parcela, grt.parcela)) AS parcela,
@@ -459,7 +466,9 @@ class FinanceController extends Controller
                 }elseif($value->modulo == 'contrato'){
                     $modulo = ucfirst($value->fase);
                 }else{
-                    $modulo = 'Grafica';
+                    #Grafica
+                    $tipos  = $this->graphicTipos();
+                    $modulo = utf8_decode($tipos[$value->tipo]);
                 }
 
                 $dt      = ($pagamento) ? $value->dt_pagamento : $value->vencimento;
