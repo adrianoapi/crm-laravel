@@ -437,7 +437,7 @@
                                             <div class="control-group">
                                                 <label for="fase" class="control-label">Fase</label>
                                                 <div class="controls controls-row">
-                                                    <input type="text" name="cidade" id="fase"  value="{{$defaulting->fase}}" placeholder="fase" max="255" class="input-block-level" disabled>
+                                                    <input type="text" name="fase" id="fase"  value="{{$defaulting->fase}}" placeholder="fase" max="255" class="input-block-level" disabled>
                                                 </div>
                                             </div>
                                         </div>

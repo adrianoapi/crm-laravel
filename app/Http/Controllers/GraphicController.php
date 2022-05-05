@@ -554,7 +554,10 @@ class GraphicController extends UtilController
 
         $graphic->save();
 
-        return redirect()->route('graphics.show', ['graphic' => $graphic->id]);
+        return redirect()->route('graphics.show', [
+            'graphic' => $graphic->id,
+            'tipos' => $this->graphicTipos()
+        ]);
     }
 
     /**

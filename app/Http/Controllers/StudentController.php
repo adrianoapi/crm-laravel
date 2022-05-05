@@ -249,6 +249,9 @@ class StudentController extends Controller
             $graphic->student_name = $request->name;
             $graphic->negociado = $request->negociado == 'true' ? true : false;
             $graphic->boleto = $request->boleto == 'true' ? true : false;
+            if(Auth::user()->level > 1){
+                $graphic->tipo = $request->tipo;
+            }
             $graphic->save();
 
             $dataulting = Defaulting::where('student_id', $student->student_id)->first();

@@ -366,6 +366,29 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        <?php if(Auth::user()->level > 1) {?>
+                                            <div class="span2">
+                                                <div class="control-group">
+                                                    <label for="student_id" class="control-label">Tipo</label>
+                                                    <div class="controls controls-row">
+                                                        <select name="tipo" id="tipo" class='input-block-level'>
+                                                            @foreach($tipos as $key => $value)
+                                                                <option value="{{$key}}" {{$graphic->tipo == $key ? 'selected':''}} ? 'selected':''}}>{{$value}}</option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <?php }else{?>
+                                            <div class="span2">
+                                                <div class="control-group">
+                                                    <label for="fase" class="control-label">Tipo</label>
+                                                    <div class="controls controls-row">
+                                                        <input type="text" name="tipo" id="tipo"  value="{{$tipos[$graphic->tipo]}}" placeholder="fase" max="255" class="input-block-level" disabled>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        <?php }?> 
                                     </div>
                                     <div class="row-fluid">
                                         <div class="form-actions">
