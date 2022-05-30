@@ -208,6 +208,18 @@ class QueuedController extends Controller
         return $newString;
     }
 
+    public function tratarValorMoeda($value)
+    {
+        if(strpos($value, ",") !== false){
+            $arrMed  = explode(",", $value);
+            $number = preg_replace('/[^0-9]/', '', $arrMed[0]).$arrMed[1];
+        } else{
+            $number = preg_replace('/[^0-9]/', '', $value);
+            $number = $number.".00";
+        }
+        return $number;
+    }
+
     public function upload(Request $request)
     {
         if(array_key_exists('modulo',$_POST))
@@ -253,10 +265,10 @@ class QueuedController extends Controller
                             'dt_inadimplencia' => $this->setDate($row[9]),
                             'm_parcela_pg' => !empty($row[10]) ? $row[10] : "0",
                             'm_parcelas' => !empty($row[11]) ? $row[11] : "0",
-                            'm_parcela_valor' => !empty($row[12]) ? $row[12] : "0",
+                            'm_parcela_valor' => !empty($row[12]) ? $this->tratarValorMoeda($row[12]) : "0",
                             's_parcela_pg' => !empty($row[13]) ? $row[13] : "0",
                             's_parcelas' => !empty($row[14]) ? $row[14] : "0",
-                            's_parcela_valor' => !empty($row[15]) ? $row[15] : "0",
+                            's_parcela_valor' => !empty($row[15]) ? $this->tratarValorMoeda($row[15]) : "0",
                             'multa' => $row[16],
                         ]
 
@@ -289,7 +301,7 @@ class QueuedController extends Controller
                         'graphics' => [
                             'tipo' => $row[12],
                             'dt_vencimento' => $this->setDate($row[8]),
-                            'valor' => $row[9],
+                            'valor' => $this->tratarValorMoeda($row[9]),
                             'parcela' => $row[10],
                             'total' => $row[11],
                         ],
@@ -346,7 +358,7 @@ class QueuedController extends Controller
                         'bank_cheques' => [
                                         'user_id' => 1,
                                         'student_id' => NULL,
-                                        'valor' => $row[8],
+                                        'valor' => $this->tratarValorMoeda($row[8]),
                         ],
                         'bank_cheque_plots' => $plots,
                     ];
