@@ -208,14 +208,16 @@ class QueuedController extends Controller
         return $newString;
     }
 
+    /**
+     * Deve retornar tipo 9.999,99
+     */
     public function tratarValorMoeda($value)
     {
         if(strpos($value, ",") !== false){
             $arrMed  = explode(",", $value);
-            $number = preg_replace('/[^0-9]/', '', $arrMed[0]).$arrMed[1];
+            $number = preg_replace('/[^0-9]/', '', $arrMed[0]).".".$arrMed[1];
         } else{
-            $number = preg_replace('/[^0-9]/', '', $value);
-            $number = $number.".00";
+            $number = preg_replace('/[^0-9]/', '', $value).".00";
         }
         return $number;
     }
