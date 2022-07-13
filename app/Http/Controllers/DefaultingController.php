@@ -535,7 +535,7 @@ class DefaultingController extends Controller
         );
 
 
-        $columns = array('Fase','Uni','Cod', 'Ctr','Cpf','Nome','Telefone','Celular','Comercial','Negociado','Boleto');
+        $columns = array('Fase','Uni','Cod', 'Ctr','Cpf','Nome','Telefone','Celular','Comercial','Inadimplencia','Negociado','Boleto');
         $callback = function() use($defaultings, $columns) {
             $file = fopen('php://output', 'w');
             fputcsv($file, $columns);
@@ -554,6 +554,7 @@ class DefaultingController extends Controller
                     $value->student->telefone,
                     $value->student->celular,
                     $value->student->telefone_com,
+                    $value->dt_inadimplencia,
                     $negociado,
                     $boleto
                 ));

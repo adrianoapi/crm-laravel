@@ -415,7 +415,7 @@ class GraphicController extends UtilController
             "Expires"             => "0"
         );
 
-        $columns = array('Uni','Cod','Ctr','Cpf','Nome','Telefone','Celular','Comercial','Negociado','Boleto','Valor');
+        $columns = array('Uni','Cod','Ctr','Cpf','Nome','Telefone','Celular','Comercial','Vencimento','Negociado','Boleto','Valor');
         $callback = function() use($graphics, $columns) {
             $file = fopen('php://output', 'w');
             fputcsv($file, $columns);
@@ -433,6 +433,7 @@ class GraphicController extends UtilController
                     $value->student->telefone,
                     $value->student->celular,
                     $value->student->telefone_com,
+                    $value->dt_vencimento,
                     $negociado,
                     $boleto,
                     $value->total
