@@ -48,6 +48,9 @@
                     <li>
                         <a href="{{route('caixa.unidade')}}">CAIXA UNIDADE</a>
                     </li>
+                    <li>
+                        <a href="{{route('recebimento.index')}}">RECEBIMENTO</a>
+                    </li>
                     @endif
 				</ul>
 			</div>

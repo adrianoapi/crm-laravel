@@ -153,3 +153,8 @@ Route::prefix('importacao')->group(function(){
 
     Route::delete('destroy/{queued}', 'QueuedController@destroy')->name('importacao.destroy');
 });
+
+Route::prefix('recebimento')->group(function(){
+    Route::get('/', 'PaymentController@index')->name('recebimento.index');
+    ROute::get('novo', 'PaymentController@create')->name('recebimento.create');
+});
