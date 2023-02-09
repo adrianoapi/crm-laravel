@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Payment;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PaymentController extends UtilController
 {
@@ -19,7 +20,7 @@ class PaymentController extends UtilController
     {
         $title = $this->title. " listar";
 
-        $payment = Payment::where('id', '>', 0)->orderBy('dt_pagamento', 'desc')
+        $payment = Payment::where('deleted_at', NULL)->orderBy('dt_pagamento', 'desc')
         ->paginate(100);
 
         return view('payment.index', [
@@ -50,7 +51,31 @@ class PaymentController extends UtilController
      */
     public function store(Request $request)
     {
-        //
+        $payment               = new Payment();
+        $payment->user_id      = Auth::id();
+        $payment->nome         = $request->nome;
+        $payment->cpf_cnpj     = $request->cpf_cnpj;
+        $payment->valor        = $request->valor;
+        $payment->tipo         = $request->tipo;
+        $payment->dt_pagamento = $request->dt_pagamento;
+        $payment->descricao    = $request->descricao;
+        
+        $payment->beneficiado_nome     = $request->beneficiado_nome;
+        $payment->beneficiado_cpf_cnpj = $request->beneficiado_cpf_cnpj;
+
+        if(array_key_exists('referencia_id', $payment->getAttributes()))
+        {
+            $payment->referencia_id = $request->referencia_id;
+        }
+
+        if($payment->save())
+        {
+            return redirect()->route('recebimento.index')
+                ->with('store_success','Recebimento criado com successo!');
+        }
+
+        die('Um erro ocorreu no preenchimento do formulário!');
+
     }
 
     /**
@@ -72,7 +97,12 @@ class PaymentController extends UtilController
      */
     public function edit(Payment $payment)
     {
-        //
+        $title = $this->title. " editar";
+        return view('payment.edit', [
+            'title' => $title,
+            'payment' => $payment,
+            'tiposTecebimentos' => self::tiposTecebimentos()
+        ]);
     }
 
     /**
@@ -84,7 +114,29 @@ class PaymentController extends UtilController
      */
     public function update(Request $request, Payment $payment)
     {
-        //
+        $payment->user_id      = Auth::id();
+        $payment->nome         = $request->nome;
+        $payment->cpf_cnpj     = $request->cpf_cnpj;
+        $payment->valor        = $request->valor;
+        $payment->tipo         = $request->tipo;
+        $payment->dt_pagamento = $request->dt_pagamento;
+        $payment->descricao    = $request->descricao;
+        
+        $payment->beneficiado_nome     = $request->beneficiado_nome;
+        $payment->beneficiado_cpf_cnpj = $request->beneficiado_cpf_cnpj;
+
+        if(array_key_exists('referencia_id', $payment->getAttributes()))
+        {
+            $payment->referencia_id = $request->referencia_id;
+        }
+
+        if($payment->save())
+        {
+            return redirect()->route('recebimento.index')
+                ->with('store_success','Recebimento alterado com successo!');
+        }
+
+        die('Um erro ocorreu no preenchimento do formulário!');
     }
 
     /**
@@ -95,6 +147,13 @@ class PaymentController extends UtilController
      */
     public function destroy(Payment $payment)
     {
-        //
+        $payment->user_id = Auth::id();
+        $payment->deleted_at = now();
+
+        if($payment->save())
+        {
+            return redirect()->route('recebimento.index')
+                ->with('store_success','Recebimento excluído com successo!');
+        }
     }
 }

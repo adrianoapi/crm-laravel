@@ -156,5 +156,10 @@ Route::prefix('importacao')->group(function(){
 
 Route::prefix('recebimento')->group(function(){
     Route::get('/', 'PaymentController@index')->name('recebimento.index');
-    ROute::get('novo', 'PaymentController@create')->name('recebimento.create');
+    Route::get('novo', 'PaymentController@create')->name('recebimento.create');
+    Route::post('store', 'PaymentController@store')->name('recebimento.store');
+    Route::get('edit/{payment}', 'PaymentController@edit'  )->name('recebimento.edit');
+    Route::put('edit/{payment}', 'PaymentController@update')->name('recebimento.update');
+
+    Route::delete('destroy/{payment}', 'PaymentController@destroy')->name('recebimento.destroy');
 });

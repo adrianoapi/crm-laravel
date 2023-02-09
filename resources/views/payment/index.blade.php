@@ -33,6 +33,12 @@
                         </div>
 
                         <div class="box-content nopadding">
+                            @if(session('store_success'))
+                                <div class="alert alert-success">
+                                    <button type="button" class="close" data-dismiss="alert">×</button>
+                                    {!!session('store_success')!!}
+                                </div>
+                            @endif
                             <table class="table table-hover table-nomargin table-bordered table-colored-header">
                                 <thead>
                                     
@@ -47,7 +53,30 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                              
+                                    @foreach($payments as $payment)
+                                    <tr>
+                                        <td>{{$payment->id}}</td>
+                                        <td>{{$payment->tipo}}</td>
+                                        <td>{{$payment->nome}}</td>
+                                        <td>{{$payment->cpf_cnpj}}</td>
+                                        <td>{{$payment->valor}}</td>
+                                        <td>{{$payment->dt_pagamento}}</td>
+                                        <td>
+
+                                            <form action="{{route('recebimento.destroy', ['Payment' => $payment->id])}}" method="POST" onSubmit="return confirm('Deseja excluir?');" style="padding: 0px;margin:0px;">
+                                                @csrf
+                                                @method('delete')
+                                                <a href="{{route('recebimento.edit', ['payment' => $payment->id])}}" class="btn" rel="tooltip" title="" data-original-title="Editar">
+                                                    <i class="icon-edit"></i>
+                                                </a>
+                                                <button type="submit" class="btn" rel="tooltip" title="" data-original-title="Excluir">
+                                                    <i class="icon-trash"></i>
+                                                </button>
+                                            </form>
+
+                                        </td>
+                                    </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
                             {{ $payments->links('layouts.pagination') }}

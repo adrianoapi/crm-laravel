@@ -26,6 +26,7 @@ class CreatePaymentsTable extends Migration
             $table->string('beneficiado_nome', 160)->nullable(true);
             $table->string('beneficiado_cpf_cnpj', 20)->nullable(true);
             $table->timestamps();
+            $table->softDeletes();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('CASCADE');
         });
