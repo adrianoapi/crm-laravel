@@ -510,6 +510,7 @@ class GraphicController extends UtilController
 
         $payment = \App\Payment::where('referencia_id', $graphic->id)
         ->where('tipo', $graphic->tipo)
+        ->where('deleted_at', NULL)
         ->get();
         
         return view('graphics.show', [

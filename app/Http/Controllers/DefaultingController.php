@@ -636,6 +636,7 @@ class DefaultingController extends Controller
 
         $payment = \App\Payment::where('referencia_id', $defaulting->id)
         ->where('tipo', $defaulting->fase)
+        ->where('deleted_at', NULL)
         ->get();
 
         return view('defaultings.show', [

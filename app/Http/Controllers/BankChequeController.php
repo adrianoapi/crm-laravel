@@ -475,6 +475,7 @@ class BankChequeController extends Controller
         $student = Student::where('id', $bankCheque->student_id)->get();
 
         $payment = \App\Payment::where('referencia_id', $bankCheque->id)
+        ->where('deleted_at', NULL)
         ->get();
 
         return view('bankCheques.show', [

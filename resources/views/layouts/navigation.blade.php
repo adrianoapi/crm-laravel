@@ -27,6 +27,9 @@
 					<li>
 						<a href="{{route('graphics.index')}}">GRAFICA - ENNT</a>
 					</li>
+                    <li>
+                        <a href="{{route('recebimento.index')}}">RECEBIMENTO</a>
+                    </li>
 					<li>
 						<a href="{{route('history.index')}}">RETORNO</a>
 					</li>
@@ -47,9 +50,6 @@
                     </li>
                     <li>
                         <a href="{{route('caixa.unidade')}}">CAIXA UNIDADE</a>
-                    </li>
-                    <li>
-                        <a href="{{route('recebimento.index')}}">RECEBIMENTO</a>
                     </li>
                     @endif
 				</ul>
