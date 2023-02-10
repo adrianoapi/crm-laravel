@@ -10,6 +10,16 @@ class PaymentController extends UtilController
 {
 
     private $title  = 'RECEBIMENTO';
+    private $dtInicial;
+    private $dtFinal;
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+
+        $this->dtInicial = date('Y-m-01');
+        $this->dtFinal   = date('Y-m-t' );
+    }
 
     /**
      * Display a listing of the resource.
@@ -18,15 +28,126 @@ class PaymentController extends UtilController
      */
     public function index()
     {
-        $title = $this->title. " listar";
+        $ids  = [];
+        $codigo = '';
+        $tipo = '';
+        $nome = '';
+        $cpf  = '';
 
-        $payment = Payment::where('deleted_at', NULL)->orderBy('dt_pagamento', 'desc')
-        ->paginate(100);
+        if(array_key_exists('filtro', $_GET))
+        {
+
+            if(array_key_exists('dt_inicio', $_GET) && array_key_exists('dt_fim', $_GET))
+            {
+                $this->dtInicial = strlen($_GET['dt_inicio']) > 2 ? $this->dataSql($_GET['dt_inicio']) : $this->dtInicial;
+                $this->dtFinal   = strlen($_GET['dt_fim'   ]) > 2 ? $this->dataSql($_GET['dt_fim'   ]) : $this->dtFinal;
+            }
+        
+            if(strlen($_GET['nome']))
+            {
+                $nome = $_GET['nome'];
+                
+                $payment = Payment::where('nome', 'like', '%' . $nome . '%')
+                ->where('deleted_at', NULL)
+                ->get();
+
+                $ids = [];
+                foreach($payment as $value):
+                    array_push($ids, $value->id);
+                endforeach;
+
+            }else{
+
+                $students  = Payment::where('deleted_at', NULL)->get();
+                $ids = [];
+                foreach($students as $value):
+                    array_push($ids, $value->id);
+                endforeach;
+            }
+
+            if(strlen($_GET['codigo']))
+            {
+                $codigo = $_GET['codigo'];
+                $payment = Payment::whereIn('id', $ids)
+                ->where('id', $codigo)
+                ->where('deleted_at', NULL)
+                ->get();
+
+                $ids = [];
+                foreach($payment as $value):
+                    array_push($ids, $value->id);
+                endforeach;
+            }
+
+            if(strlen($_GET['tipo']))
+            {
+                $tipo = $_GET['tipo'];
+                $payment = Payment::whereIn('id', $ids)
+                ->where('tipo', $tipo)
+                ->where('deleted_at', NULL)
+                ->get();
+
+                $ids = [];
+                foreach($payment as $value):
+                    array_push($ids, $value->id);
+                endforeach;
+            }
+
+            if(strlen($_GET['cpf']))
+            {
+                $cpf     = $_GET['cpf'];
+                $payment = Payment::whereIn('id', $ids)
+                ->where('cpf_cnpj', 'like', '%' . $cpf . '%')
+                ->where('deleted_at', NULL)
+                ->get();
+
+                $ids = [];
+                foreach($payment as $value):
+                    array_push($ids, $value->id);
+                endforeach;
+            }
+            
+            $payment = Payment::whereIn('id', $ids)
+            ->where('deleted_at', NULL)
+            ->where('dt_pagamento', '>=', $this->dtInicial)
+            ->where('dt_pagamento', '<=', $this->dtFinal)
+            ->orderBy('dt_pagamento', 'desc')
+            ->paginate(100);
+
+        }else{
+            
+            $payment = Payment::where('deleted_at', NULL)
+            ->where('dt_pagamento', '>=', $this->dtInicial)
+            ->where('dt_pagamento', '<=', $this->dtFinal)
+            ->where('nome', 'like', '%' . $nome . '%')
+            ->orderBy('dt_pagamento', 'desc')
+            ->paginate(100);
+        }
+
+        $title = $this->title. " listar";
 
         return view('payment.index', [
             'payments' => $payment,
-            'title' =>$title
+            'title' =>$title,
+            'dt_inicio' => $this->dataBr($this->dtInicial),
+            'dt_fim'    => $this->dataBr($this->dtFinal),
+            'tiposTecebimentos' => self::tiposTecebimentos(),
+            'tipo' => $tipo,
+            'nome' => $nome,
+            'cpf' => $cpf,
+            'codigo' => $codigo
         ]);
+    }
+
+    public function dataSql($value)
+    {
+        $date = str_replace('/', '-', $value);
+        return date("Y-m-d", strtotime($date));
+    }
+
+    public function dataBr($value)
+    {
+        return date("d/m/Y", strtotime($value));
     }
 
     /**

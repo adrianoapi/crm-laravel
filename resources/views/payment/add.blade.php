@@ -43,7 +43,7 @@
                                     <div class="control-group">
                                         <label for="dt_pagamento" class="control-label">Data</label>
                                         <div class="controls">
-                                            <input type="text" name="dt_pagamento" id="dt_pagamento" value="{{date('dd/mm/YYYY')}}" placeholder="dd/mm/aaaa" class="input-xlarge" required>
+                                            <input type="text" name="dt_pagamento" id="dt_pagamento" value="{{date('d/m/Y')}}" placeholder="dd/mm/aaaa" class="input-xlarge" required>
                                         </div>
                                     </div>
                                     <div class="control-group">

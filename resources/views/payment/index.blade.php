@@ -41,7 +41,83 @@
                             @endif
                             <table class="table table-hover table-nomargin table-bordered table-colored-header">
                                 <thead>
-                                    
+                                    <form action="{{route('recebimento.index')}}" method="GET" class="span12" style="margin: 0;padding:0;">
+                                        <input type="hidden" name="filtro" id="filtro" value="pesquisa">
+                                    <tr>
+                                        <th colspan="1">
+                                            <div class="span12">
+                                                <div class="control-group">
+                                                    <div class="controls controls-row">
+                                                        <div class="controls controls-row">
+                                                            <input id="codigo" placeholder="codigo" type="text" name="codigo" value="{{$codigo}}" class="input-block-level">
+                                                        </div>
+                                                    </div>
+                                                </div>
+										    </div>
+                                        </th>
+                                        <th colspan="1">
+                                            <div class="span12">
+                                                <div class="control-group">
+                                                    <div class="controls controls-row">
+                                                        <select name="tipo" id="tipo" class='input-block-level'>
+                                                            <option value="">Tipo?</option>
+                                                            @foreach($tiposTecebimentos as $key => $value)
+                                                                <option value="{{$key}}" {{$key == $tipo ? 'selected' : NULL}}>{{$value}}</option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </th>
+                                        <th colspan="1">
+                                            <div class="span12">
+                                                <div class="control-group">
+                                                    <div class="controls controls-row">
+                                                        <input id="nome" placeholder="Nome" type="text" name="nome" value="{{$nome}}" class="input-block-level">
+                                                    </div>
+                                                </div>
+										    </div>
+                                        </th>
+                                        <th colspan="1">
+                                            <div class="span12">
+                                                <div class="control-group">
+                                                    <div class="controls controls-row">
+                                                        <input id="cpf" placeholder="CPF/CNPJ" type="text" name="cpf" value="{{$cpf}}" class="input-block-level">
+                                                    </div>
+                                                </div>
+										    </div>
+                                        </th>
+                                        <th>
+                                            <div class="span12">
+                                                <div class="control-group">
+                                                    <div class="controls controls-row">
+                                                        <input id="dt_inicio" placeholder="{{date('01/m/Y')}}" type="text" name="dt_inicio" value="{{$dt_inicio}}" class="input-block-level datepick" require>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </th>
+                                        <th>
+                                            <div class="span12">
+                                                <div class="control-group">
+                                                    <div class="controls controls-row">
+                                                        <input id="dt_fim" placeholder="{{date('t/m/Y')}}" type="text" name="dt_fim" value="{{$dt_fim}}" class="input-block-level datepick" require>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </th>
+                                        <th>
+                                            <div class="span12">
+                                                <div class="control-group">
+                                                    <div class="controls controls-row">
+                                                        <span class="input-group-append">
+                                                            <button type="submit" class="btn btn-sm" style="margin-top:-10px;">Pesquisar</button>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            </form>
+                                        </th>
+                                    </tr>
                                     <tr>
                                         <th>Código</th>
                                         <th>Tipo</th>
@@ -56,7 +132,7 @@
                                     @foreach($payments as $payment)
                                     <tr>
                                         <td>{{$payment->id}}</td>
-                                        <td>{{$payment->tipo}}</td>
+                                        <td>{{$tiposTecebimentos[$payment->tipo]}}</td>
                                         <td>{{$payment->nome}}</td>
                                         <td>{{$payment->cpf_cnpj}}</td>
                                         <td>{{$payment->valor}}</td>
@@ -91,4 +167,30 @@
 </div>
 
 
+<script>
+
+    // Mascaras formulario
+    (function( $ ) {
+    $(function() {
+        $('.date').mask('00/00/0000');
+    });
+    })(jQuery);
+    
+    
+    
+    $(document).ready(function () {
+        $(document).on('focus', '.datepick', function () {
+            $(this).datepicker({
+                format: 'dd/mm/yyyy',
+                language: 'pt-BR'
+            });
+        });
+    });
+    
+    $('.datepick').datepicker({
+        format: 'dd/mm/yyyy',
+        language: 'pt-BR'
+    });
+    
+    </script>
 @endsection
