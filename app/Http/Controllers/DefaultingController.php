@@ -634,10 +634,15 @@ class DefaultingController extends Controller
         $title = $this->title. " negociar";
         $student = Student::where('id', $defaulting->student_id)->get();
 
+        $payment = \App\Payment::where('referencia_id', $defaulting->id)
+        ->where('tipo', $defaulting->fase)
+        ->get();
+
         return view('defaultings.show', [
             'title' => $title,
             'defaulting' => $defaulting,
             'student' => $student,
+            'payments' => $payment,
             'estados' => $this->getEstados()
         ]);
     }

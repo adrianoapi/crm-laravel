@@ -53,17 +53,32 @@ class PaymentController extends UtilController
         {
             if(array_key_exists('payment_tipo', $request->all()) && array_key_exists('payment_referencia_id', $request->all()))
             {
+                # Grafica
                 if($request->payment_tipo == 'grafica_1' || $request->payment_tipo == 'grafica_2')
                 {
                     $model = new \App\Graphic();
                     $graphic = $model::where('id', $request->payment_referencia_id)->get();
                     
                     $atributos['tipo' ] = $graphic[0]->tipo;
-                    $atributos['nome' ] = $graphic[0]->student_name;
+                    $atributos['nome' ] = $graphic[0]->student->name;
                     $atributos['valor'] = $graphic[0]->total;
 
                     $atributos['cpf_cnpj'] = $graphic[0]->student->cpf_cnpj;
                     $atributos['referencia_id'] = $graphic[0]->id;
+                }
+
+                #Contrato/Default
+                elseif(($request->payment_tipo == 'segunda' || $request->payment_tipo == 'terceira'))
+                {
+                    $model = new \App\Defaulting();
+                    $default = $model::where('id', $request->payment_referencia_id)->get();
+
+                    $atributos['tipo' ] = $default[0]->fase;
+                    $atributos['nome' ] = $default[0]->student->name;
+                    $atributos['valor'] = $default[0]->s_parcela_valor;
+
+                    $atributos['cpf_cnpj'] = $default[0]->student->cpf_cnpj;
+                    $atributos['referencia_id'] = $default[0]->id;
                 }
             }
         }
