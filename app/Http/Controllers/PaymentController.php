@@ -32,14 +32,47 @@ class PaymentController extends UtilController
     /**
      * Show the form for creating a new resource.
      *
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
+        $atributos['tipo' ]  = 'outro';
+        $atributos['nome' ]  = NULL;
+        $atributos['valor']  = NULL;
+
+        $atributos['cpf_cnpj'] = NULL;
+
+        /* 
+        Ele pode ter mais de uma cobrança, por isso
+        deve-se guardar a referência da cobrança, caso tenha
+        */
+        $atributos['referencia_id']  = NULL;
+
+        if(!empty($request))
+        {
+            if(array_key_exists('payment_tipo', $request->all()) && array_key_exists('payment_referencia_id', $request->all()))
+            {
+                if($request->payment_tipo == 'grafica_1' || $request->payment_tipo == 'grafica_2')
+                {
+                    $model = new \App\Graphic();
+                    $graphic = $model::where('id', $request->payment_referencia_id)->get();
+                    
+                    $atributos['tipo' ] = $graphic[0]->tipo;
+                    $atributos['nome' ] = $graphic[0]->student_name;
+                    $atributos['valor'] = $graphic[0]->total;
+
+                    $atributos['cpf_cnpj'] = $graphic[0]->student->cpf_cnpj;
+                    $atributos['referencia_id'] = $graphic[0]->id;
+                }
+            }
+        }
+
         $title = $this->title. " cadastrar";
         return view('payment.add', [
             'title' => $title,
-            'tiposTecebimentos' => self::tiposTecebimentos()
+            'tiposTecebimentos' => self::tiposTecebimentos(),
+            'atributos' => $atributos
     ]);
     }
 
@@ -63,7 +96,7 @@ class PaymentController extends UtilController
         $payment->beneficiado_nome     = $request->beneficiado_nome;
         $payment->beneficiado_cpf_cnpj = $request->beneficiado_cpf_cnpj;
 
-        if(array_key_exists('referencia_id', $payment->getAttributes()))
+        if(array_key_exists('referencia_id', $request->all()))
         {
             $payment->referencia_id = $request->referencia_id;
         }

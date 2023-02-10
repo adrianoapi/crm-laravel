@@ -505,13 +505,18 @@ class GraphicController extends UtilController
      */
     public function show(Graphic $graphic)
     {
-        $title = $this->title. " negociar";
+        $title   = $this->title. " negociar";
         $student = Student::where('id', $graphic->student_id)->get();
 
+        $payment = \App\Payment::where('referencia_id', $graphic->id)
+        ->where('tipo', $graphic->tipo)
+        ->get();
+        
         return view('graphics.show', [
             'title' => $title,
             'graphic' => $graphic,
             'student' => $student,
+            'payments' => $payment,
             'estados' => $this->getEstados(),
             'tipos' => $this->graphicTipos()
         ]);

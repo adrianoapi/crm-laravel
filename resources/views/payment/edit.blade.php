@@ -70,7 +70,7 @@
                                         <div class="controls">
                                             <select name="tipo" id="tipo" class='select2-me input-xlarge' required>
                                                 @foreach($tiposTecebimentos as $id => $recebimento)
-                                                <option value="{{$id}}" selected="{{$payment->tipo == $recebimento ? "selected" : NULL}}">{{$recebimento}}</option>
+                                                <option value="{{$id}}" {{$payment->tipo == $id ? "selected" : NULL}}">{{$recebimento}}</option>
                                                 @endforeach
                                             </select>
                                         </div>
