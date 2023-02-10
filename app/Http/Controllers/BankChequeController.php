@@ -474,10 +474,14 @@ class BankChequeController extends Controller
         $title = $this->title. " negociar";
         $student = Student::where('id', $bankCheque->student_id)->get();
 
+        $payment = \App\Payment::where('referencia_id', $bankCheque->id)
+        ->get();
+
         return view('bankCheques.show', [
             'title' => $title,
             'bankCheque' => $bankCheque,
             'student' => $student,
+            'payments' => $payment,
             'estados' => $this->getEstados()
         ]);
     }

@@ -26,9 +26,69 @@
                                     <li>
                                         <a href="#negociacao" data-toggle='tab'><i class="icon-lock"></i> Negociação</a>
                                     </li>
+                                    <li>
+                                        <a href="#recebimento" data-toggle='tab'><i class="glyphicon-wallet"></i> Recebimento</a>
+                                    </li>
                                 </ul>
                             </div>
                             <div class="tab-content padding tab-content-inline tab-content-bottom">
+
+
+                                <div class="tab-pane" id="recebimento">
+
+                                    <form action="{{route('recebimento.create')}}" method="GET">
+                                        @csrf
+                                        @method('GET')
+                                        <input type="hidden" name="payment_tipo" value="cheque">
+                                        <input type="hidden" name="payment_referencia_id" value="{{$bankCheque->id}}">
+
+                                        <div class="control-group">
+                                            <button type="submit" class="btn btn-primary">Novo Recebimento</button>
+                                        </div>
+                                    </form>
+
+
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th>Código</th>
+                                                <th>Tipo</th>
+                                                <th>Nome</th>
+                                                <th>CPF/CNPJ</th>
+                                                <th>Valor</th>
+                                                <th>Pagamento</th>
+                                                <th>Ações</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach($payments as $payment)
+                                                <tr>
+                                                    <td>{{$payment->id}}</td>
+                                                    <td>{{$payment->tipo}}</td>
+                                                    <td>{{$payment->nome}}</td>
+                                                    <td>{{$payment->cpf_cnpj}}</td>
+                                                    <td>{{$payment->valor}}</td>
+                                                    <td>{{$payment->dt_pagamento}}</td>
+                                                    <td>
+            
+                                                        <form action="{{route('recebimento.destroy', ['Payment' => $payment->id])}}" method="POST" onSubmit="return confirm('Deseja excluir?');" style="padding: 0px;margin:0px;">
+                                                            @csrf
+                                                            @method('delete')
+                                                            <a href="{{route('recebimento.edit', ['payment' => $payment->id])}}" class="btn" rel="tooltip" title="" data-original-title="Editar">
+                                                                <i class="icon-edit"></i>
+                                                            </a>
+                                                            <button type="submit" class="btn" rel="tooltip" title="" data-original-title="Excluir">
+                                                                <i class="icon-trash"></i>
+                                                            </button>
+                                                        </form>
+            
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+
+                                </div>
 
                                 <div class="tab-pane" id="negociacao">
                                         <table class="table table-bordered">

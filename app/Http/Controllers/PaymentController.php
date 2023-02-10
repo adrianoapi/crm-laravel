@@ -68,7 +68,7 @@ class PaymentController extends UtilController
                 }
 
                 #Contrato/Default
-                elseif(($request->payment_tipo == 'segunda' || $request->payment_tipo == 'terceira'))
+                elseif($request->payment_tipo == 'segunda' || $request->payment_tipo == 'terceira')
                 {
                     $model = new \App\Defaulting();
                     $default = $model::where('id', $request->payment_referencia_id)->get();
@@ -79,6 +79,19 @@ class PaymentController extends UtilController
 
                     $atributos['cpf_cnpj'] = $default[0]->student->cpf_cnpj;
                     $atributos['referencia_id'] = $default[0]->id;
+                }
+
+                #Cheque/BankCehque
+                elseif($request->payment_tipo == 'cheque'){
+                    $model = new \App\BankCheque();
+                    $bank = $model::where('id', $request->payment_referencia_id)->get();
+                    
+                    $atributos['tipo' ] = 'cheque';
+                    $atributos['nome' ] = $bank[0]->student->name;
+                    $atributos['valor'] = $bank[0]->valor;
+
+                    $atributos['cpf_cnpj'] = $bank[0]->student->cpf_cnpj;
+                    $atributos['referencia_id'] = $bank[0]->id;
                 }
             }
         }
