@@ -221,6 +221,7 @@ class StudentController extends Controller
 
         if($request->defaulting_id)
         {
+            #Defaulting
             $dataulting = Defaulting::find($request->defaulting_id);
             $dataulting->student_name = $request->name;
             if(Auth::user()->level > 1){
@@ -228,23 +229,33 @@ class StudentController extends Controller
             }
             $dataulting->negociado = $request->negociado == 'true' ? true : false;
             $dataulting->boleto = $request->boleto == 'true' ? true : false;
-            $dataulting->save();
+            if($dataulting->save())
+            {
+                self::updatePayments(['segunda', 'terceira'], $dataulting->id, $request->name);
+            }
 
             $graphic = Graphic::where('student_id', $student->student_id)->first();
             if(!empty($graphic)){
                 $graphic->student_name = $request->name;
-                $graphic->save();
+                if($graphic->save())
+                {
+                    self::updatePayments(['grafica_1', 'grafica_2'], $graphic->id, $request->name);
+                }
             }
 
             $bankCheque = BankCheque::where('student_id', $student->student_id)->first();
             if(!empty($bankCheque)){
                 $bankCheque->student_name = $request->name;
-                $bankCheque->save();
+                if($bankCheque->save())
+                {
+                    self::updatePayments(['cheque'], $bankCheque->id, $request->name);
+                }
             }
 
             return redirect()->route('defaultings.show', ['defaulting' => $request->defaulting_id]);
 
         }elseif($request->graphic_id){
+            #Graphic
             $graphic = Graphic::find($request->graphic_id);
             $graphic->student_name = $request->name;
             $graphic->negociado = $request->negociado == 'true' ? true : false;
@@ -252,39 +263,58 @@ class StudentController extends Controller
             if(Auth::user()->level > 1){
                 $graphic->tipo = $request->tipo;
             }
-            $graphic->save();
+            if($graphic->save())
+            {
+                self::updatePayments(['grafica_1', 'grafica_2'], $graphic->id, $request->name);
+            }
 
             $dataulting = Defaulting::where('student_id', $student->student_id)->first();
             if(!empty($dataulting)){
                 $dataulting->student_name = $request->name;
-                $dataulting->save();
+                if($dataulting->save())
+                {
+                    self::updatePayments(['segunda', 'terceira'], $dataulting->id, $request->name);
+                }
             }
 
             $bankCheque = BankCheque::where('student_id', $student->student_id)->first();
             if(!empty($bankCheque)){
                 $bankCheque->student_name = $request->name;
-                $bankCheque->save();
+                if($bankCheque->save())
+                {
+                    self::updatePayments(['cheque'], $bankCheque->id, $request->name);
+                }
             }
 
             return redirect()->route('graphics.show', ['graphic' => $request->graphic_id]);
 
         }elseif($request->bank_cheque_id){
-            $graphic = BankCheque::find($request->bank_cheque_id);
-            $graphic->student_name = $request->name;
-            $graphic->negociado = $request->negociado == 'true' ? true : false;
-            $graphic->boleto = $request->boleto == 'true' ? true : false;
-            $graphic->save();
+            #BankCheque
+            $bankCheque = BankCheque::find($request->bank_cheque_id);
+            $bankCheque->student_name = $request->name;
+            $bankCheque->negociado = $request->negociado == 'true' ? true : false;
+            $bankCheque->boleto = $request->boleto == 'true' ? true : false;
+            if($bankCheque->save())
+            {
+                self::updatePayments(['cheque'], $bankCheque->id, $request->name);
+            }
 
             $graphic = Graphic::where('student_id', $student->student_id)->first();
             if(!empty($graphic)){
                 $graphic->student_name = $request->name;
-                $graphic->save();
+                if($graphic->save())
+                {
+                    self::updatePayments(['grafica_1', 'grafica_2'], $graphic->id, $request->name);
+                }
             }
 
             $dataulting = Defaulting::where('student_id', $student->student_id)->first();
             if(!empty($dataulting)){
                 $dataulting->student_name = $request->name;
-                $dataulting->save();
+                if($dataulting->save())
+                {
+                    self::updatePayments(['segunda', 'terceira'], $dataulting->id, $request->name);
+                }
             }
 
             return redirect()->route('bankCheques.show', ['bankCheque' => $request->bank_cheque_id]);
@@ -293,6 +323,17 @@ class StudentController extends Controller
             return redirect()->route('alunos.index');
         }
 
+    }
+
+    public function updatePayments($tipo = [],$referencia_id = 0, $nome = NULL)
+    {
+        foreach(\App\Payment::where('referencia_id', $referencia_id)
+        ->whereIn('tipo', $tipo)
+        ->get() as $value)
+        {
+            $value->nome = $nome;
+            $value->save();
+        }
     }
 
     /**
