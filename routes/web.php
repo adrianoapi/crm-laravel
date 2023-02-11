@@ -158,6 +158,7 @@ Route::prefix('recebimento')->group(function(){
     Route::get('/', 'PaymentController@index')->name('recebimento.index');
     Route::get('novo', 'PaymentController@create')->name('recebimento.create');
     Route::post('store', 'PaymentController@store')->name('recebimento.store');
+    Route::get('print/{payment}', 'PaymentController@print'  )->name('recebimento.print');
     Route::get('edit/{payment}', 'PaymentController@edit'  )->name('recebimento.edit');
     Route::put('edit/{payment}', 'PaymentController@update')->name('recebimento.update');
 

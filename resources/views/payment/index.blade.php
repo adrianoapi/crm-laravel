@@ -44,7 +44,7 @@
                                     <form action="{{route('recebimento.index')}}" method="GET" class="span12" style="margin: 0;padding:0;">
                                         <input type="hidden" name="filtro" id="filtro" value="pesquisa">
                                     <tr>
-                                        <th colspan="1">
+                                        <th class="span2">
                                             <div class="span12">
                                                 <div class="control-group">
                                                     <div class="controls controls-row">
@@ -55,7 +55,7 @@
                                                 </div>
 										    </div>
                                         </th>
-                                        <th colspan="1">
+                                        <th>
                                             <div class="span12">
                                                 <div class="control-group">
                                                     <div class="controls controls-row">
@@ -69,7 +69,7 @@
                                                 </div>
                                             </div>
                                         </th>
-                                        <th colspan="1">
+                                        <th>
                                             <div class="span12">
                                                 <div class="control-group">
                                                     <div class="controls controls-row">
@@ -78,7 +78,7 @@
                                                 </div>
 										    </div>
                                         </th>
-                                        <th colspan="1">
+                                        <th>
                                             <div class="span12">
                                                 <div class="control-group">
                                                     <div class="controls controls-row">
@@ -87,17 +87,15 @@
                                                 </div>
 										    </div>
                                         </th>
-                                        <th>
-                                            <div class="span12">
+                                        <th colspan="2">
+                                            <div class="span6">
                                                 <div class="control-group">
                                                     <div class="controls controls-row">
                                                         <input id="dt_inicio" placeholder="{{date('01/m/Y')}}" type="text" name="dt_inicio" value="{{$dt_inicio}}" class="input-block-level datepick" require>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </th>
-                                        <th>
-                                            <div class="span12">
+                                            <div class="span6">
                                                 <div class="control-group">
                                                     <div class="controls controls-row">
                                                         <input id="dt_fim" placeholder="{{date('t/m/Y')}}" type="text" name="dt_fim" value="{{$dt_fim}}" class="input-block-level datepick" require>
@@ -142,6 +140,9 @@
                                             <form action="{{route('recebimento.destroy', ['Payment' => $payment->id])}}" method="POST" onSubmit="return confirm('Deseja excluir?');" style="padding: 0px;margin:0px;">
                                                 @csrf
                                                 @method('delete')
+                                                <a href="{{route('recebimento.print', ['payment' => $payment->id])}}" target="_blank" class="btn" rel="tooltip" title="" data-original-title="Imprimir">
+                                                    <i class="icon-download"></i>
+                                                </a>
                                                 <a href="{{route('recebimento.edit', ['payment' => $payment->id])}}" class="btn" rel="tooltip" title="" data-original-title="Editar">
                                                     <i class="icon-edit"></i>
                                                 </a>

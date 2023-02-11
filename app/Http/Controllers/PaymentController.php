@@ -288,6 +288,21 @@ class PaymentController extends UtilController
     }
 
     /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  \App\Payment  $payment
+     * @return \Illuminate\Http\Response
+     */
+    public function print(Payment $payment)
+    {
+        $title = $this->title. " editar";
+        return view('payment.pdf.print', [
+            'title' => $title,
+            'payment' => $payment,
+        ]);
+    }
+
+    /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
