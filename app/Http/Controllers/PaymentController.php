@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Payment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use PDF;
 
 class PaymentController extends UtilController
 {
@@ -296,10 +297,15 @@ class PaymentController extends UtilController
     public function print(Payment $payment)
     {
         $title = $this->title. " editar";
-        return view('payment.pdf.print', [
+        $pdf = PDF::loadView('payment.pdf.print', [
             'title' => $title,
             'payment' => $payment,
         ]);
+
+        $fileName = $payment->id."_".time().".pdf";
+        
+        
+        return $pdf->download($fileName);
     }
 
     /**
