@@ -72,14 +72,9 @@
                                                     <td>
             
                                                         <form action="{{route('recebimento.destroy', ['Payment' => $payment->id])}}" method="POST" onSubmit="return confirm('Deseja excluir?');" style="padding: 0px;margin:0px;">
-                                                            @csrf
-                                                            @method('delete')
-                                                            <a href="{{route('recebimento.edit', ['payment' => $payment->id])}}" class="btn" rel="tooltip" title="" data-original-title="Editar">
-                                                                <i class="icon-edit"></i>
+                                                            <a href="{{route('recebimento.print', ['payment' => $payment->id])}}" target="_blank" class="btn" rel="tooltip" title="" data-original-title="Imprimir">
+                                                                <i class="icon-download"></i>
                                                             </a>
-                                                            <button type="submit" class="btn" rel="tooltip" title="" data-original-title="Excluir">
-                                                                <i class="icon-trash"></i>
-                                                            </button>
                                                         </form>
             
                                                     </td>

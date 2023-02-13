@@ -199,7 +199,7 @@ function valorPorExtenso( $valor = 0, $bolExibirMoeda = true, $bolPalavraFeminin
                 </tr>
                 <tr>
                     <td VALIGN="TOP" style="width:20%"><strong>Referente:</strong></td>
-                    <td>Pagamento Referente á Marmitex <br>Período 01/02 á 01/03</td>
+                    <td>{{$payment->descricao}}</td>
                 </tr>
                 <tr>
                     <td colspan="2">&nbsp;</td>

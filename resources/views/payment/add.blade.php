@@ -9,7 +9,12 @@
 
     <div id="main">
         <div class="container-fluid">
+        <?php 
+    
+        $date = new DateTime('00:12:00');
+        $date->sub(new DateInterval('PT1H'));
 
+        ?>
             <div class="row-fluid">
                 <div class="span12">
                     <div class="box box-bordered box-color">
@@ -43,7 +48,7 @@
                                     <div class="control-group">
                                         <label for="dt_pagamento" class="control-label">Data</label>
                                         <div class="controls">
-                                            <input type="text" name="dt_pagamento" id="dt_pagamento" value="{{date('d/m/Y')}}" placeholder="dd/mm/aaaa" class="input-xlarge" required>
+                                            <input type="text" name="dt_pagamento" id="dt_pagamento" value="{{$date->format('d/m/Y')}}" placeholder="dd/mm/aaaa" class="input-xlarge" required>
                                         </div>
                                     </div>
                                     <div class="control-group">
