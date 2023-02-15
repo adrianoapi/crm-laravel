@@ -474,9 +474,18 @@ class BankChequeController extends Controller
         $title = $this->title. " negociar";
         $student = Student::where('id', $bankCheque->student_id)->get();
 
-        $payment = \App\Payment::where('referencia_id', $bankCheque->id)
-        ->where('deleted_at', NULL)
-        ->get();
+        if(Auth::user()->level > 1){
+            # Se for Geretente Mostra tudo
+            $payment = \App\Payment::where('referencia_id', $bankCheque->id)
+            ->where('deleted_at', NULL)
+            ->get();
+        }else{
+            # Senão for gerente, mostra apenas os seus
+            $payment = \App\Payment::where('referencia_id', $bankCheque->id)
+            ->where('deleted_at', NULL)
+            ->where('user_id', Auth::user()->id)
+            ->get();
+        }
 
         return view('bankCheques.show', [
             'title' => $title,

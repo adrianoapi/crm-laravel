@@ -634,11 +634,21 @@ class DefaultingController extends Controller
         $title = $this->title. " negociar";
         $student = Student::where('id', $defaulting->student_id)->get();
 
-        $payment = \App\Payment::where('referencia_id', $defaulting->id)
-        ->where('tipo', $defaulting->fase)
-        ->where('deleted_at', NULL)
-        ->get();
-
+        if(Auth::user()->level > 1){
+            # Se for Geretente Mostra tudo
+            $payment = \App\Payment::where('referencia_id', $defaulting->id)
+            ->where('tipo', $defaulting->fase)
+            ->where('deleted_at', NULL)
+            ->get();
+        }else{
+            # Senão for gerente, mostra apenas os seus
+            $payment = \App\Payment::where('referencia_id', $defaulting->id)
+            ->where('tipo', $defaulting->fase)
+            ->where('deleted_at', NULL)
+            ->where('user_id', Auth::user()->id)
+            ->get();
+        }
+        
         return view('defaultings.show', [
             'title' => $title,
             'defaulting' => $defaulting,

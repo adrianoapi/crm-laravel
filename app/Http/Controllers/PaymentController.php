@@ -107,22 +107,51 @@ class PaymentController extends UtilController
                     array_push($ids, $value->id);
                 endforeach;
             }
+
+            # Se for Geretente Mostra tudo
+            if(Auth::user()->level > 1){
+                $payment = Payment::whereIn('id', $ids)
+                ->where('deleted_at', NULL)
+                ->where('dt_pagamento', '>=', $this->dtInicial)
+                ->where('dt_pagamento', '<=', $this->dtFinal)
+                ->orderBy('dt_pagamento', 'desc')
+                ->paginate(100);
+            }else{
+
+                # Senão for gerente, mostra apenas os seus
+                $payment = Payment::whereIn('id', $ids)
+                ->where('deleted_at', NULL)
+                ->where('user_id', Auth::user()->id)
+                ->where('dt_pagamento', '>=', $this->dtInicial)
+                ->where('dt_pagamento', '<=', $this->dtFinal)
+                ->orderBy('dt_pagamento', 'desc')
+                ->paginate(100);
+            }
             
-            $payment = Payment::whereIn('id', $ids)
-            ->where('deleted_at', NULL)
-            ->where('dt_pagamento', '>=', $this->dtInicial)
-            ->where('dt_pagamento', '<=', $this->dtFinal)
-            ->orderBy('dt_pagamento', 'desc')
-            ->paginate(100);
+            
 
         }else{
             
-            $payment = Payment::where('deleted_at', NULL)
-            ->where('dt_pagamento', '>=', $this->dtInicial)
-            ->where('dt_pagamento', '<=', $this->dtFinal)
-            ->where('nome', 'like', '%' . $nome . '%')
-            ->orderBy('dt_pagamento', 'desc')
-            ->paginate(100);
+            # Se for Geretente Mostra tudo
+            if(Auth::user()->level > 1)
+            {
+                $payment = Payment::where('deleted_at', NULL)
+                ->where('dt_pagamento', '>=', $this->dtInicial)
+                ->where('dt_pagamento', '<=', $this->dtFinal)
+                ->where('nome', 'like', '%' . $nome . '%')
+                ->orderBy('dt_pagamento', 'desc')
+                ->paginate(100);
+            }else{
+                # Senão for gerente, mostra apenas os seus
+                $payment = Payment::where('deleted_at', NULL)
+                ->where('user_id', Auth::user()->id)
+                ->where('dt_pagamento', '>=', $this->dtInicial)
+                ->where('dt_pagamento', '<=', $this->dtFinal)
+                ->where('nome', 'like', '%' . $nome . '%')
+                ->orderBy('dt_pagamento', 'desc')
+                ->paginate(100);
+            }
+            
         }
 
         $title = $this->title. " listar";
@@ -302,10 +331,6 @@ class PaymentController extends UtilController
             'payment' => $payment,
         ]);
 
-        $fileName = $payment->id."_".time().".pdf";
-        
-        
-        return $pdf->download($fileName);
     }
 
     /**
