@@ -3,6 +3,35 @@
     <a href="{{route('history.index')}}" id="brand">CRM System</a>
         <a href="#" class="toggle-nav" rel="tooltip" data-placement="bottom" title="Toggle navigation"><i class="icon-reorder"></i></a>
 
+        <ul class='main-nav'>
+            @if(Auth::user()->level > 1)
+            <li>
+                <a href="{{route('caixa.index')}}">CAIXA</a>
+            </li>
+            <li>
+                <a href="{{route('caixa.byDay')}}">CAIXA DIÁRIO</a>
+            </li>
+            <li>
+                <a href="{{route('caixa.unidade')}}">CAIXA UNIDADE</a>
+            </li>
+            @endif
+            <li>
+                <a href="{{route('defaultings.index')}}">CONTRATO - EVOLUTIME</a>
+            </li>
+            <li>
+                <a href="{{route('bankCheques.index')}}">CHEQUE - EVOLUTIME</a>
+            </li>
+            <li>
+                <a href="{{route('graphics.index')}}">GRAFICA - ENNT</a>
+            </li>
+            <li>
+                <a href="{{route('recebimento.index')}}">RECEBIMENTO</a>
+            </li>
+            <li>
+                <a href="{{route('history.index')}}">RETORNO</a>
+            </li>
+        </ul>
+
         <div class="user">
             <ul class="icon-nav">
 
