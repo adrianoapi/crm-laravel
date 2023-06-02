@@ -461,6 +461,60 @@ class QueuedController extends Controller
 
         return $label;
     }
+    
+    public function alternativeArray2Json(array $data)
+    {
+        $json = "[";
+
+        $i = 0;
+        foreach($data as $key => $value):
+
+            $virgulaUm = $i > 0 ? "," : "";
+            $json .= $virgulaUm."{";
+
+            #students
+            $iS=0;
+            $json .= "\"students\":{";
+            foreach($value['students'] as $keyS => $student):
+
+                $virgulaDois = $iS > 0 ? "," : "";
+                $json .= "{$virgulaDois}";
+                $json .= "\"{$keyS}\":\"".$student."\"";
+                $iS++;
+
+                
+            endforeach;
+            $json .= "},"; # fecha students
+
+            #defaultings
+            $iD=0;
+            $json .= "\"defaultings\":{";
+            foreach($value['defaultings'] as $keyD => $default):
+
+                $virgulaTres = $iD > 0 ? "," : "";
+                $json .= "{$virgulaTres}";
+                $json .= "\"{$keyD}\":\"{$default}\"";
+                $iD++;
+
+                
+            endforeach;
+            $json .= "}"; # fecha defaultings
+          
+            $i++;
+            /*if($i > 500)
+            {
+                break;
+            }*/
+        
+            $json .= "}"; # fecha o objeto
+
+        endforeach; // primeiro foreach
+
+
+        $json .= "]";
+
+        return $json;
+    }
 
     /**
      * Show the form for creating a new resource.
