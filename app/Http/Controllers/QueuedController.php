@@ -246,49 +246,62 @@ class QueuedController extends Controller
         }
 
         $handle  = fopen($_FILES['filename']['tmp_name'], "r");
-        $headers = fgetcsv($handle, 1000, ",");
+        $linhas  = 0;
 
         if($modulo == 'contrato')
         {
-            while (($data = fgetcsv($handle, 1000, ",")) !== FALSE)
-            {
-
-                $row = explode(';', $data[0]);
-
-                if(!empty($row[7]))
+            while (($data = fgetcsv($handle, 20000, ",")) !== FALSE)
+            { 
+                if($linhas)
                 {
-                    $arrayBody[] = [
-                        'students' => [
-                            'cod_unidade' => $this->autoComplete($row[0],3),
-                            'cod_curso' => $this->autoComplete($row[1], 3),
-                            'ctr' => $this->autoComplete($row[2], 5),
-                            'cpf_cnpj' => preg_replace("/[^0-9]/", "",$row[3]),
-                            'telefone' => $row[4],
-                            'telefone_com' => $row[5],
-                            'celular' => $row[6],
-                            'email' => $row[7],
-                            'cep' => $row[8],
-                            'endereco' => $row[9],
-                            'bairro' => $row[10],
-                            'cidade' => $row[11],
-                            'estado' => $row[12],
-                            'name' => $row[13],
-                        ],
-                        'defaultings' => [
-                            'fase' => $row[14],
-                            'dt_inadimplencia' => $this->setDate($row[15]),
-                            'm_parcela_pg' => !empty($row[16]) ? $row[16] : "0",
-                            'm_parcelas' => !empty($row[17]) ? $row[17] : "0",
-                            'm_parcela_valor' => !empty($row[18]) ? $this->tratarValorMoeda($row[18]) : "0",
-                            's_parcela_pg' => !empty($row[19]) ? $row[19] : "0",
-                            's_parcelas' => !empty($row[20]) ? $row[20] : "0",
-                            's_parcela_valor' => !empty($row[21]) ? $this->tratarValorMoeda($row[21]) : "0",
-                            'multa' => $row[22],
-                        ]
+                    $row = explode(';', $data[0]);
+                   
 
-                    ];
+                    if(!empty($row[13]))
+                    {
+                        if(!array_key_exists(22, $row)){
+                            echo "Algum campo está com valor incorreto, o que acarretou na quebra da importação:".
+                            "<ul>".
+                            "<li>Campo moeda deve ser valor decimal sem vírgula, exp: 000.00</li>".
+                            "<li>Não pode ter vírgula no nome, endereço ou qualquer outro campo</li>".
+                            "</ul>";
+                            
+                            dd($row[13]);
+                        }
+                        $arrayBody[] = [
+                            'students' => [
+                                'cod_unidade' => $this->autoComplete($row[0],3),
+                                'cod_curso' => $this->autoComplete($row[1], 3),
+                                'ctr' => $this->autoComplete($row[2], 5),
+                                'cpf_cnpj' => preg_replace("/[^0-9]/", "",$row[3]),
+                                'telefone' => $row[4],
+                                'telefone_com' => $row[5],
+                                'celular' => $row[6],
+                                'email' => $row[7],
+                                'cep' => $row[8],
+                                'endereco' => $row[9],
+                                'bairro' => $row[10],
+                                'cidade' => $row[11],
+                                'estado' => $row[12],
+                                'name' => $row[13],
+                            ],
+                            'defaultings' => [
+                                'fase' => $row[14],
+                                'dt_inadimplencia' => $this->setDate($row[15]),
+                                'm_parcela_pg' => !empty($row[16]) ? $row[16] : "0",
+                                'm_parcelas' => !empty($row[17]) ? $row[17] : "0",
+                                'm_parcela_valor' => !empty($row[18]) ? $this->tratarValorMoeda($row[18]) : "0",
+                                's_parcela_pg' => !empty($row[19]) ? $row[19] : "0",
+                                's_parcelas' => !empty($row[20]) ? $row[20] : "0",
+                                's_parcela_valor' => !empty($row[21]) ? $this->tratarValorMoeda($row[21]) : "0",
+                                'multa' => $row[22],
+                            ]
+
+                        ];
+                    }
                 }
-
+                $linhas++;
+                
             }
         }
 
@@ -381,11 +394,16 @@ class QueuedController extends Controller
         }
 
         fclose($handle);
+        
 
         $model = new Queued();
         $model->user_id = Auth::id();
         $model->module  = $modulo;
-        $model->body    = json_encode($arrayBody);
+        if($modulo == 'contrato'){
+            $model->body    = $this->alternativeArray2Json($arrayBody);
+        }else{
+            $model->body    = json_decode($arrayBody);
+        }
 
         if(empty($model->body))
         {
