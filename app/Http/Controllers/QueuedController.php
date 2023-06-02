@@ -75,6 +75,12 @@ class QueuedController extends Controller
                     $student->telefone_com = $value->students->telefone_com;
                     $student->celular      = $value->students->celular;
                     $student->name         = $value->students->name;
+                    $student->email        = $value->students->email;
+                    $student->cep          = $value->students->cep;
+                    $student->endereco     = $value->students->endereco;
+                    $student->bairro       = $value->students->bairro;
+                    $student->cidade       = $value->students->cidade;
+                    $student->estado       = $value->students->estado;
 
                     if($student->save())
                     {
