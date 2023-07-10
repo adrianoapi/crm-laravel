@@ -122,6 +122,7 @@ class QueuedController extends Controller
                     $student->telefone_com = $value->students->telefone_com;
                     $student->celular      = $value->students->celular;
                     $student->name         = $value->students->name;
+                    $student->email        = $value->students->email;
 
                     if($student->save())
                     {
@@ -324,13 +325,14 @@ class QueuedController extends Controller
                             'telefone_com' => $row[5],
                             'celular' => $row[6],
                             'name' => utf8_encode($row[7]),
+                            'email' => $row[8],
                         ],
                         'graphics' => [
-                            'tipo' => $row[12],
-                            'dt_vencimento' => $this->setDate($row[8]),
-                            'valor' => $this->tratarValorMoeda($row[9]),
-                            'parcela' => $row[10],
-                            'total' => $row[11],
+                            'tipo' => $row[9],
+                            'dt_vencimento' => $this->setDate($row[10]),
+                            'valor' => $this->tratarValorMoeda($row[11]),
+                            'parcela' => $row[12],
+                            'total' => $row[13],
                         ],
 
                     ];
