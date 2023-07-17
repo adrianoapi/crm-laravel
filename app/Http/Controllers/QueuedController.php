@@ -325,37 +325,42 @@ class QueuedController extends Controller
 
         if($modulo == 'grafica')
         {
-
+            $linha = 0;
             while (($data = fgetcsv($handle, 1000, ",")) !== FALSE)
             {
-                $row = explode(';', $data[0]);
+                if($linha > 0){
 
-                if(!empty($row[7]) )
-                {
-                    $arrayBody[] = [
-                        'students' => [
-                            'cod_unidade' => $this->autoComplete($row[0],3),
-                            'cod_curso' => $this->autoComplete($row[1], 3),
-                            'ctr' => $this->autoComplete($row[2], 5),
-                            'cpf_cnpj' => preg_replace("/[^0-9]/", "",$row[3]),
-                            'telefone' => $row[4],
-                            'telefone_com' => $row[5],
-                            'celular' => $row[6],
-                            'name' => $this->limparTexto(utf8_decode($row[7])),
-                            'email' => $this->limparTexto(utf8_decode($row[8])),
-                        ],
-                        'graphics' => [
-                            'tipo' => $row[9],
-                            'dt_vencimento' => $this->setDate($row[10]),
-                            'valor' => $this->tratarValorMoeda($row[11]),
-                            'parcela' => $row[12],
-                            'total' => $row[13],
-                        ],
+                    $row = explode(';', $data[0]);
 
-                    ];
-                 
+                    if(!empty($row[7]) )
+                    {
+                        $arrayBody[] = [
+                            'students' => [
+                                'cod_unidade' => $this->autoComplete($row[0],3),
+                                'cod_curso' => $this->autoComplete($row[1], 3),
+                                'ctr' => $this->autoComplete($row[2], 5),
+                                'cpf_cnpj' => preg_replace("/[^0-9]/", "",$row[3]),
+                                'telefone' => $row[4],
+                                'telefone_com' => $row[5],
+                                'celular' => $row[6],
+                                'name' => $this->limparTexto(utf8_decode($row[7])),
+                                'email' => $this->limparTexto(utf8_decode($row[8])),
+                            ],
+                            'graphics' => [
+                                'tipo' => $row[9],
+                                'dt_vencimento' => $this->setDate($row[10]),
+                                'valor' => $this->tratarValorMoeda($row[11]),
+                                'parcela' => $row[12],
+                                'total' => $row[13],
+                            ],
+
+                        ];
+                    
+                    }
+
                 }
 
+                $linha++;
             }
 
             
