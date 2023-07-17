@@ -77,7 +77,6 @@
                                 </thead>
                                 <tbody>
                                 <?php
-
                                 foreach($queueds as $queued):
 
                                     $body = json_decode($queued->body);
@@ -85,7 +84,7 @@
 
                                 if($queued->module == "contrato")
                                 {
-                                    foreach($body->take(500) as $value):
+                                    foreach($body as $value):
                                    ?>
                                     <tr>
                                         <td style="vertical-align: top">{{++$i}}</td>
@@ -126,7 +125,12 @@
 
                                     if($queued->module == "grafica")
                                     {
-                                        foreach($body->take(500) as $value):
+                                        $iterations = 0;
+                                        foreach($body as $value):
+
+                                            if($iterations > 500){
+                                                break;
+                                            }
                                 ?>
                                         <tr>
                                             <td style="vertical-align: top">{{++$i}}</td>
@@ -152,7 +156,7 @@
 
                                     if($queued->module == "cheque")
                                     {
-                                        foreach($body->take(500) as $value):
+                                        foreach($body as $value):
                                     ?>
                                         <tr>
                                             <td style="vertical-align: top">{{++$i}}</td>
