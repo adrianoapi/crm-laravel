@@ -229,6 +229,23 @@ class QueuedController extends Controller
         return $number;
     }
 
+    public function limparTexto($string)
+    {
+        $caracteres_sem_acento = array(
+            'Š'=>'S', 'š'=>'s', 'Ð'=>'Dj','Â'=>'Z', 'Â'=>'z', 'À'=>'A', 'Á'=>'A', 'Â'=>'A', 'Ã'=>'A', 'Ä'=>'A',
+            'Å'=>'A', 'Æ'=>'A', 'Ç'=>'C', 'È'=>'E', 'É'=>'E', 'Ê'=>'E', 'Ë'=>'E', 'Ì'=>'I', 'Í'=>'I', 'Î'=>'I',
+            'Ï'=>'I', 'Ñ'=>'N', 'Å'=>'N', 'Ò'=>'O', 'Ó'=>'O', 'Ô'=>'O', 'Õ'=>'O', 'Ö'=>'O', 'Ø'=>'O', 'Ù'=>'U', 'Ú'=>'U',
+            'Û'=>'U', 'Ü'=>'U', 'Ý'=>'Y', 'Þ'=>'B', 'ß'=>'Ss','à'=>'a', 'á'=>'a', 'â'=>'a', 'ã'=>'a', 'ä'=>'a',
+            'å'=>'a', 'æ'=>'a', 'ç'=>'c', 'è'=>'e', 'é'=>'e', 'ê'=>'e', 'ë'=>'e', 'ì'=>'i', 'í'=>'i', 'î'=>'i',
+            'ï'=>'i', 'ð'=>'o', 'ñ'=>'n', 'Å'=>'n', 'ò'=>'o', 'ó'=>'o', 'ô'=>'o', 'õ'=>'o', 'ö'=>'o', 'ø'=>'o', 'ù'=>'u',
+            'ú'=>'u', 'û'=>'u', 'ü'=>'u', 'ý'=>'y', 'ý'=>'y', 'þ'=>'b', 'ÿ'=>'y', 'ƒ'=>'f',
+            'Ä'=>'a', 'î'=>'i', 'â'=>'a', 'È'=>'s', 'È'=>'t', 'Ä'=>'A', 'Î'=>'I', 'Â'=>'A', 'È'=>'S', 'È'=>'T', 'Ž' => 'e',
+        );
+        $nova_string = strtr($string, $caracteres_sem_acento);
+        $res = str_replace( array( '\'', '"',',' , ';', '<', '>' ), ' ', $nova_string);
+        return $res;
+    }
+
     public function upload(Request $request)
     {
         if(array_key_exists('modulo',$_POST))
@@ -313,7 +330,7 @@ class QueuedController extends Controller
             {
                 $row = explode(';', $data[0]);
 
-                if(!empty($row[7]))
+                if(!empty($row[7]) )
                 {
                     $arrayBody[] = [
                         'students' => [
@@ -324,8 +341,8 @@ class QueuedController extends Controller
                             'telefone' => $row[4],
                             'telefone_com' => $row[5],
                             'celular' => $row[6],
-                            'name' => utf8_encode($row[7]),
-                            'email' => $row[8],
+                            'name' => $this->limparTexto(utf8_decode($row[7])),
+                            'email' => $this->limparTexto(utf8_decode($row[8])),
                         ],
                         'graphics' => [
                             'tipo' => $row[9],
@@ -340,7 +357,12 @@ class QueuedController extends Controller
                 }
 
             }
+
+            
+
         }
+
+      
 
         
         if($modulo == 'cheque')
@@ -382,7 +404,7 @@ class QueuedController extends Controller
                                         'telefone' => $row[4],
                                         'telefone_com' => $row[5],
                                         'celular' => $row[6],
-                                        'name' => utf8_encode($row[7]),
+                                        'name' => utf8_decode($row[7]),
                         ],
                         'bank_cheques' => [
                                         'user_id' => 1,
@@ -404,7 +426,7 @@ class QueuedController extends Controller
         if($modulo == 'contrato'){
             $model->body    = $this->alternativeArray2Json($arrayBody);
         }else{
-            $model->body    = json_decode($arrayBody);
+            $model->body    = $this->alternativeArray2Json($arrayBody, $modulo);
         }
 
         if(empty($model->body))
@@ -464,7 +486,7 @@ class QueuedController extends Controller
         return $label;
     }
     
-    public function alternativeArray2Json(array $data)
+    public function alternativeArray2Json(array $data, $type =  'contrato')
     {
         $json = "[";
 
@@ -488,18 +510,40 @@ class QueuedController extends Controller
             endforeach;
             $json .= "},"; # fecha students
 
-            #defaultings
-            $iD=0;
-            $json .= "\"defaultings\":{";
-            foreach($value['defaultings'] as $keyD => $default):
+            if($type == 'contrato'){
 
-                $virgulaTres = $iD > 0 ? "," : "";
-                $json .= "{$virgulaTres}";
-                $json .= "\"{$keyD}\":\"{$default}\"";
-                $iD++;
+                #defaultings
+                $iD=0;
+                $json .= "\"defaultings\":{";
+                foreach($value['defaultings'] as $keyD => $default):
 
-                
-            endforeach;
+                    $virgulaTres = $iD > 0 ? "," : "";
+                    $json .= "{$virgulaTres}";
+                    $json .= "\"{$keyD}\":\"{$default}\"";
+                    $iD++;
+
+                    
+                endforeach;
+
+            }
+
+            if($type == 'grafica'){
+
+                #graphics
+                $iD=0;
+                $json .= "\"graphics\":{";
+                foreach($value['graphics'] as $keyD => $default):
+
+                    $virgulaTres = $iD > 0 ? "," : "";
+                    $json .= "{$virgulaTres}";
+                    $json .= "\"{$keyD}\":\"{$default}\"";
+                    $iD++;
+
+                    
+                endforeach;
+
+            }
+            
             $json .= "}"; # fecha defaultings
           
             $i++;
