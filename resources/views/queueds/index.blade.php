@@ -126,7 +126,7 @@
 
                                     if($queued->module == "grafica")
                                     {
-                                        foreach($body as $value):
+                                        foreach($body->take(500) as $value):
                                 ?>
                                         <tr>
                                             <td style="vertical-align: top">{{++$i}}</td>
@@ -152,7 +152,7 @@
 
                                     if($queued->module == "cheque")
                                     {
-                                        foreach($body as $value):
+                                        foreach($body->take(500) as $value):
                                     ?>
                                         <tr>
                                             <td style="vertical-align: top">{{++$i}}</td>
