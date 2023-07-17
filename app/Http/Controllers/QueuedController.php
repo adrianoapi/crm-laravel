@@ -343,7 +343,7 @@ class QueuedController extends Controller
                                 'telefone' => $row[4],
                                 'telefone_com' => $row[5],
                                 'celular' => $row[6],
-                                'name' => utf8_decode($row[7]),
+                                'name' => utf8_encode($row[7]),
                                 'email' => $this->limparTexto(utf8_decode($row[8])),
                             ],
                             'graphics' => [
