@@ -85,7 +85,7 @@
 
                                 if($queued->module == "contrato")
                                 {
-                                    foreach($body as $value):
+                                    foreach($body->take(500) as $value):
                                    ?>
                                     <tr>
                                         <td style="vertical-align: top">{{++$i}}</td>
