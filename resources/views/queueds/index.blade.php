@@ -131,6 +131,7 @@
                                             if($iterations > 500){
                                                 break;
                                             }
+                                            $iterations++;
                                 ?>
                                         <tr>
                                             <td style="vertical-align: top">{{++$i}}</td>
