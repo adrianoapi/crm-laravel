@@ -128,10 +128,12 @@
                                         $iterations = 0;
                                         foreach($body as $value):
 
-                                            if($iterations > 500){
+                                            $iterations++;
+
+                                            if($iterations > 250){
                                                 break;
                                             }
-                                            $iterations++;
+                                            
                                 ?>
                                         <tr>
                                             <td style="vertical-align: top">{{++$i}}</td>
