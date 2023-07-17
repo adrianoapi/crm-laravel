@@ -77,6 +77,7 @@
                                 </thead>
                                 <tbody>
                                 <?php
+
                                 foreach($queueds as $queued):
 
                                     $body = json_decode($queued->body);
@@ -125,15 +126,7 @@
 
                                     if($queued->module == "grafica")
                                     {
-                                        $iterations = 0;
                                         foreach($body as $value):
-
-                                            $iterations++;
-
-                                            if($iterations > 250){
-                                                break;
-                                            }
-                                            
                                 ?>
                                         <tr>
                                             <td style="vertical-align: top">{{++$i}}</td>
