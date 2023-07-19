@@ -117,6 +117,9 @@
                                                 <strong>ctr:</strong> {{$value->students->ctr}}<br>
                                                 <strong>cpf/cnpj:</strong> {{$value->students->cpf_cnpj}}<br>
                                                 <strong>telefones:</strong> [{{$value->students->telefone}}] [{{$value->students->telefone_com}}] [{{$value->students->celular}}]<br>
+                                                @if(isset($value->students->email))
+                                                    <strong>email:</strong> {{$value->students->email}}<br>
+                                                @endif
                                             </td>
                                             <td style="vertical-align: top">
                                                 <strong>valor:</strong> {{$value->graphics->valor}}<br>

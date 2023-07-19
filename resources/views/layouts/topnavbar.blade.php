@@ -40,9 +40,11 @@
                     <ul class="dropdown-menu pull-right theme-settings">
                         <li>
                             <span>Importações</span>
+                            @if(Auth::user()->level > 1)
                                 <a href="{{route('importacao.history',['modulo'=>'cheque'])}}" >Cheque</a>
                                 <a href="{{route('importacao.history',['modulo'=>'contrato'])}}" >Contrato</a>
                                 <a href="{{route('importacao.history',['modulo'=>'grafica'])}}" >Gráfica</a>
+                            @endif
                         </li>
                     </ul>
                 </li>

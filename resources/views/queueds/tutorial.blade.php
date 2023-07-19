@@ -9,6 +9,7 @@
         <tr>
             <td>
                 <li>Antes de converter seu excel para csv, certifique-se de que não haja vírgula, ponto e vírgula, apóstrofo ou caracteres especiais, tais como ç, ã, ê,í, ò, ü... </li>
+                <li>Deixe o arquivo com menos de 1000 linhas, se possível divida-o, deixano sempre o cabeçalho em cada um;</li>
             </td>
         </tr>
         <tr>
