@@ -224,7 +224,7 @@ class QueuedController extends Controller
             $arrMed  = explode(",", $value);
             $number = preg_replace('/[^0-9]/', '', $arrMed[0]).".".$arrMed[1];
         } else{
-            $number = preg_replace('/[^0-9]/', '', $value).".00";
+            $number = preg_replace('/[^0-9.]/', '', $value);
         }
         return $number;
     }
