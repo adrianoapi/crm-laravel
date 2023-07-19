@@ -41,6 +41,7 @@
                                     <th>ID</th>
                                     <th>Upload</th>
                                     <th>Usuário</th>
+                                    <th>Linhas/Registros</th>
                                     <th>Ação</th>
                                 </thead>
                                 <tbody>
@@ -53,6 +54,7 @@
                                         <td>{{$queued->id}}</td>
                                         <td>{{$queued->created_at}}</td>
                                         <td>{{$queued->user->name}}</td>
+                                        <td>{{$queued->lines}}</td>
                                         <td>
                                             <a href="{{route('importacao.history.show', ['queued' => $queued->id])}}" target="_blank" class="btn" rel="tooltip" title="" data-original-title="Visualizar">
                                                 <i class="icon-search"></i>
