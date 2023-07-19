@@ -325,10 +325,9 @@ class QueuedController extends Controller
 
         if($modulo == 'grafica')
         {
-            $linha = 0;
             while (($data = fgetcsv($handle, 1000, ",")) !== FALSE)
             {
-                if($linha > 0){
+                if($linhas){
 
                     $row = explode(';', $data[0]);
 
@@ -360,11 +359,8 @@ class QueuedController extends Controller
 
                 }
 
-                $linha++;
+                $linhas++;
             }
-
-            
-
         }
 
       
@@ -419,6 +415,8 @@ class QueuedController extends Controller
                         'bank_cheque_plots' => $plots,
                     ];
                 }
+                
+                $linhas++;
             }
         }
 
@@ -428,6 +426,7 @@ class QueuedController extends Controller
         $model = new Queued();
         $model->user_id = Auth::id();
         $model->module  = $modulo;
+        $model->lines   = --$linhas;
         if($modulo == 'contrato'){
             $model->body    = $this->alternativeArray2Json($arrayBody);
         }else{

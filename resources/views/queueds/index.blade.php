@@ -53,9 +53,14 @@
 
                             </span>
                             <span class="tabs">
-
                             </span>
                         </div>
+
+                        @if(!count($queueds))
+                            @if($modulo != 'cheque')
+                                @include('queueds.tutorial')
+                            @endif
+                        @endif
 
                         <div class="box-content nopadding">
                             <table class="table table-nomargin table-bordered">
