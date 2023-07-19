@@ -633,6 +633,9 @@ class QueuedController extends Controller
      */
     public function destroy(Queued $queued)
     {
+        if($queued->process){
+            die('Não é permetida a exclusão de uma importação PROCESSADA!');
+        }
         $queued->delete();
         return redirect()->route('importacao.index', ['modulo' => $queued->module]);
     }
