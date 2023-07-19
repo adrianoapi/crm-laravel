@@ -57,6 +57,14 @@
                                             <a href="{{route('importacao.history.show', ['queued' => $queued->id])}}" target="_blank" class="btn" rel="tooltip" title="" data-original-title="Visualizar">
                                                 <i class="icon-search"></i>
                                             </a>
+
+                                            @if(!$queued->process)
+                                            <form action="{{route('importacao.destroy', ['queued' => $queued->id])}}" method="POST" onSubmit="return confirm('Deseja excluir?');" >
+                                                @csrf
+                                                @method('delete')
+                                                <button type="submit" class="btn-danger btn" rel="tooltip" title="" data-original-title="Excluir registros"><i class="icon-trash"></i></button>
+                                            </form>
+                                            @endif
                                         </td>
                                     </tr>
                                      <?php

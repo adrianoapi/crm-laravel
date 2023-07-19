@@ -649,7 +649,11 @@ class QueuedController extends Controller
             die('Móudlo não encontrado!!!');
         }
 
-        $queued = Queued::where('module', $modulo)->where('process', true)->orderBy('id', 'desc')->get();
+        $tile .= " ".$modulo;
+        $queued = Queued::where('module', $modulo)
+        #->where('process', true)
+        ->orderBy('id', 'desc')
+        ->get();
 
         return view('queueds.history', [
             'title' => $tile,
