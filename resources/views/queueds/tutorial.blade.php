@@ -16,7 +16,7 @@
                 <li>O arquivo deve ser de extensão ".CSV".</li>
                 <li>O mesmo deve ser separado por ";".</li>
                 <li>Caso haja dúvida, clique com o botão direito do mouse sobre o arquivo, mande abrir com o bloco de notas, então deverá aparecer o conteúdo separado por ";" como no exemplo da imagem.
-                    <img src="{!! asset('img-1.jpg') !!}">
+                    <img src="{!! asset('img-1.jpg') !!}" align="leftgit">
                 </li>
             </td>
         </tr>
@@ -25,7 +25,7 @@
                 <li>Campo email: pode ter ".", "@" e "_";</li>
                 <li>Campo data: pode pode ser formato BR <strong>dd/mm/aaaa</strong> ou formato USA <strong>aaaa-mm-dd</strong>;</li>
                 <li>Campo nome: linhas que não possuem este campo preenchdio, serão ignoradas;</li>
-                <li>Campos monetários: devem ter o formato <strong>0.00</strong> ou <strong>0,00</strong> ou apenas <strong>00</strong>;</li>
+                <li>Campos monetários: devem ter o formato <strong>0.00</strong>, <strong>0,00</strong> ou apenas <strong>00</strong>;</li>
             </td>
         </tr>
         <tr>
