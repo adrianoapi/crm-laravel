@@ -306,11 +306,11 @@ class QueuedController extends Controller
                             'defaultings' => [
                                 'fase' => $row[14],
                                 'dt_inadimplencia' => $this->setDate($row[15]),
-                                'm_parcela_pg' => !empty($row[16]) ? $row[16] : "0",
-                                'm_parcelas' => !empty($row[17]) ? $row[17] : "0",
+                                'm_parcelas' => !empty($row[16]) ? $row[16] : "0",
+                                'm_parcela_pg' => !empty($row[17]) ? $row[17] : "0",
                                 'm_parcela_valor' => !empty($row[18]) ? $this->tratarValorMoeda($row[18]) : "0",
-                                's_parcela_pg' => !empty($row[19]) ? $row[19] : "0",
-                                's_parcelas' => !empty($row[20]) ? $row[20] : "0",
+                                's_parcelas' => !empty($row[19]) ? $row[19] : "0",
+                                's_parcela_pg' => !empty($row[20]) ? $row[20] : "0",
                                 's_parcela_valor' => !empty($row[21]) ? $this->tratarValorMoeda($row[21]) : "0",
                                 'multa' => $row[22],
                             ]
